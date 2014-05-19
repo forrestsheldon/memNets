@@ -15,3 +15,4 @@ Online read-only versions
 Use the following links:
 
 * [memNets](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/memNets.ipynb)
+* [Memory Devices](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Memory_Devices.ipynb)
