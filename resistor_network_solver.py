@@ -286,7 +286,7 @@ def display_grid_voltages(ax, G, voltages, nodesize=12, bondwidth=3):
         
     # Normalize our voltage colormap to the max and min of voltages
     reds = plt.get_cmap("Reds")
-    norm = plt.normalize()
+    norm = plt.Normalize()
     norm.autoscale(voltages)
     
     # Now draw the nodes and their voltages
@@ -326,7 +326,7 @@ def display_grid_power(ax, G, voltages, nodesize=5, bondwidth=3):
         Power[node_i, node_j] = G[node_i, node_j] * (voltages[node_i] - voltages[node_j])**2
     
     colormap = plt.get_cmap("YlOrRd")
-    norm_pow = plt.normalize()
+    norm_pow = plt.Normalize()
     norm_pow.autoscale(Power)
     
     # draw the connections between nodes
