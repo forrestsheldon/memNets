@@ -13,10 +13,10 @@ import matplotlib.pyplot as plt
 import itertools
 
 #================================================================
-# resistor_network
+# ResistorNetwork
 #================================================================
 
-class resistor_network(object):
+class ResistorNetwork(object):
     """
     This is a basic class for solving a resistor network.  Initializing the network requires:
     
@@ -38,7 +38,7 @@ class resistor_network(object):
         self.nodes, tmp = self.G.shape
         
         
-    def solve(self, solver, V_0=None):
+    def solve_voltages(self, solver, V_0=None):
         """
         This method solves for the node voltages of the resistor network.  It also assumes the network is well
         defined, i.e. all nodes are part of a single connected component.  If this is not the case, run a
@@ -112,10 +112,10 @@ class resistor_network(object):
         return power.tocsr()
 
 #================================================================
-# resistor_network_cc
+# ResistorNetworkCC
 #================================================================
 
-class resistor_network_cc(object):
+class ResistorNetworkCC(object):
     """
     This class solves resistor network by first breaking the network into connected components and then solving each component
     separately.  Aside from this fact, it works by using composition with resistor_network.  Initializing a network requires:
@@ -144,7 +144,7 @@ class resistor_network_cc(object):
         self.nodes, tmp = self.G.shape
         self.num_comp, self.comp_labels = connected_components(self.G, directed=False)
         
-    def solve(self, solver, V_0=None):
+    def solve_voltages(self, solver, V_0=None):
         """
         This method solves for the node voltages of the resistor network by first breaking the network into connected
         components and then defining a resistor_network object for each percolating component. Current solvers are:
@@ -184,12 +184,12 @@ class resistor_network_cc(object):
             # Otherwise, it must be set to two external voltages, in which case we must solve it
             else:
                 # Solve a percolating component over the limited conductance matrix and external voltage
-                cc_resistor_net = resistor_network(self.G[cc_nodes, :][:, cc_nodes], cc_external_voltages)
+                CC_RNet = ResistorNetwork(self.G[cc_nodes, :][:, cc_nodes], cc_external_voltages)
                 if V_0 == None:
-                    cc_resistor_net.solve(solver)
+                    CC_RNet.solve_voltages(solver)
                 else:
-                    cc_resistor_net.solve(solver, V_0[cc_nodes])
-                self.voltages[cc_nodes] = cc_resistor_net.voltages
+                    CCRNet.solve_voltages(solver, V_0[cc_nodes])
+                self.voltages[cc_nodes] = CC_RNet.voltages
         
     def power(self):
         """
@@ -209,13 +209,13 @@ class resistor_network_cc(object):
 
 
 #================================================================
-# resistor_lattice_2d_cubic
+# ResistorLattice2DCubic
 #================================================================
 
-class resistor_lattice_2dcubic(resistor_network_cc):
+class ResistorLattice2DCubic(ResistorNetworkCC):
     
     def __init__(self, G, external_voltage, lattice_shape):
-        resistor_network_cc.__init__(self, G, external_voltage)
+        ResistorNetworkCC.__init__(self, G, external_voltage)
         self.lattice_shape = lattice_shape
         if self.nodes != (self.lattice_shape[0] * self.lattice_shape[1]):
             print "Number of nodes is not consistent with the shape of the lattice!"
