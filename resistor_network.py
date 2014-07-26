@@ -29,6 +29,8 @@ class ResistorNetwork(object):
         voltages          - These are the voltages of the internal nodes in the network.  They are initally set to None and
                             are filled in upon calling self.solve()
         nodes             - The number of nodes in the network
+        interior          - The index of interior nodes not set to an external voltage
+        boundary          - The index of boundary nodes set to an external voltage
     """
     
     def __init__(self, G, external_voltages):
@@ -36,6 +38,8 @@ class ResistorNetwork(object):
         self.external_voltages = external_voltages
         self.voltages = None
         self.nodes, tmp = self.G.shape
+        self.interior, = np.isnan(self.external_voltages).nonzero()
+        self.boundary, = np.logical_not(np.isnan(self.external_voltages)).nonzero()
         
         
     def solve_voltages(self, solver, V_0=None):
@@ -56,31 +60,27 @@ class ResistorNetwork(object):
                         infinitesimally separated.
         """
         
-        # Find the interior and boundary nodes in the network
-        interior, = np.isnan(self.external_voltages).nonzero()
-        boundary, = np.logical_not(np.isnan(self.external_voltages)).nonzero()
-        
         # First we form the equations matrix.  To do this, we remove the rows and columns of boundary nodes,
         # trading our Neumann boundary conditions for Dirichlet
         L = self.graph_laplacian()
-        D = L[interior, :][:, interior]
+        D = L[self.interior, :][:, self.interior]
         # The columns corresponding to boundary nodes give a constant vector on the interior nodes yielding
         # the equation Dv = b (the -1 subtracts it to the other side of the equation)
-        b = -1. * L[interior, :][:, boundary].dot(self.external_voltages[boundary])
+        b = -1. * L[self.interior, :][:, self.boundary].dot(self.external_voltages[self.boundary])
         
         # Put our boundary values in for the voltages
         self.voltages = np.zeros_like(self.external_voltages)
-        self.voltages[boundary] = self.external_voltages[boundary]
+        self.voltages[self.boundary] = self.external_voltages[self.boundary]
         
         # and solve!
         if solver == 'spsolve':
-            self.voltages[interior] = spsolve(D, b)
+            self.voltages[self.interior] = spsolve(D, b)
         elif solver == 'cg':
             #I'd like to include an optional parameter to give the initial guess for the voltages in the network
             if V_0 == None:
-                self.voltages[interior], convergence = cg(D, b)
+                self.voltages[self.interior], convergence = cg(D, b)
             else:
-                self.voltages[interior], convergence = cg(D, b, V_0[interior])
+                self.voltages[self.interior], convergence = cg(D, b, V_0[self.interior])
             #print "Conjugate Gradient converges with %d" % convergence
         else:
             print "Solver not specified.  Try 'spsolve' or 'cg'"
