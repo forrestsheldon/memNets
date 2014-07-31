@@ -110,6 +110,24 @@ class ResistorNetwork(object):
             power[node_i, node_j] = self.G[node_i, node_j] * (self.voltages[node_i] - self.voltages[node_j])**2
             power[node_j, node_i] = power[node_i, node_j]
         return power.tocsr()
+    
+    def external_current(self):
+        """
+        Returns the currents entering the nodes on the boundary.  These are calculated from,
+        
+        graph_laplacian[boundary,:].dot(self.voltages)
+        
+        and thus occur in the order specified by boundary
+        """
+        return self.graph_laplacian()[self.boundary, :].dot(self.voltages)
+    
+    def conductivity(self):
+        """
+        The total conductivity of the network is calculated as the sum of the positive external currents divided
+        by the voltage difference across the network.  In order for this to work, 
+        """
+        I_external = self.external_current()
+        return I_external[I_external > 0].sum() / (np.nanmax(self.external_voltages) - np.nanmin(self.external_voltages))
 
 #================================================================
 # ResistorNetworkCC
@@ -123,9 +141,7 @@ class ResistorNetworkCC(object):
         G                 - An NxN sparse CSR matrix containing the conductances in the network of N nodes
         external_voltages - An Nx1 dense vector of external voltages.  Nodes not set to an external voltages contain a Nan.
                             The shape (N,) is preferred
-        V_0               - (optional) An initial guess for the voltages in the network for the conjugate gradient solver. I
-                            think this may be useful for memristor networks where the current and previous voltages are only
-                            infinitesimally separated.
+
     Other available data attributes are:
     
         voltages          - These are the voltages of the internal nodes in the network.  They are initally set to None and
@@ -134,7 +150,8 @@ class ResistorNetworkCC(object):
         num_comp          - The number of components in the undirected network as given by the connected_components function
                             in scipy.sparse.csgraph
         comp_labels       - An array containing the component of each node in the network from 
-    
+        interior          - The index of interior nodes not set to an external voltage
+        boundary          - The index of boundary nodes set to an external voltage
     """
     
     def __init__(self, G, external_voltages):
@@ -143,6 +160,8 @@ class ResistorNetworkCC(object):
         self.voltages = None
         self.nodes, tmp = self.G.shape
         self.num_comp, self.comp_labels = connected_components(self.G, directed=False)
+        self.interior, = np.isnan(self.external_voltages).nonzero()
+        self.boundary, = np.logical_not(np.isnan(self.external_voltages)).nonzero()
         
     def solve_voltages(self, solver, V_0=None):
         """
@@ -188,9 +207,18 @@ class ResistorNetworkCC(object):
                 if V_0 == None:
                     CC_RNet.solve_voltages(solver)
                 else:
-                    CCRNet.solve_voltages(solver, V_0[cc_nodes])
+                    CC_RNet.solve_voltages(solver, V_0[cc_nodes])
                 self.voltages[cc_nodes] = CC_RNet.voltages
-        
+    
+    def graph_laplacian(self):
+        """
+        Returns the graph laplacian for the resistor network.  This is L = D - G where D is the 'degree' matrix
+        (for us a diagonal matrix of the sum of the incident conductances to each node) and G is the 'adjacency'
+        matrix (for us the conductance matrix G)
+        """
+        # Note that for CSR matrices it is faster to sum across rows
+        return sparse.dia_matrix((self.G.sum(1).flat, [0]), shape=(self.nodes,self.nodes)).tocsr() - self.G
+    
     def power(self):
         """
         Returns a sparse matrix in CSR form containing the power dissipated between nodes i and j.  Requires that
@@ -206,6 +234,25 @@ class ResistorNetworkCC(object):
             power[node_i, node_j] = self.G[node_i, node_j] * (self.voltages[node_i] - self.voltages[node_j])**2
             power[node_j, node_i] = power[node_i, node_j]
         return power.tocsr()
+    
+    def external_current(self):
+        """
+        Returns the currents entering the nodes on the boundary.  These are calculated from,
+        
+        graph_laplacian[boundary,:].dot(self.voltages)
+        
+        and thus occur in the order specified by boundary
+        """
+        return self.graph_laplacian()[self.boundary, :].dot(self.voltages)
+    
+    def conductivity(self):
+        """
+        The total conductivity of the network is calculated as the sum of the positive external currents divided
+        by the voltage difference across the network.  In order for this to work, 
+        """
+        I_external = self.external_current()
+        return I_external[I_external > 0].sum() / (np.nanmax(self.external_voltages) - np.nanmin(self.external_voltages))
+    
 
 
 #================================================================
