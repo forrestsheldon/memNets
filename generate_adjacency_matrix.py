@@ -70,7 +70,7 @@ def cubic_2d(lattice_shape, undirected=True, xbias=1, ybias=1 ):
         return A + A.T
     else:
         # If we want to toggle the direction of the elements (default direction is right and down)
-        if (xbias != 1) or (ybias !=1):
+        if (xbias != 1) or (ybias != 1):
             rows, cols = A.nonzero()
         
             for i, j in zip(rows, cols):
@@ -78,10 +78,10 @@ def cubic_2d(lattice_shape, undirected=True, xbias=1, ybias=1 ):
                     if np.random.rand() > xbias: # overcome the bias with probability 1-xbias
                         A[i, j] = 0
                         A[j, i] = 1
-                    else: #column bond
-                        if np.random.rand() > ybias:
-                            A[i, j] = 0
-                            A[j, i] = 1
+                else: #column bond
+                    if np.random.rand() > ybias:
+                        A[i, j] = 0
+                        A[j, i] = 1
         return A.tocsr()
 
 #==========================================================
