@@ -122,3 +122,24 @@ def cubic_2d_random(lattice_shape, concentration, undirected=True, single_bond=F
     else:
         return A
 
+#==========================================================
+# random_graph
+#==========================================================
+
+def random_graph(num_nodes, p, undirected=True):
+    """
+    Generates an adjacency matrix for a random graph of num_nodes nodes at a concentration p. If undirected=False, bonds
+    are considered in both directions (ij and ji) independently.
+    """
+    # Generate a random array between 0 and 1
+    A = np.random.rand(num_nodes, num_nodes)
+    # Set all elements less than p to 1 and the rest to 0
+    A = np.asarray(A < p, dtype=float)
+    # Nodes cannot be connected to themselves
+    A[np.diag_indices(num_nodes)] = 0
+    # If we don't care about direction, return this
+    if undirected==False:
+        return sparse.csr_matrix(A)
+    else:                                                   # Otherwise, only keep the upper triangle and symmetrize
+        A = np.triu(A)
+        return sparse.csr_matrix(A + A.T)
