@@ -117,7 +117,7 @@ class ResistorNetwork(object):
         
         graph_laplacian[boundary,:].dot(self.voltages)
         
-        and thus occur in the order specified by boundary
+        and thus occur in the order specified by self.boundary
         """
         return self.graph_laplacian()[self.boundary, :].dot(self.voltages)
     
@@ -128,6 +128,81 @@ class ResistorNetwork(object):
         """
         I_external = self.external_current()
         return I_external[I_external > 0].sum() / (np.nanmax(self.external_voltages) - np.nanmin(self.external_voltages))
+    
+    def display_network(self, ax, display_variable, nodesize=5, bondwidth=2, colormin=None, colormax=None):
+        """
+        This method displays a  resistor network of N nodes on the unit circle with resistors displayed as bonds between the
+        nodes.  Indexing begins with the node at the 3 o'clock position and procedes counter clockwise around the circle.
+        The variables that may be displayed are:
+        
+            'voltage'
+            'power'
+            'conductance'
+            
+        """ 
+        
+        delta_theta = 2 * np.pi / self.nodes
+        
+        def node2xy_circle(node_idx):
+            """
+            returns the x and y coordinates of a node index on the unit circle assuming that the 0 node is 
+            """
+            complex_coord = np.exp(node_idx * delta_theta * 1j)
+            return complex_coord.real, complex_coord.imag
+        
+        # Pull nonzero values to plot bonds
+        rows, cols = sparse.triu(self.G).nonzero()
+        
+        
+        # Set up colormap normalization
+        
+        if colormin != None:
+            norm = plt.Normalize(vmin=colormin, vmax=colormax)
+        elif display_variable == 'voltage':
+            norm = plt.Normalize()
+            norm.autoscale(self.voltages)
+        elif display_variable == 'power':
+            power = self.power()
+            norm = plt.Normalize(vmin=power.min(), vmax=power.max())
+        elif display_variable == 'conductance':
+            conductances = self.G[rows, cols]
+            norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+        
+        if display_variable == 'voltage':
+            colormap = plt.get_cmap('Reds')
+        elif display_variable == 'power':
+            colormap = plt.get_cmap('YlOrRd')
+        elif display_variable == 'conductance':
+            colormap = plt.get_cmap('coolwarm')
+        else:
+            print 'Invalid display variable %s' % display_variable
+        
+        
+            
+        # Draw the bonds between nodes
+        for node_i, node_j in itertools.izip(rows, cols):
+            x_i, y_i = node2xy_circle(node_i)
+            x_j, y_j = node2xy_circle(node_j)
+            if display_variable == 'voltage':
+                ax.plot([x_i, x_j], [y_i, y_j], 'k', lw = bondwidth)
+            elif display_variable == 'power':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(power[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'conductance':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(self.G[node_i, node_j])), lw=bondwidth)
+        
+        # Now draw the nodes
+        if display_variable == 'voltage':
+            for node, volt in enumerate(self.voltages):
+                x, y = node2xy_circle(node)
+                ax.plot(x, y, 'o', markersize=nodesize, color=colormap(norm(volt)))
+        elif display_variable == 'power' or display_variable == 'conductance':
+            for node in range(self.nodes):
+                x, y = node2xy_circle(node)
+                ax.plot(x, y, 'wo', markersize=nodesize)
+        
+        # And finally set the axes to be just outside the grid spacing and invert the y_axis
+        ax.set_xlim( -1.1, 1.1)
+        ax.set_ylim( -1.1, 1.1)
 
 #================================================================
 # ResistorNetworkCC
@@ -241,18 +316,93 @@ class ResistorNetworkCC(object):
         
         graph_laplacian[boundary,:].dot(self.voltages)
         
-        and thus occur in the order specified by boundary
+        and thus occur in the order specified by self.boundary
         """
         return self.graph_laplacian()[self.boundary, :].dot(self.voltages)
     
     def conductivity(self):
         """
         The total conductivity of the network is calculated as the sum of the positive external currents divided
-        by the voltage difference across the network.  In order for this to work, 
+        by the voltage difference across the network.  In order for this to work, there must be some voltage across
+        the network.
         """
         I_external = self.external_current()
         return I_external[I_external > 0].sum() / (np.nanmax(self.external_voltages) - np.nanmin(self.external_voltages))
     
+    def display_network(self, ax, display_variable, nodesize=5, bondwidth=2, colormin=None, colormax=None):
+        """
+        This method displays a  resistor network of N nodes on the unit circle with resistors displayed as bonds between the
+        nodes.  Indexing begins with the node at the 3 o'clock position and procedes counter clockwise around the circle.
+        The variables that may be displayed are:
+        
+            'voltage'
+            'power'
+            'conductance'
+            
+        """ 
+        
+        delta_theta = 2 * np.pi / self.nodes
+        
+        def node2xy_circle(node_idx):
+            """
+            returns the x and y coordinates of a node index on the unit circle assuming that the 0 node is 
+            """
+            complex_coord = np.exp(node_idx * delta_theta * 1j)
+            return complex_coord.real, complex_coord.imag
+        
+        # Pull nonzero values to plot bonds
+        rows, cols = sparse.triu(self.G).nonzero()
+        
+        
+        # Set up colormap normalization
+        
+        if colormin != None:
+            norm = plt.Normalize(vmin=colormin, vmax=colormax)
+        elif display_variable == 'voltage':
+            norm = plt.Normalize()
+            norm.autoscale(self.voltages)
+        elif display_variable == 'power':
+            power = self.power()
+            norm = plt.Normalize(vmin=power.min(), vmax=power.max())
+        elif display_variable == 'conductance':
+            conductances = self.G[rows, cols]
+            norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+        
+        if display_variable == 'voltage':
+            colormap = plt.get_cmap('Reds')
+        elif display_variable == 'power':
+            colormap = plt.get_cmap('YlOrRd')
+        elif display_variable == 'conductance':
+            colormap = plt.get_cmap('coolwarm')
+        else:
+            print 'Invalid display variable %s' % display_variable
+        
+        
+            
+        # Draw the bonds between nodes
+        for node_i, node_j in itertools.izip(rows, cols):
+            x_i, y_i = node2xy_circle(node_i)
+            x_j, y_j = node2xy_circle(node_j)
+            if display_variable == 'voltage':
+                ax.plot([x_i, x_j], [y_i, y_j], 'k', lw = bondwidth)
+            elif display_variable == 'power':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(power[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'conductance':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(self.G[node_i, node_j])), lw=bondwidth)
+        
+        # Now draw the nodes
+        if display_variable == 'voltage':
+            for node, volt in enumerate(self.voltages):
+                x, y = node2xy_circle(node)
+                ax.plot(x, y, 'o', markersize=nodesize, color=colormap(norm(volt)))
+        elif display_variable == 'power' or display_variable == 'conductance':
+            for node in range(self.nodes):
+                x, y = node2xy_circle(node)
+                ax.plot(x, y, 'wo', markersize=nodesize)
+        
+        # And finally set the axes to be just outside the grid spacing and invert the y_axis
+        ax.set_xlim( -1.1, 1.1)
+        ax.set_ylim( -1.1, 1.1)
 
 
 #================================================================
