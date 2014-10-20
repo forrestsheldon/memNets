@@ -143,3 +143,97 @@ def random_graph(num_nodes, p, undirected=True):
     else:                                                   # Otherwise, only keep the upper triangle and symmetrize
         A = np.triu(A)
         return sparse.csr_matrix(A + A.T)
+
+#==========================================================
+# Nearest Neighbor
+#==========================================================
+
+def nearest_neighbor(num_nodes, k, undirected=True):
+    """
+    Generates an adjacency matrix for a ring of nodes, each connected to their k nearest neighbors.  Note that k must be even.
+    If the directed option is selected, each bond has an even chance to point forward or backward.  Takes as arguments:
+    
+    num_nodes - the number of nodes in the network
+    k         - the number of nearest neighbors in the network
+    """
+    if k % 2 == 1:
+        print "k must be even"
+        return None
+    
+    rows = []
+    cols = []
+    # connect each node to it's k/2 neighbors to the right
+    for i in range(num_nodes):
+        for j in range(i+1, i+int(k/2)+1):
+            rows.append(i)
+            cols.append(j % num_nodes)
+    
+    A = sparse.csr_matrix((np.ones_like(rows), (rows, cols)), shape = (num_nodes, num_nodes))
+    
+    if undirected == True:
+        return A + A.T
+    else:
+        return undirected2directed(A + A.T)     #works because A is upper triangle of undirected network
+                
+#==========================================================
+# Small World/Watts Strogatz
+#==========================================================
+
+def rewire(Adj, p):
+    """
+    Rewiring takes an existing UNDIRECTED network with Adjacency matrix given by Adj and returns a matrix with the same number of
+    bonds but with a scrambled connectivity.  The nodes are iterated through in order.  At each node n_i, all bonds (n_i, n_j)
+    with j > i are rewired with probability p.  In rewiring, the bond to n_j is connected to a new node n_k with k selected
+    uniformly from the nodes not currently connected to i.
+    """
+    
+    # first pull the existing bonds in the network
+    rows, cols = sparse.triu(Adj, k=1).nonzero()
+    
+    A = Adj.tolil()               # LIL matrices are cheaper to rewire
+
+    # rewire each bond with probability p
+    for i, j in zip(rows, cols):
+        if np.random.rand() < p:
+            # pull list of candidate nodes to be reconnected to
+            A[i, i] = 1    # as a placeholder for the moment
+            temp, disconnected_nodes = (A[i, :] == 0).nonzero()
+            # Draw the new node
+            new_node = np.random.choice(disconnected_nodes)
+            A[i, i] = 0                   # remove self-link
+            A[i, j] = 0                   # remove old link
+            A[j, i] = 0
+            A[i, new_node] = 1            # replace with new link
+            A[new_node, i] = 1
+    
+    return A.tocsr()
+
+def undirected2directed(Adj):
+    """
+    Given the adjacency matrix for an undirected network, bonds are given a direction such that if i < j, they point from
+    i to j and from j to i with equal probability
+    """
+    A = Adj.tolil()
+    # Pull a list of bonds as the nonzero entries in the upper triangle
+    rows, cols = sparse.triu(Adj, k=1).nonzero()
+    
+    for node_i, node_j in zip(rows, cols):
+        if np.random.rand() > 0.5:          # With 0.5 probability, delete the forward bond
+            A[node_i, node_j] = 0
+        else:                               # otherwise delete the backward bond
+            A[node_j, node_i] = 0
+    
+    return A.tocsr()
+
+def watts_strogatz(num_nodes, neighbors, p, undirected=True):
+    """
+    Generates the adjacency matrix for a small world network of num_nodes nodes.  It is constructed by rewiring a nearest
+    neighbor network with probability p.  If undirected=False, bonds are given an arbitrary direction
+    """
+    A = rewire(nearest_neighbor(num_nodes, neighbors), p)
+    
+    if undirected==True:
+        return A
+    elif undirected==False:
+        return undirected2directed(A)
+
