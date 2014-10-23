@@ -129,7 +129,7 @@ class ResistorNetwork(object):
         I_external = self.external_current()
         return I_external[I_external > 0].sum() / (np.nanmax(self.external_voltages) - np.nanmin(self.external_voltages))
     
-    def display_network(self, ax, display_variable, nodesize=5, bondwidth=2, colormin=None, colormax=None):
+    def display_ring(self, ax, display_variable, nodesize=5, bondwidth=2, colormin=None, colormax=None):
         """
         This method displays a  resistor network of N nodes on the unit circle with resistors displayed as bonds between the
         nodes.  Indexing begins with the node at the 3 o'clock position and procedes counter clockwise around the circle.
@@ -173,7 +173,7 @@ class ResistorNetwork(object):
         elif display_variable == 'power':
             colormap = plt.get_cmap('YlOrRd')
         elif display_variable == 'conductance':
-            colormap = plt.get_cmap('coolwarm')
+            colormap = plt.get_cmap('Greys')
         else:
             print 'Invalid display variable %s' % display_variable
         
@@ -203,6 +203,83 @@ class ResistorNetwork(object):
         # And finally set the axes to be just outside the grid spacing and invert the y_axis
         ax.set_xlim( -1.1, 1.1)
         ax.set_ylim( -1.1, 1.1)
+        
+    def display_grid(self, ax, lattice_shape, display_variable, nodesize=5, bondwidth=3, colormin=None, colormax=None,
+                     colormap_name=None):
+        """
+        This method displays a 2D cubic resistor lattice of shape lattice_shape = (y, x).  The variables
+        that may be displayed are:
+        
+            'voltage'
+            'power'
+            'conductance'
+            
+        Nodes are indexed across rows such that the first row has nodes 0 through x-1.  This is because I typically
+        like to set up networks with a vertical bus bar architecture and it makes setting the nodes as simple as possible.
+        """ 
+        def node2xy(node_idx):
+            """
+            returns the x and y coordinates of a node index in our grid supposing that the 0,0 point is in the upper left
+            and the positive y-axis points down
+            """
+            return node_idx % lattice_shape[1], int(node_idx / lattice_shape[1]) 
+        
+        # Pull nonzero values to plot bonds
+        rows, cols = sparse.triu(self.G).nonzero()
+        
+        
+        # Set up colormap normalization
+        
+        if colormin != None:
+            norm = plt.Normalize(vmin=colormin, vmax=colormax)
+        elif display_variable == 'voltage':
+            norm = plt.Normalize()
+            norm.autoscale(self.voltages)
+        elif display_variable == 'power':
+            power = self.power()
+            norm = plt.Normalize(vmin=power.min(), vmax=power.max())
+        elif display_variable == 'conductance':
+            conductances = self.G[rows, cols]
+            norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+        
+        if colormap_name != None:
+            colormap = plt.get_cmap(colormap_name)
+        else:
+            if display_variable == 'voltage':
+                colormap = plt.get_cmap('Reds')
+            elif display_variable == 'power':
+                colormap = plt.get_cmap('YlOrRd')
+            elif display_variable == 'conductance':
+                colormap = plt.get_cmap('Greys')
+        
+        
+            
+        # Draw the bonds between nodes
+        for node_i, node_j in itertools.izip(rows, cols):
+            x_i, y_i = node2xy(node_i)
+            x_j, y_j = node2xy(node_j)
+            if display_variable == 'voltage':
+                ax.plot([x_i, x_j], [y_i, y_j], 'k', lw = bondwidth)
+            elif display_variable == 'power':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(power[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'conductance':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(self.G[node_i, node_j])), lw=bondwidth)
+        
+        # Now draw the nodes
+        if display_variable == 'voltage':
+            for node, volt in enumerate(self.voltages):
+                x, y = node2xy(node)
+                ax.plot(x, y, 's', markersize=nodesize, color=colormap(norm(volt)))
+        elif display_variable == 'power' or display_variable == 'conductance':
+            for node in range(self.nodes):
+                x, y = node2xy(node)
+                ax.plot(x, y, 'ws', markersize=nodesize)
+        
+        # And finally set the axes to be just outside the grid spacing and invert the y_axis
+        ax.set_xlim( -1, lattice_shape[1])
+        ax.set_ylim( -1, lattice_shape[0])
+        ax.invert_yaxis()
+        ax.xaxis.set_tick_params(labelbottom='off', labeltop='on')
 
 #================================================================
 # ResistorNetworkCC
@@ -329,7 +406,7 @@ class ResistorNetworkCC(object):
         I_external = self.external_current()
         return I_external[I_external > 0].sum() / (np.nanmax(self.external_voltages) - np.nanmin(self.external_voltages))
     
-    def display_network(self, ax, display_variable, nodesize=5, bondwidth=2, colormin=None, colormax=None):
+    def display_ring(self, ax, display_variable, nodesize=5, bondwidth=2, colormin=None, colormax=None):
         """
         This method displays a  resistor network of N nodes on the unit circle with resistors displayed as bonds between the
         nodes.  Indexing begins with the node at the 3 o'clock position and procedes counter clockwise around the circle.
@@ -373,7 +450,7 @@ class ResistorNetworkCC(object):
         elif display_variable == 'power':
             colormap = plt.get_cmap('YlOrRd')
         elif display_variable == 'conductance':
-            colormap = plt.get_cmap('coolwarm')
+            colormap = plt.get_cmap('Greys')
         else:
             print 'Invalid display variable %s' % display_variable
         
@@ -403,28 +480,16 @@ class ResistorNetworkCC(object):
         # And finally set the axes to be just outside the grid spacing and invert the y_axis
         ax.set_xlim( -1.1, 1.1)
         ax.set_ylim( -1.1, 1.1)
-
-
-#================================================================
-# ResistorLattice2DCubic
-#================================================================
-
-class ResistorLattice2DCubic(ResistorNetworkCC):
-    
-    def __init__(self, G, external_voltage, lattice_shape):
-        ResistorNetworkCC.__init__(self, G, external_voltage)
-        self.lattice_shape = lattice_shape
-        if self.nodes != (self.lattice_shape[0] * self.lattice_shape[1]):
-            print "Number of nodes is not consistent with the shape of the lattice!"
-    
-    def display(self, ax, display_variable, nodesize=5, bondwidth=3, colormin=None, colormax=None):
+        
+    def display_grid(self, ax, lattice_shape, display_variable, nodesize=5, bondwidth=3, colormin=None, colormax=None,
+                     colormap_name=None):
         """
-        This method displays a 2D cubic resistor lattice of shape self.lattice_shape = (y, x).  The variables
+        This method displays a 2D cubic resistor lattice of shape lattice_shape = (y, x).  The variables
         that may be displayed are:
         
             'voltage'
             'power'
-            'resistance'
+            'conductance'
             
         Nodes are indexed across rows such that the first row has nodes 0 through x-1.  This is because I typically
         like to set up networks with a vertical bus bar architecture and it makes setting the nodes as simple as possible.
@@ -434,7 +499,7 @@ class ResistorLattice2DCubic(ResistorNetworkCC):
             returns the x and y coordinates of a node index in our grid supposing that the 0,0 point is in the upper left
             and the positive y-axis points down
             """
-            return node_idx % self.lattice_shape[1], int(node_idx / self.lattice_shape[1]) 
+            return node_idx % lattice_shape[1], int(node_idx / lattice_shape[1]) 
         
         # Pull nonzero values to plot bonds
         rows, cols = sparse.triu(self.G).nonzero()
@@ -454,14 +519,15 @@ class ResistorLattice2DCubic(ResistorNetworkCC):
             conductances = self.G[rows, cols]
             norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
         
-        if display_variable == 'voltage':
-            colormap = plt.get_cmap('Reds')
-        elif display_variable == 'power':
-            colormap = plt.get_cmap('YlOrRd')
-        elif display_variable == 'conductance':
-            colormap = plt.get_cmap('coolwarm')
+        if colormap_name != None:
+            colormap = plt.get_cmap(colormap_name)
         else:
-            print 'Invalid display variable %s' % display_variable
+            if display_variable == 'voltage':
+                colormap = plt.get_cmap('Reds')
+            elif display_variable == 'power':
+                colormap = plt.get_cmap('YlOrRd')
+            elif display_variable == 'conductance':
+                colormap = plt.get_cmap('Greys')
         
         
             
@@ -487,8 +553,7 @@ class ResistorLattice2DCubic(ResistorNetworkCC):
                 ax.plot(x, y, 'ws', markersize=nodesize)
         
         # And finally set the axes to be just outside the grid spacing and invert the y_axis
-        ax.set_xlim( -1,  self.lattice_shape[1])
-        ax.set_ylim( -1, self.lattice_shape[0])
+        ax.set_xlim( -1, lattice_shape[1])
+        ax.set_ylim( -1, lattice_shape[0])
         ax.invert_yaxis()
         ax.xaxis.set_tick_params(labelbottom='off', labeltop='on')
-
