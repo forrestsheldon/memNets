@@ -237,3 +237,54 @@ def watts_strogatz(num_nodes, neighbors, p, undirected=True):
     elif undirected==False:
         return undirected2directed(A)
 
+#==========================================================
+# Toggle
+#==========================================================
+
+def toggle(Adj, p, undirected=True):
+    """
+    Given an adjacency matrix, this goes through and toggles the state of every potential connection in the network
+    with a probability p. If the undirected option is selected, the upper triangle of the matrix is considered and
+    symmetrized afterwards. If the network is directed, the network is symmetrized and the upper triangle is again
+    considered.  Bonds are placed in the network in forward and backward directions with equal probability.
+    """
+    # Initialize the new row and column matrices
+    toggled_rows = []
+    toggled_cols = []
+    
+    # Loop over all possible bonds
+    r, c = np.triu_indices(Adj.shape[0], 1)
+    for i, j in zip(r, c):
+        if np.random.rand() < p:          # If this succeeds, toggle the state of the bond
+            if undirected == True:        # For an undirected network, check the state of the bond and flip it
+                if Adj[i, j] == 0:        # If there is no bond there, place one
+                    toggled_rows.append(i)
+                    toggled_cols.append(j)
+            elif undirected == False:
+                if Adj[i, j] == 0 and Adj[j, i] == 0:    # If there is no bond there, place one in either direction
+                    if np.random.rand() > 0.5:
+                        toggled_rows.append(i)
+                        toggled_cols.append(j)
+                    else:
+                        toggled_rows.append(j)
+                        toggled_cols.append(i)
+                
+        else:                             # if not, keep the bond the same
+            if undirected == True:
+                if Adj[i, j] == 1:
+                    toggled_rows.append(i)
+                    toggled_cols.append(j)
+            elif undirected == False:
+                if Adj[i, j] == 1:
+                    toggled_rows.append(i)
+                    toggled_cols.append(j)
+                elif Adj[j, i] == 1:
+                    toggled_rows.append(j)
+                    toggled_cols.append(i)
+    
+    A = sparse.csr_matrix((np.ones_like(toggled_rows), (toggled_rows, toggled_cols)), shape = Adj.shape)
+    
+    if undirected == True:
+        return A + A.T
+    else:
+        return A
