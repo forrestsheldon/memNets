@@ -1,13 +1,14 @@
-# memristor_network.py
+# memristor_networks.py
 # By Forrest Sheldon
 # This is a transcription of the classes I have created to solve
 # and display resistor networks from my notebook
-# Memristorr_Nets_V2.ipynb
+# Memristor_Nets_V2.ipynb
 
 import numpy as np
 import scipy as sp
 from scipy.integrate import ode
 import resistor_networks as rnets
+import scipy.sparse as sparse
 
 #================================================================
 # MemristorNetwork
@@ -24,9 +25,7 @@ class MemristorNetwork(rnets.ResistorNetworkCC):
                         nodes i and j
     external_voltages - An Nx1 dense vector of external voltages.  Nodes not set to an external voltages contain a Nan.
                         The shape (N,) is preferred
-    XtoG              - A function that returns a sparse matrix of conductances between nodes i and j given the state
-                        variable matrix.  This matrix should be symmetrized, i.e. we must first calculate the conductance
-                        of each bond and then symmetrize the resulting matrix.
+    conductance_func  - A function that returns the conductance of a bond given its state variables
     xdot              - A function giving the time derivative of the state variable as a function of (t, x, V, *args)
     
     with optional arguments:
@@ -35,22 +34,36 @@ class MemristorNetwork(rnets.ResistorNetworkCC):
     xdot_args
     x_min
     x_max
+    
+    Note that there is one (or two) glaring problem(s) with this implementation.  The use of sparse matrices requires that
+    all state variables be nonzero for all time (and we can have only one state variable).  To make this work correctly I
+    will need to implement a superior sparse reference format for my needs.  I will still use sparse matrices for the 
+    conductances in ResistorNetworks (I need slicing and inversion), but I don't need them for the state variables.
     """
     
-    def __init__(self, state_variables, external_voltages, XtoM, xdot, jacobian=None, xdot_args=None,
-                 x_min=0, x_max=1):
+    def __init__(self, state_variables, external_voltages, conductance_func, xdot, jacobian=None, xdot_args=None,
+                 x_min=1e-12, x_max=1):
         self.state_variables = state_variables
         self.rows, self.cols = self.state_variables.nonzero()
-        self.XtoG = XtoG
+        self.conductance_func = conductance_func
+        self.conductances = sparse.csr_matrix(self.state_variables.shape)
+        self.update_conductance_matrix()
         self.xdot=xdot
         self.xdot_args = xdot_args
         self.x_min = x_min
         self.x_max = x_max
         self.integrator = ode(xdot, jac=jacobian)
-        rnets.ResistorNetworkCC.__init__(self, self.XtoG(self.state_variables), external_voltages)
+        rnets.ResistorNetworkCC.__init__(self, self.conductances + self.conductances.T, external_voltages)
     
     def update_conductance_matrix(self):
-        self.G = self.XtoG(self.state_variables)
+        """
+        Applies the conductance function to each entry in state_variables and then adds this to its transpose
+        """
+        for i, j in zip(self.rows, self.cols):
+            self.conductances[i, j] = self.conductance_func(self.state_variables[i, j])
+
+    def update_G(self):
+        self.G = self.conductances + self.conductances.T
     
     def integrate_state_variables(self, delta_t, method='scipyode'):
         """
@@ -91,6 +104,7 @@ class MemristorNetwork(rnets.ResistorNetworkCC):
                 print "Integration was unsuccessful"
                  
         self.update_conductance_matrix()
+        self.update_G()
 
         
 # I am making use of my RK4 integrator to provide a faster integration option.  The
