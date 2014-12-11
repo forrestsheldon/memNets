@@ -288,3 +288,41 @@ def toggle(Adj, p, undirected=True):
         return A + A.T
     else:
         return A
+
+#==========================================================
+# Locally Connected
+#==========================================================
+
+def locally_connected(lattice_shape, distribution):
+    """
+    Returns an adjacency matrix for a lattice of size lattice_shape whose connectivity is specified by a local distribution.
+    Distances between nodes are normalized such that the lattice spacing is 1. The distribution function gives the probability of
+    a connection at a given distance.  The networks returned are undirected.
+    """
+    def node2xy(node_idx):
+        """
+        returns the x and y coordinates of a node index in our grid supposing that the 0,0 point is in the upper left
+        and the positive y-axis points down
+        """
+        return node_idx % lattice_shape[1], int(node_idx / lattice_shape[1])
+    
+    def distance(nodei_idx, nodej_idx):
+        """
+        Returns the distance between nodes i and j assuming a cubic lattice indexed across rows
+        """
+        x1, y1 = node2xy(nodei_idx)
+        x2, y2 = node2xy(nodej_idx)
+        return np.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+    
+    num_nodes = lattice_shape[0] * lattice_shape[1]
+    
+    A = sparse.lil_matrix((num_nodes, num_nodes), dtype='float')
+    
+    for node_i in range(num_nodes):
+        for node_j in range(node_i+1, num_nodes):
+            if np.random.rand() < distribution(distance(node_i, node_j)):
+                A[node_i, node_j] = 1
+    
+    return (A + A.T).tocsr()
+            
+    
