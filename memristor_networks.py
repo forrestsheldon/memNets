@@ -57,7 +57,7 @@ class MemristorNetwork(rnets.ResistorNetworkCC):
     
     def update_conductance_matrix(self):
         """
-        Applies the conductance function to each entry in state_variables and then adds this to its transpose
+        Applies the conductance function to each entry in state_variables
         """
         for i, j in zip(self.rows, self.cols):
             self.conductances[i, j] = self.conductance_func(self.state_variables[i, j])
@@ -75,37 +75,42 @@ class MemristorNetwork(rnets.ResistorNetworkCC):
     
         # loop over each memristor. This could easily be done in parallel
         for i, j in zip(self.rows, self.cols):
-            # Set the parameters of each memristor in the integrator
-            voltage_drop = self.voltages[i] - self.voltages[j]
-            
-            # See if threshold voltages have been defined
-            try:
-                xdot_arg = self.xdot_args[i, j]
-            except TypeError:
-                xdot_arg = 1
-                
-            if method == 'scipyode':
-                self.integrator.set_initial_value(self.state_variables[i, j], 0).set_f_params(voltage_drop,
-                                                  xdot_arg).set_jac_params(voltage_drop, xdot_arg)
-                integrated_state_variable = self.integrator.integrate(delta_t)
-            elif method == 'myrk4':
-                integrated_state_variable = RK4_next(self.state_variables[i, j], voltage_drop, xdot_arg,
-                                                     0, delta_t, self.xdot)
-            
-            # Check values and set to limits if we have strayed beyond them
-            if integrated_state_variable >= self.x_max:
-                self.state_variables[i, j] = self.x_max
-            elif integrated_state_variable <= self.x_min:
-                self.state_variables[i, j] = self.x_min
-            else:
-                self.state_variables[i, j] = integrated_state_variable
-            
-            if not self.integrator.successful():   
-                print "Integration was unsuccessful"
+            self.update_memristor((i, j), delta_t, method=method)
                  
         self.update_conductance_matrix()
         self.update_G()
 
+    def update_memristor(self, (i, j), delta_t, method='scipyode'):
+        """
+        Updates the conductance of the memristor from node i to node j for a time dt.  The method can be
+        'scipyode' or 'myrk4'
+        """
+        voltage_drop = self.voltages[i] - self.voltages[j]
+        
+        # See if threshold voltages have been defined
+        try:
+            xdot_arg = self.xdot_args[i, j]
+        except TypeError:
+            xdot_arg = 1
+        
+        if method == 'scipyode':
+            self.integrator.set_initial_value(self.state_variables[i, j], 0).set_f_params(voltage_drop,
+                                              xdot_arg).set_jac_params(voltage_drop, xdot_arg)
+            integrated_state_variable = self.integrator.integrate(delta_t)
+        elif method == 'myrk4':
+            integrated_state_variable = RK4_next(self.state_variables[i, j], voltage_drop, xdot_arg,
+                                                 0, delta_t, self.xdot)
+        
+        # Check values and set to limits if we have strayed beyond them
+        if integrated_state_variable >= self.x_max:
+            self.state_variables[i, j] = self.x_max
+        elif integrated_state_variable <= self.x_min:
+            self.state_variables[i, j] = self.x_min
+        else:
+            self.state_variables[i, j] = integrated_state_variable
+
+        if not self.integrator.successful():   
+            print "Integration was unsuccessful"
         
 # I am making use of my RK4 integrator to provide a faster integration option.  The
 # integrators provided by ode will offer a way to assess whether results given here
