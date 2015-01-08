@@ -18,3 +18,4 @@ Use the following links:
 * [Memory Devices](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Memory_Devices.ipynb)
 * [Resistor Networks](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Resistor_Networks_V2.ipynb)
 * [Generate Adjacency Matrices](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Generate_Adjacency_Matrix.ipynb)
+* [Residence Times](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Histograms.ipynb)
