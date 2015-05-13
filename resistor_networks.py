@@ -111,6 +111,34 @@ class ResistorNetwork(object):
             power[node_j, node_i] = power[node_i, node_j]
         return power.tocsr()
     
+    def voltage_drop(self):
+        """
+        Return a sparse matrix in CSR form containing the voltage drop between nodes i and j.  Requires that self.solve()
+        have been called to populate self.voltages
+        """
+        rows, cols = sparse.triu(self.G).nonzero()
+        
+        # fill in the entries in the voltage drop matrix
+        voltage_drop = sparse.lil_matrix(self.G.shape)
+        for node_i, node_j in itertools.izip(rows, cols):
+            voltage_drop[node_i, node_j] = self.voltages[node_j] - self.voltages[node_i]
+            voltage_drop[node_j, node_i] = -1 * voltage_drop[node_i, node_j]
+        return voltage_drop.tocsr()
+    
+    def voltage_drop_abs(self):
+        """
+        Return a sparse matrix in CSR form containing the voltage drop between nodes i and j.  Requires that self.solve()
+        have been called to populate self.voltages
+        """
+        rows, cols = sparse.triu(self.G).nonzero()
+        
+        # fill in the entries in the voltage drop matrix
+        voltage_drop = sparse.lil_matrix(self.G.shape)
+        for node_i, node_j in itertools.izip(rows, cols):
+            voltage_drop[node_i, node_j] = abs(self.voltages[node_j] - self.voltages[node_i])
+            voltage_drop[node_j, node_i] = voltage_drop[node_i, node_j]
+        return voltage_drop.tocsr()
+        
     def external_current(self):
         """
         Returns the currents entering the nodes on the boundary.  These are calculated from,
@@ -138,6 +166,8 @@ class ResistorNetwork(object):
             'voltage'
             'power'
             'conductance'
+            'voltage_drop'
+            'log_voltage_drop'
             
         """ 
         
@@ -167,6 +197,13 @@ class ResistorNetwork(object):
         elif display_variable == 'conductance':
             conductances = self.G[rows, cols]
             norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+        elif display_variable == 'voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=0, vmax=voltage_drop.max())
+        elif display_variable == 'log_voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=np.log(voltage_drop.data.min()),
+                                 vmax=np.log(voltage_drop.max()))
         
         if display_variable == 'voltage':
             colormap = plt.get_cmap('Reds')
@@ -174,6 +211,10 @@ class ResistorNetwork(object):
             colormap = plt.get_cmap('YlOrRd')
         elif display_variable == 'conductance':
             colormap = plt.get_cmap('Greys')
+        elif display_variable == 'voltage_drop':
+            colormap = plt.get_cmap('jet')
+        elif display_variable == 'log_voltage_drop':
+            colormap = plt.get_cmap('jet')
         else:
             print 'Invalid display variable %s' % display_variable
         
@@ -189,13 +230,17 @@ class ResistorNetwork(object):
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(power[node_i, node_j])), lw=bondwidth)
             elif display_variable == 'conductance':
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(self.G[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(voltage_drop[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'log_voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(np.log(voltage_drop[node_i, node_j]))), lw=bondwidth)
         
         # Now draw the nodes
         if display_variable == 'voltage':
             for node, volt in enumerate(self.voltages):
                 x, y = node2xy_circle(node)
                 ax.plot(x, y, 'o', markersize=nodesize, color=colormap(norm(volt)))
-        elif display_variable == 'power' or display_variable == 'conductance':
+        elif display_variable == 'power' or 'conductance' or 'voltage_drop' or 'log_voltage_drop':
             for node in range(self.nodes):
                 x, y = node2xy_circle(node)
                 ax.plot(x, y, 'wo', markersize=nodesize)
@@ -213,6 +258,7 @@ class ResistorNetwork(object):
             'voltage'
             'power'
             'conductance'
+            'log-power'
             
         Nodes are indexed across rows such that the first row has nodes 0 through x-1.  This is because I typically
         like to set up networks with a vertical bus bar architecture and it makes setting the nodes as simple as possible.
@@ -241,6 +287,13 @@ class ResistorNetwork(object):
         elif display_variable == 'conductance':
             conductances = self.G[rows, cols]
             norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+        elif display_variable == 'voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=0, vmax=voltage_drop.max())
+        elif display_variable == 'log_voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=np.log(voltage_drop.data.min()),
+                                 vmax=np.log(voltage_drop.max()))
         
         if colormap_name != None:
             colormap = plt.get_cmap(colormap_name)
@@ -251,6 +304,10 @@ class ResistorNetwork(object):
                 colormap = plt.get_cmap('YlOrRd')
             elif display_variable == 'conductance':
                 colormap = plt.get_cmap('Greys')
+            elif display_variable == 'voltage_drop':
+                colormap = plt.get_cmap('jet')
+            elif display_variable == 'log_voltage_drop':
+                colormap = plt.get_cmap('jet')
         
         
             
@@ -264,13 +321,17 @@ class ResistorNetwork(object):
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(power[node_i, node_j])), lw=bondwidth)
             elif display_variable == 'conductance':
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(self.G[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(voltage_drop[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'log_voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(np.log(voltage_drop[node_i, node_j]))), lw=bondwidth)
         
         # Now draw the nodes
         if display_variable == 'voltage':
             for node, volt in enumerate(self.voltages):
                 x, y = node2xy(node)
                 ax.plot(x, y, 's', markersize=nodesize, color=colormap(norm(volt)))
-        elif display_variable == 'power' or display_variable == 'conductance':
+        elif display_variable == 'power' or 'conductance' or 'voltage_drop' or 'log_voltage_drop':
             for node in range(self.nodes):
                 x, y = node2xy(node)
                 ax.plot(x, y, 'ws', markersize=nodesize)
@@ -387,6 +448,34 @@ class ResistorNetworkCC(object):
             power[node_j, node_i] = power[node_i, node_j]
         return power.tocsr()
     
+    def voltage_drop(self):
+        """
+        Return a sparse matrix in CSR form containing the voltage drop between nodes i and j.  Requires that self.solve()
+        have been called to populate self.voltages
+        """
+        rows, cols = sparse.triu(self.G).nonzero()
+        
+        # fill in the entries in the voltage drop matrix
+        voltage_drop = sparse.lil_matrix(self.G.shape)
+        for node_i, node_j in itertools.izip(rows, cols):
+            voltage_drop[node_i, node_j] = self.voltages[node_j] - self.voltages[node_i]
+            voltage_drop[node_j, node_i] = -1 * voltage_drop[node_i, node_j]
+        return voltage_drop.tocsr()
+    
+    def voltage_drop_abs(self):
+        """
+        Return a sparse matrix in CSR form containing the voltage drop between nodes i and j.  Requires that self.solve()
+        have been called to populate self.voltages
+        """
+        rows, cols = sparse.triu(self.G).nonzero()
+        
+        # fill in the entries in the voltage drop matrix
+        voltage_drop = sparse.lil_matrix(self.G.shape)
+        for node_i, node_j in itertools.izip(rows, cols):
+            voltage_drop[node_i, node_j] = abs(self.voltages[node_j] - self.voltages[node_i])
+            voltage_drop[node_j, node_i] = voltage_drop[node_i, node_j]
+        return voltage_drop.tocsr()
+     
     def external_current(self):
         """
         Returns the currents entering the nodes on the boundary.  These are calculated from,
@@ -444,13 +533,25 @@ class ResistorNetworkCC(object):
         elif display_variable == 'conductance':
             conductances = self.G[rows, cols]
             norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
-        
+        elif display_variable == 'voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=0, vmax=voltage_drop.max())
+        elif display_variable == 'log_voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=np.log(voltage_drop.data.min()),
+                                 vmax=np.log(voltage_drop.max()))
+            
+            
         if display_variable == 'voltage':
             colormap = plt.get_cmap('Reds')
         elif display_variable == 'power':
             colormap = plt.get_cmap('YlOrRd')
         elif display_variable == 'conductance':
             colormap = plt.get_cmap('Greys')
+        elif display_variable == 'voltage_drop':
+            colormap = plt.get_cmap('jet')
+        elif display_variable == 'log_voltage_drop':
+            colormap = plt.get_cmap('jet')
         else:
             print 'Invalid display variable %s' % display_variable
         
@@ -466,13 +567,17 @@ class ResistorNetworkCC(object):
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(power[node_i, node_j])), lw=bondwidth)
             elif display_variable == 'conductance':
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(self.G[node_i, node_j])), lw=bondwidth)
-        
+            elif display_variable == 'voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(voltage_drop[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'log_voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(np.log(voltage_drop[node_i, node_j]))), lw=bondwidth)
+                
         # Now draw the nodes
         if display_variable == 'voltage':
             for node, volt in enumerate(self.voltages):
                 x, y = node2xy_circle(node)
                 ax.plot(x, y, 'o', markersize=nodesize, color=colormap(norm(volt)))
-        elif display_variable == 'power' or display_variable == 'conductance':
+        elif display_variable == 'power' or 'conductance' or 'voltage_drop' or 'log_voltage_drop':
             for node in range(self.nodes):
                 x, y = node2xy_circle(node)
                 ax.plot(x, y, 'wo', markersize=nodesize)
@@ -518,6 +623,13 @@ class ResistorNetworkCC(object):
         elif display_variable == 'conductance':
             conductances = self.G[rows, cols]
             norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+        elif display_variable == 'voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=0, vmax=voltage_drop.max())
+        elif display_variable == 'log_voltage_drop':
+            voltage_drop = self.voltage_drop_abs()
+            norm = plt.Normalize(vmin=np.log(voltage_drop.data.min()),
+                                 vmax=np.log(voltage_drop.max()))
         
         if colormap_name != None:
             colormap = plt.get_cmap(colormap_name)
@@ -528,6 +640,10 @@ class ResistorNetworkCC(object):
                 colormap = plt.get_cmap('YlOrRd')
             elif display_variable == 'conductance':
                 colormap = plt.get_cmap('Greys')
+            elif display_variable == 'voltage_drop':
+                colormap = plt.get_cmap('jet')
+            elif display_variable == 'log_voltage_drop':
+                colormap = plt.get_cmap('jet')
         
         
             
@@ -541,13 +657,17 @@ class ResistorNetworkCC(object):
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(power[node_i, node_j])), lw=bondwidth)
             elif display_variable == 'conductance':
                 ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(self.G[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(voltage_drop[node_i, node_j])), lw=bondwidth)
+            elif display_variable == 'log_voltage_drop':
+                ax.plot([x_i, x_j], [y_i, y_j], color=colormap(norm(np.log(voltage_drop[node_i, node_j]))), lw=bondwidth)
         
         # Now draw the nodes
         if display_variable == 'voltage':
             for node, volt in enumerate(self.voltages):
                 x, y = node2xy(node)
                 ax.plot(x, y, 's', markersize=nodesize, color=colormap(norm(volt)))
-        elif display_variable == 'power' or display_variable == 'conductance':
+        elif display_variable == 'power' or 'conductance' or  'voltage_drop' or 'log_voltage_drop':
             for node in range(self.nodes):
                 x, y = node2xy(node)
                 ax.plot(x, y, 'ws', markersize=nodesize)
