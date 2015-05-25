@@ -21,3 +21,4 @@ Use the following links:
 * [Residence Times](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Histograms.ipynb)
 * [Meeting 1-21](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Meeting_1_21.ipynb)
 * [Power Law Residence Time Paper](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Outline_for_paper.ipynb)
+* [Memristor Fuse Networks](http://nbviewer.ipython.org/urls/raw.github.com/forrestsheldon/memNets/master/Memristor_Fuse_Network.ipynb)
