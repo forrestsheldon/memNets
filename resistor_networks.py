@@ -276,7 +276,12 @@ class ResistorNetwork(object):
             norm = plt.Normalize(vmin=power.min(), vmax=power.max())
         elif display_variable == 'conductance':
             conductances = self.G[rows, cols]
-            norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+            # I'd like the OFF grey to be lighter than the minimum of hte color map
+            # so I'm setting it so that it falls 1/3 through the colormap
+            mincond = conductances.min()
+            maxcond = conductances.max()
+            low_colormap = maxcond - 1.5 * (maxcond-mincond)
+            norm = plt.Normalize(vmin=low_colormap, vmax=maxcond)
         elif display_variable == 'voltage_drop':
             voltage_drop = self.voltage_drop_abs()
             norm = plt.Normalize(vmin=0, vmax=voltage_drop.max())
@@ -290,7 +295,7 @@ class ResistorNetwork(object):
         elif display_variable == 'power':
             colormap = plt.get_cmap('YlOrRd')
         elif display_variable == 'conductance':
-            colormap = plt.get_cmap('Greys')
+            colormap = plt.get_cmap('RdGy_r')
         elif display_variable == 'voltage_drop':
             colormap = plt.get_cmap('jet')
         elif display_variable == 'log_voltage_drop':
@@ -366,7 +371,12 @@ class ResistorNetwork(object):
             norm = plt.Normalize(vmin=power.min(), vmax=power.max())
         elif display_variable == 'conductance':
             conductances = self.G[rows, cols]
-            norm = plt.Normalize(vmin=conductances.min(), vmax=conductances.max())
+            # I'd like the OFF grey to be lighter than the minimum of hte color map
+            # so I'm setting it so that it falls 1/3 through the colormap
+            mincond = conductances.min()
+            maxcond = conductances.max()
+            low_colormap = maxcond - 1.5 * (maxcond-mincond)
+            norm = plt.Normalize(vmin=low_colormap, vmax=maxcond)
         elif display_variable == 'voltage_drop':
             voltage_drop = self.voltage_drop_abs()
             norm = plt.Normalize(vmin=0, vmax=voltage_drop.max())
@@ -383,7 +393,7 @@ class ResistorNetwork(object):
             elif display_variable == 'power':
                 colormap = plt.get_cmap('YlOrRd')
             elif display_variable == 'conductance':
-                colormap = plt.get_cmap('Greys')
+                colormap = plt.get_cmap('RdGy_r')
             elif display_variable == 'voltage_drop':
                 colormap = plt.get_cmap('jet')
             elif display_variable == 'log_voltage_drop':
