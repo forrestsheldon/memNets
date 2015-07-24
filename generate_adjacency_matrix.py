@@ -123,6 +123,32 @@ def cubic_2d_random(lattice_shape, concentration, undirected=True, single_bond=F
         return A
 
 #==========================================================
+# 2D cubic diagonal periodic
+#==========================================================
+
+def cubic_2d_diagonal_periodic(lattice_shape):
+    """
+    Returns the adjacency matrix for a 2D square lattice in sparse matrix form. The lattice is meant to be
+    thought of as a displayed 'diagonally' with the corners of the lattice pointing up and periodic boundary conditions.
+    """
+    num_ynodes, num_xnodes = lattice_shape
+    num_nodes = num_xnodes * num_ynodes
+    
+    A = sparse.lil_matrix((num_nodes, num_nodes))
+    
+    # Connect all nodes to the row below them
+    for node in range(num_nodes - num_xnodes):
+        A[node, node + num_xnodes] = 1
+        if node % num_xnodes == 0:
+            A[node, node + 2*num_xnodes - 1] = 1
+        else:
+            A[node, node + num_xnodes - 1] = 1
+    A.tocsr()
+    
+    return A + A.T
+
+
+#==========================================================
 # random_graph
 #==========================================================
 
