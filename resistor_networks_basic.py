@@ -145,7 +145,10 @@ class ResistorNetwork(object):
     def conductivity(self):
         """
         The total conductivity of the network is calculated as the sum of the positive external currents divided
-        by the voltage difference across the network.  In order for this to work, 
+        by the voltage difference across the network.  In order for this to work, the device must be regarded as
+        as a two terminal device, ie there is only one high voltage end.
         """
         I_external = self.external_current()
         return I_external[I_external > 0].sum() / (np.nanmax(self.external_voltages) - np.nanmin(self.external_voltages))
+
+
