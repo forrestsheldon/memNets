@@ -139,10 +139,22 @@ def cubic_2d_diagonal_periodic(lattice_shape):
     # Connect all nodes to the row below them
     for node in range(num_nodes - num_xnodes):
         A[node, node + num_xnodes] = 1
-        if node % num_xnodes == 0:
-            A[node, node + 2*num_xnodes - 1] = 1
+        
+        row_index = node / num_xnodes
+        row_parity = row_index % 2
+        if row_parity == 0:
+            if node % num_xnodes == 0:
+                A[node, node + 2*num_xnodes - 1] = 1
+            else:
+                A[node, node + num_xnodes - 1] = 1
+        elif row_parity == 1:
+            if node % num_xnodes == num_xnodes - 1:
+                A[node, node + 1] = 1
+            else:
+                A[node, node + num_xnodes + 1] = 1
         else:
-            A[node, node + num_xnodes - 1] = 1
+            print "Seems there's a problem"
+        
     A.tocsr()
     
     return A + A.T
