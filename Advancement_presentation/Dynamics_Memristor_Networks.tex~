@@ -1,0 +1,117 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\mode<presentation>{ \usetheme{boxes} }
+\AtBeginSection[]{}
+\title{Experimental Observation of Role of Mutual Information in the Nonequilibrium Dynamics of a Maxwell Demon}
+\subtitle{J.V. Koski, V.V Maisi, T. Sagawa, and J.P. Pekola}
+\author{Forrest Sheldon}
+\begin{document}
+
+\begin{frame}
+\frametitle{Leo Szilard}
+\begin{center}
+\includegraphics[width=1.25in]{Leo_Szilard.jpg}
+\end{center}
+\begin{itemize}
+\item Introduced the information of measurement
+\item Conceived of the branch chain nuclear reaction
+\item Initiated the Manhattan Project
+\item Designed the first nuclear reactor with Fermi
+\item Electron Microscope, Cyclotron, negative gene feedback
+\item Arms control activist in US and Russia
+\item Passed away in La Jolla as a fellow of the Salk Institute and UCSD holds his collected papers
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Take Aways}
+\begin{itemize}
+
+\item Szilard was a Boss
+\item We can generalize thermodynamics in a simple and consistent way to include feedback and measurement.  In doing so, mutual information plays a key role as the extent to which we can violate the naive 2nd Law.
+\item Fluctuations in thermodynamic quantities are central to understanding small systems.  These fluctuations satisfy equalities that relate dissipation, work, and information to the evolution of systems forwards and backwards in time and give insight into the direction of time.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Szilard Engine}
+1929 - On the Decrease of Entropy in a Thermodynamic System by the Intervention of Intelligent Beings
+
+\begin{itemize}
+\item "There is an objection, already historical, against the universal validity of the Second Law of Thermodynamics, which indeed looks rather ominous."
+\item Szilard created several Maxwell's Demon type devices that allowed him to make quantitative predictions about the violation
+\item He suggested that, if we want to save the 2nd Law, we must include some entropy of measurement, so that,
+\[
+\bar{S}_{sys} + \bar{s}_{meas} \ge 0
+\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Szilard Engine 1}
+\begin{center}
+\includegraphics[width=3.0in]{szilard_engine.png}
+\end{center}
+\begin{itemize}
+\item A single cycle converts one bit of information to $kT\ln 2$ Joules of work
+\item To save the 2nd Law, we suppose their is some entropy created in measurement $\bar{S}_{sys} + \bar{s}_{meas} \ge 0$ and Szilard was able to put a bound on this, $e^{-s_1/k_B} + e^{-s_2/k_B} \ge 1$.
+\item This suggests amending the second law to
+\[
+W - \Delta F \ge -kT I
+\]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Jarzynski Equalities}
+
+\begin{itemize}
+\item Fluctuations mean laws of thermodynamics are only obeyed on average in small systems
+\[ W \ge 0 \quad \to \quad \langle W \rangle \ge 0\]
+\item Accounting carefully yields an equality
+\[\langle e^{\frac{-(W-\Delta F)}{kT}}\rangle = 1\]
+\item Including measurement and feedback yields the Generalized Jarzynski Equality
+\[\langle e^{\frac{-(W-\Delta F)}{kT} - I}\rangle = 1\]
+which from Jensen's Ineq. gives
+\[
+\langle W\rangle - \Delta F \ge -kT \langle I \rangle
+\]
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Building a Maxwell's Demon - The single electron box}
+
+\begin{figure}
+\centering
+\begin{minipage}{.45\textwidth}
+\centering
+\includegraphics[width=.7\linewidth]{SEB.jpeg}
+\end{minipage}
+\begin{minipage}{.45\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{SEB_2.jpeg}
+\end{minipage}
+\end{figure}
+%\textbf{Source:} hyperphysics.phy-astr.gsu.edu/hbase/kinetic/menfre.html
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Results}
+\begin{center}
+\includegraphics[width=4.0in]{SEB_dist.jpeg}
+
+\includegraphics[width=2.5in]{SEB_jarz_data.jpeg}
+
+\end{center}
+\end{frame}
+
+\end{document}
