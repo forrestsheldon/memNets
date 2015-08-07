@@ -5,6 +5,7 @@
 \AtBeginSection[]{}
 \title{Phase Transitions and Scale Free Phenomena in Networks of Memristive Elements}
 \author{Forrest Sheldon}
+\institute{UCSD}
 \date{August 7, 2015}
 \titlegraphic{\includegraphics[width=2.5cm]{gl-1-logo.png}}
 \begin{document}
@@ -36,41 +37,148 @@
 \end{center}
 \begin{itemize}
 \item Rely on Ionic motion
-\item Strong threshold effect from competition between thermal effects and filament formation
+\item Strong threshold effect from $Ag_2 S$ phase transition
 \item Device Size $\approx 100$nm, Switching Times $~10^{-7}$s or less
-\item Dynamics allow them to show short term and long term potentiation-like behaviors,
-operating in stochastic and non-volatile regimes, and can store multiple states in quantized conductance
-
+\item Competition between thermal effects and dynamics allow them to show short term and long term potentiation-like behaviors,
+operating in stochastic and non-volatile regimes, and can store multiple states in quantized conductance, sharp on/off transition
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Memristor Network}
+\frametitle{Atomic Switch Networks}
 
+\begin{center}
+\includegraphics[width=9cm]{ASN_fabrication.png}
+\end{center}
+\begin{itemize}
+\item Show robust memristive switching with much larger size and voltages than
+nanoscale memristors
+\item Experiments and theoretical studies have pointed towards possible first order phase
+transition in their cycling and possible criticality in fluctuations.
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Length and Time Scales}
+\frametitle{Questions}
+\begin{itemize}
+\item How can we see the memristive cycling, which is a collective action of the network,
+in the language of phase transitions?
+\item How do the parameters of the devices affect the presence of a transition?
+\item The full time integration is too difficult to discern a transition or avalanches.
+What features can we discard?
+\item Can these networks display SOC?
+\end{itemize}
+\end{frame}
 
+\begin{frame}
+\frametitle{Memristor Network Model}
+\begin{itemize}
+\item Memristive switching is fast compared to external control
+but slow compared to electrons $\to$ at any time point, networks are
+ohmic but individual memristors switch discontinuously between
+$g_{OFF}$ and $g_{ON}$ (Possible Caveats)
+\item Thresholds are essential to causal structure of switching
+\item Most behaviors are robust to network structure $\to$ pick any canonical disordered network
+\item Disorder induces a voltage distribution over the network $\to$ absorb voltage disorder into
+thresholds and simulate on regular lattice with disordered thresholds
+\item Memristors act like switches that transition from a thermodynamically favored OFF state
+to ON when the current passes some random threshold $t_i$ drawn from a distribution $p(t)$
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Memristor Model}
-Memristors show a super exponential change in their state - switching past
-this threshold is extremely quick in comparison to the external voltage.  As such,
-we choose a model in which the memristors switch instantly once the threshold has
-been crossed
+\frametitle{Simulation Results}
+\begin{itemize}
+\item $g_{ON} / g_{OFF} = 2$
+\includegraphics[width=0.8\textwidth]{ON2_run.png}
+\item $g_{ON} / g_{OFF} = 100$
+\includegraphics[width=0.8\textwidth]{ON100_run.png}
+\item $g_{ON} / g_{OFF} = 1000$
+\includegraphics[width=0.8\textwidth]{ON1000_run.png}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{One-Dimensional Models}
-Parallel doesn't work.
+\frametitle{Internal Dynamics}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Inside_a_network.png}
+\end{center}
+\end{frame}
 
+\begin{frame}
+\frametitle{Mean-Field Theory}
+\begin{itemize}
+\item Begin with $$P = \sum_i \sigma_i \Delta V_i^2$$
+\item Require that the total power dissipated in the mean field model be the same
+as that dissipated in the network,
+$$P = G(\{\sigma_i\})V^2$$
+\item Use effective medium theory to write $G(\{\sigma_i\})\approx G(\phi)$ for $\phi = \frac{\sum_i \sigma_i}{N}$
+\item Insert a $\phi$ to get it back to it's original form,
+$$P = \sum_i \sigma_i \frac{G(\phi)V^2}{\phi N}$$
+\end{itemize}
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Mean-Field Theory}
+\begin{itemize}
+\item Our mean field voltage is thus
+$\Delta V_{MF} = \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}}$
+where I've traded $\phi$ for $f = \frac{n_{ON}}{N}$
+\item From this we form a self-consistency requirement: the fraction of memristors
+that have switched to $G_{ON}$ must be the fraction whose threshold is below the MF
+current $g_{OFF} \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}} = h(f)v$,
+$$f = \int_0^{h(f)v} p(t) dt$$
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{MF_voltage.png}
+\end{center}
+\end{frame}
 
+\begin{frame}
+\frametitle{One-Dimensional Networks}
+\begin{itemize}
+\item In 1D, we can do this exactly!
+\item For a 1D chain of conductors in series, $G(f) = \frac{g_{ON}g_{OFF}}{N(g_{ON} - f (g_{ON} - g_{OFF}))}$
+$$f = \int_0^{G(f)V} p(t) dt$$
+\end{itemize}
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{1D_Network_Cond.png}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=0.9\textwidth]{SC_1D_ON100_expon.png}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Finding the transition}
+First order phase transition at the solution of:
+$$f = \int_0^{G(f)V} p(t) dt,  \quad 1 = p(G(f)V)G'(f)V \quad 0 \le f \le 1$$
+For Uniform(0,1) this gives, 
+$f_b = \frac{1}{2(1-\alpha)}, \: V_b = \frac{TN}{4g_{OFF}(1-\alpha)},
+ \: \alpha = \frac{g_{OFF}}{g_{ON}}$
+\centering
+\includegraphics[width=\textwidth]{SC_1D_Uniform01.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{Finding the Transition}
+\centering
+\includegraphics[width=0.8\textwidth]{1D_Cond.png}
+
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item Phase Transitions in Current Controlled Networks
+\item Oscillations in Avalanches
+\end{itemize}
+\end{frame}
 
 \end{document}
