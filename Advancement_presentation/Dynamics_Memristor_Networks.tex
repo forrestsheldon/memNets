@@ -1,9 +1,12 @@
-\documentclass{beamer}
+\documentclass[mathserif]{beamer}
 \usepackage{amsmath}
-\mode<presentation>{ \usetheme{boxes} }
+\mode<presentation>
+\usetheme{Madrid}
 \AtBeginSection[]{}
-\title{Statistical Mechanics of Disordered Memristor Networks}
+\title{Phase Transitions and Scale Free Phenomena in Networks of Memristive Elements}
 \author{Forrest Sheldon}
+\date{August 7, 2015}
+\titlegraphic{\includegraphics[width=2.5cm]{gl-1-logo.png}}
 \begin{document}
 
 \begin{frame}
@@ -11,13 +14,38 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{What is a Memristor}
+\frametitle{A Perspective On Memristors}
 
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+\item Simple(est) Nanomachines
+\item Sit between scales
+\item Wide variety of behaviors: ON/OFF ratio, volatility, timescales, programmability
+
+\end{itemize}
+\column{0.5\textwidth}
+\includegraphics[width=5cm]{Granular_Material.png}
+\end{columns}
 \end{frame}
 
+\begin{frame}
+\frametitle{Example: $Ag|Ag_2 S|Ag$ Atomic Switch}
+\begin{center}
+\includegraphics[width=10cm]{Atomic_Switch_Filament.png}
+\end{center}
+\begin{itemize}
+\item Rely on Ionic motion
+\item Strong threshold effect from competition between thermal effects and filament formation
+\item Device Size $\approx 100$nm, Switching Times $~10^{-7}$s or less
+\item Dynamics allow them to show short term and long term potentiation-like behaviors,
+operating in stochastic and non-volatile regimes, and can store multiple states in quantized conductance
+
+\end{itemize}
+\end{frame}
 
 \begin{frame}
-\frametitle{Memristor Networks}
+\frametitle{Memristor Network}
 
 
 \end{frame}
@@ -43,31 +71,6 @@ Parallel doesn't work.
 
 \end{frame}
 
-\begin{frame}
 
-\begin{figure}
-\centering
-\begin{minipage}{.45\textwidth}
-\centering
-\includegraphics[width=.7\linewidth]{SEB.jpeg}
-\end{minipage}
-\begin{minipage}{.45\textwidth}
-\centering
-\includegraphics[width=.9\linewidth]{SEB_2.jpeg}
-\end{minipage}
-\end{figure}
-%\textbf{Source:} hyperphysics.phy-astr.gsu.edu/hbase/kinetic/menfre.html
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Results}
-\begin{center}
-\includegraphics[width=4.0in]{SEB_dist.jpeg}
-
-\includegraphics[width=2.5in]{SEB_jarz_data.jpeg}
-
-\end{center}
-\end{frame}
 
 \end{document}
