@@ -67,7 +67,7 @@ in the language of phase transitions?
 \item How do the parameters of the devices affect the presence of a transition?
 \item The full time integration is too difficult to discern a transition or avalanches.
 What features can we discard?
-\item Can these networks display SOC?
+\item Can these networks display SOC or scaling about these transitions?
 \end{itemize}
 \end{frame}
 
@@ -77,13 +77,14 @@ What features can we discard?
 \item Memristive switching is fast compared to external control
 but slow compared to electrons $\to$ at any time point, networks are
 ohmic but individual memristors switch discontinuously between
-$g_{OFF}$ and $g_{ON}$ (Possible Caveats)
+$g_{OFF}$ and $g_{ON}$
 \item Thresholds are essential to causal structure of switching
 \item Most behaviors are robust to network structure $\to$ pick any canonical disordered network
 \item Disorder induces a voltage distribution over the network $\to$ absorb voltage disorder into
 thresholds and simulate on regular lattice with disordered thresholds
 \item Memristors act like switches that transition from a thermodynamically favored OFF state
 to ON when the current passes some random threshold $t_i$ drawn from a distribution $p(t)$
+\item Possible Caveats
 \end{itemize}
 
 \end{frame}
@@ -171,6 +172,49 @@ $f_b = \frac{1}{2(1-\alpha)}, \: V_b = \frac{TN}{4g_{OFF}(1-\alpha)},
 \frametitle{Finding the Transition}
 \centering
 \includegraphics[width=0.8\textwidth]{1D_Cond.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Back to 2D}
+Inflection points from effective medium theory give us a broad transition range.
+\begin{columns}
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{2D_MF_Uniform01.png}
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{2D_MF_Exponential.png}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Avalanches}
+\begin{itemize}
+\item Suppose at a fraction $f$ we flip one memristor such that $f\to f'= f + \frac{1}{N}$.
+\item If the MF current is an increasing function of $f$, we may have an avalanche. For large
+$N$, the probability that $n$ memristors will switch in response is Poisson distributed
+$$P(n) = \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$
+\item For a sequence of switchings, $S_1=1, S_2, ...,S_n, S_{n+1}=0$ the
+probability distribution is
+$$P(S_1, S_2, ...S_{n+1}) = \prod_i  \frac{(S_{i-1}\mu)^n}{n!} e^{-S_{i-1}\mu} $$
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Avalanche Size Distribution}
+\begin{itemize}
+\item Probability of observing a Poissonion branching process with total progeny $s$ is given
+by the Borel Distribution,
+$$P(s) = \frac{(\mu s)^{s-1}}{s!} e^{-\mu(s-1)}$$
+\item As $\mu\to 1$ we approach a critical branching process and
+$$P(s) \sim s^{-3/2}$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Avalanches in Random Resistor Networks}
+\includegraphics[width=0.8\textwidth]{Avalanches_p6.png}
 
 \end{frame}
 
