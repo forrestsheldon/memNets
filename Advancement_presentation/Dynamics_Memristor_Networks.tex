@@ -16,7 +16,7 @@
 
 \begin{frame}
 \frametitle{A Perspective On Memristors}
-
+\setbeamercovered{static}
 \begin{columns}
 \column{0.5\textwidth}
 \centering
@@ -31,12 +31,11 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{'Nonideal' Properties are interesting}
+\frametitle{'Nonideal' Properties are Interesting}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{STM_LTP.png}
+\onslide<1->{\includegraphics[width=0.8\textwidth]{STM_LTP.png}}
 \end{center}
-
 \end{frame}
 
 \begin{frame}
@@ -46,37 +45,51 @@
 \includegraphics[width=9cm]{ASN_fabrication.png}
 \end{center}
 
+\begin{columns}
+\column{0.33\textwidth}
+\centering
+\onslide<2->{\includegraphics[width=0.7\textwidth]{ASN_fluctuations.png}}
+\column{0.33\textwidth}
+\centering
+\onslide<3->{\includegraphics[width=0.7\textwidth]{ASN_jumps.png}}
+\column{0.33\textwidth}
+\centering
+\onslide<4->{\includegraphics[width=0.7\textwidth]{ASN_hysteresis.png}}
+\end{columns}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Questions}
+\setbeamercovered{dynamic}
 \begin{itemize}
-\item How can we see the memristive cycling, which is a collective action of the network,
+\item<1> How can we see the memristive cycling, which is a collective action of the network,
 in the language of phase transitions?
-\item How do the parameters of the devices affect the presence of a transition?
-\item The full time integration is too difficult to discern a transition or avalanches.
-What features can we discard?
-\item Can these networks display SOC or scaling about these transitions?
+\item<2> How do the parameters of the devices affect the presence of a transition?
+\item<3> Can these networks display SOC or scaling about these transitions?
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Memristor Network Model}
-\begin{itemize}
-\item Memristive switching is fast compared to external control
-but slow compared to electrons $\to$ at any time point, networks are
-ohmic but individual memristors switch discontinuously between
-$g_{OFF}$ and $g_{ON}$
-\item Thresholds are essential to causal structure of switching
-\item Most behaviors are robust to network structure $\to$ pick any canonical disordered network
-\item Disorder induces a voltage distribution over the network $\to$ absorb voltage disorder into
-thresholds and simulate on regular lattice with disordered thresholds
-\item Memristors act like switches that transition from a thermodynamically favored OFF state
-to ON when the current passes some random threshold $t_i$ drawn from a distribution $p(t)$
-\item Possible Caveats
-\end{itemize}
+\frametitle{Modeling the Network}
+\begin{picture}(320, 250)
+\onslide<1->{\put(0, 210){Timescales}}
+\onslide<1->{\put(110, 174){\includegraphics[width=1.25in]{ASN_jumps.png}}}
+\onslide<2->{\put(220, 164){\includegraphics[width=1.2in]{harmonic_voltage.png}}}
 
+\onslide<3->{\put(0, 160){Thresholds}}
+
+\onslide<4->{\put(0, 110){Network Structure}}
+\onslide<4->{\put(120, 103){\includegraphics[width=0.95in]{ASN_structure.png}}}
+\onslide<5->{\put(220, 91){\includegraphics[width=1.2in]{RR_cond.png}}}
+
+\onslide<6->{\put(0, 60){Disordered$\to$Regular}}
+\onslide<6->{\put(110, 13){\includegraphics[width=1.2in]{RR_logvoltage.png}}}
+\onslide<7->{\put(217, 10){\includegraphics[width=1.3in]{diag_network.png}}}
+
+\end{picture}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Simulation Results}
@@ -166,12 +179,13 @@ $f_b = \frac{1}{2(1-\alpha)}, \: V_b = \frac{TN}{4g_{OFF}(1-\alpha)},
 
 \begin{frame}
 \frametitle{Back to 2D}
-Inflection points from effective medium theory give us a broad transition range.
+Inflection points from effective medium theory give us a broad transition
+range.
 \begin{columns}
 \column{0.5\textwidth}
-%\includegraphics[width=\textwidth]{2D_MF_Uniform01.png}
+\includegraphics[width=\textwidth]{2D_MF_Uniform01.png}
 \column{0.5\textwidth}
-%\includegraphics[width=\textwidth]{2D_MF_Exponential.png}
+\includegraphics[width=\textwidth]{2D_MF_Exponential.png}
 \end{columns}
 
 \end{frame}
