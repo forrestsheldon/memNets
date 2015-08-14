@@ -20,13 +20,16 @@
 \begin{columns}
 \column{0.5\textwidth}
 \centering
-\onslide<1->{\includegraphics[width=0.8\textwidth]{hysteresis.png}}
+\only<1>{\includegraphics[width=0.8\textwidth]{hysteresis.png}}
+\only<2>{\includegraphics[width=0.8\textwidth]{hysteresis_on.png}}
+\only<3>{\includegraphics[width=0.8\textwidth]{hysteresis_off.png}}
+\onslide<4->{\includegraphics[width=0.8\textwidth]{hysteresis_thresh.png}}
 \column{0.5\textwidth}
 \centering
-\onslide<3->{\includegraphics[width=0.6\textwidth]{Granular_Material.png}}
+\onslide<6->{\includegraphics[width=0.6\textwidth]{Granular_Material.png}}
 \end{columns}
 \begin{center}
-\onslide<2->{\includegraphics[width=\textwidth]{Atomic_Switch_Filament.png}}
+\onslide<5->{\includegraphics[width=\textwidth]{Atomic_Switch_Filament.png}}
 \end{center}
 \end{frame}
 
@@ -94,7 +97,7 @@ in the language of phase transitions?
 \begin{frame}
 \frametitle{Simulation Results}
 \begin{itemize}
-\item $g_{ON} / g_{OFF} = 2$
+\item $\frac{g_{on}}{ g_{off}} = 2$
 \includegraphics[width=0.8\textwidth]{ON2_run.png}
 \item $g_{ON} / g_{OFF} = 100$
 \includegraphics[width=0.8\textwidth]{ON100_run.png}
