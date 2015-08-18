@@ -1,8 +1,12 @@
 \documentclass[mathserif]{beamer}
 \usepackage{amsmath}
+\usepackage{url}
+\usepackage{tikz}
+\beamertemplatenavigationsymbolsempty
 \mode<presentation>
 \usetheme{Madrid}
 \AtBeginSection[]{}
+\setbeamerfont{footnote}{size=\tiny}
 \title{Phase Transitions and Scale Free Phenomena in Networks of Memristive Elements}
 \author{Forrest Sheldon}
 \institute{UCSD}
@@ -19,45 +23,73 @@
 \setbeamercovered{static}
 \begin{columns}
 \column{0.5\textwidth}
-\centering
-\only<1>{\includegraphics[width=0.8\textwidth]{hysteresis.png}}
-\only<2>{\includegraphics[width=0.8\textwidth]{hysteresis_on.png}}
-\only<3>{\includegraphics[width=0.8\textwidth]{hysteresis_off.png}}
-\onslide<4->{\includegraphics[width=0.8\textwidth]{hysteresis_thresh.png}}
+\begin{center}
+\onslide<1->{\includegraphics[width=0.17\textwidth]{memristor.png}}
+
+\only<1>{\includegraphics[width=0.65\textwidth]{hysteresis.png}}
+
+\only<2>{\includegraphics[width=0.65\textwidth]{hysteresis_on.png}}
+
+\only<3>{\includegraphics[width=0.65\textwidth]{hysteresis_off.png}}
+
+\onslide<4->{\includegraphics[width=0.65\textwidth]{hysteresis_thresh.png}}
+\end{center}
 \column{0.5\textwidth}
 \centering
-\onslide<6->{\includegraphics[width=0.6\textwidth]{Granular_Material.png}}
+\onslide<6->{\includegraphics[width=0.65\textwidth]{Granular_short.png}}
+\onslide<6->{\includegraphics[width=0.65\textwidth]{Granular_low.png}\footnote[frame]{A. Sattar, S.Fostner, and S. Brown, Phys. Rev. Lett. \textbf{111}, 13 (2013).}}
 \end{columns}
 \begin{center}
-\onslide<5->{\includegraphics[width=\textwidth]{Atomic_Switch_Filament.png}}
+\onslide<5->{\includegraphics[width=0.8\textwidth]{Atomic_Switch_Filament.png}\footnote[frame]{A. Z. Steig \emph{et al.}, Jpn. J. Appl. Phys. \textbf{53} 01AA02 (2014).}}
+
 \end{center}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{'Nonideal' Properties are Interesting}
 
 \begin{center}
-\onslide<1->{\includegraphics[width=0.8\textwidth]{STM_LTP.png}}
+\includegraphics[width=0.8\textwidth]{STM_LTP.png}\footnote{A.Z. Steig \emph{et al.}, in \emph{Memristor Networks}, editted by A. Adamatzky, L. Chua, (Springer International Publishing, 2014)}
 \end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{Atomic Switch Networks}
+\frametitle{Memristive Networks}
+\begin{columns}
+
+\column{0.5\textwidth}
+\begin{center}
+\onslide<1->{\includegraphics[width=0.7\textwidth]{Crossbar.jpeg}\footnote[frame]{\url{http://spectrum.ieee.org/semiconductors/processors/how-we-found-the-missing-memristor/memrf1}}}
+\vspace{0.25in}
+
+\onslide<2->{\includegraphics[width=0.7\textwidth]{Associative_Memory.png}\footnote[frame]{D. Kuzum \emph{et al.} IEEE Trans. on Elec. Dev., \textbf{59}, 12 (2012)}}
+
+\end{center}
+\column{0.5\textwidth}
+\begin{center}
+\onslide<3->{\includegraphics[width=0.5\textwidth]{Cell_Auto_Edge.png}\footnote[frame]{M. Itoh, L. O. Chua, Int.. J. Bifurcat. Chaos, \textbf{19}, 11 (2009).}}
+\vspace{0.25in}
+
+\onslide<4->{\includegraphics[width=0.7\textwidth]{Associative_Memory.png}\footnote[frame]{CITE}}
+\end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Atomic Switch Network}
 
 \begin{center}
-\includegraphics[width=9cm]{ASN_fabrication.png}
+\includegraphics[width=9cm]{ASN_fabrication.png}\footnote{A. Z. Stieg \emph{et al.}, Adv. Mater. \textbf{24}, (2012).}
 \end{center}
 
 \begin{columns}
-\column{0.33\textwidth}
+\column{0.5\textwidth}
 \centering
-\onslide<2->{\includegraphics[width=0.7\textwidth]{ASN_fluctuations.png}}
-\column{0.33\textwidth}
+\onslide<2->{\includegraphics[width=0.5\textwidth]{ASN_fluctuations.png}}
+\column{0.5\textwidth}
 \centering
-\onslide<3->{\includegraphics[width=0.7\textwidth]{ASN_jumps.png}}
-\column{0.33\textwidth}
-\centering
-\onslide<4->{\includegraphics[width=0.7\textwidth]{ASN_hysteresis.png}}
+\onslide<3->{\includegraphics[width=0.5\textwidth]{ASN_hysteresis.png}}
 \end{columns}
 
 \end{frame}
@@ -66,10 +98,9 @@
 \frametitle{Questions}
 \setbeamercovered{dynamic}
 \begin{itemize}
-\item<1> How can we see the memristive cycling, which is a collective action of the network,
-in the language of phase transitions?
-\item<2> How do the parameters of the devices affect the presence of a transition?
-\item<3> Can these networks display SOC or scaling about these transitions?
+\item<1> Phase Transitions?
+\item<2> Role of ON/OFF ratio and disorder?
+\item<3> Avalanches?
 \end{itemize}
 \end{frame}
 
@@ -78,7 +109,7 @@ in the language of phase transitions?
 \begin{picture}(320, 250)
 \onslide<1->{\put(0, 210){Timescales}}
 \onslide<1->{\put(110, 174){\includegraphics[width=1.25in]{ASN_jumps.png}}}
-\onslide<2->{\put(220, 164){\includegraphics[width=1.2in]{harmonic_voltage.png}}}
+\onslide<2->{\put(220, 164){\includegraphics[width=1.2in]{harmonic_voltage_brackets.png}}}
 
 \onslide<3->{\put(0, 160){Thresholds}}
 
@@ -93,82 +124,113 @@ in the language of phase transitions?
 \end{picture}
 \end{frame}
 
+\begin{frame}
+\frametitle{Our Model}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{center}
+\onslide<1->{\includegraphics[width=0.25\textwidth]{memristor.png}}
+
+\only<1>{\includegraphics[width=\textwidth]{memristor_model.png}}
+\onslide<2->{\includegraphics[width=\textwidth]{memristor_model_dist.png}}
+\end{center}
+\column{0.5\textwidth}
+\centering
+\onslide<3->{\includegraphics[width=0.4\textwidth]{Inside_a_network_1.png}}
+
+\onslide<4->{\includegraphics[width=0.4\textwidth]{Inside_a_network_2.png}}
+
+\onslide<5->{\includegraphics[width=0.4\textwidth]{Inside_a_network_3.png}}
+
+\end{columns}
+\end{frame}
 
 \begin{frame}
 \frametitle{Simulation Results}
-\begin{itemize}
-\item $\frac{g_{on}}{ g_{off}} = 2$
-\includegraphics[width=0.8\textwidth]{ON2_run.png}
-\item $g_{ON} / g_{OFF} = 100$
-\includegraphics[width=0.8\textwidth]{ON100_run.png}
-\item $g_{ON} / g_{OFF} = 1000$
-\includegraphics[width=0.8\textwidth]{ON1000_run.png}
-\end{itemize}
+\begin{columns}
+\column{0.5\textwidth}
+\onslide<1->{\includegraphics[width=\textwidth]{2DL45ON2_cond.png}}
+
+\onslide<2->{\includegraphics[width=\textwidth]{2DL45ON10_cond.png}}
+
+\column{0.5\textwidth}
+\onslide<3->{\includegraphics[width=\textwidth]{2DL45ON100_cond.png}}
+
+\onslide<4->{\includegraphics[width=\textwidth]{2DL45ON10000_cond.png}}
+
+\end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Internal Dynamics}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{Inside_a_network.png}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Mean-Field Theory}
-\begin{itemize}
-\item Begin with $$P = \sum_i \sigma_i \Delta V_i^2$$
-\item Require that the total power dissipated in the mean field model be the same
-as that dissipated in the network,
-$$P = G(\{\sigma_i\})V^2$$
-\item Use effective medium theory to write $G(\{\sigma_i\})\approx G(\phi)$ for $\phi = \frac{\sum_i \sigma_i}{N}$
-\item Insert a $\phi$ to get it back to it's original form,
-$$P = \sum_i \sigma_i \frac{G(\phi)V^2}{\phi N}$$
-\end{itemize}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Mean-Field Theory}
-\begin{itemize}
-\item Our mean field voltage is thus
-$\Delta V_{MF} = \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}}$
-where I've traded $\phi$ for $f = \frac{n_{ON}}{N}$
-\item From this we form a self-consistency requirement: the fraction of memristors
-that have switched to $G_{ON}$ must be the fraction whose threshold is below the MF
-current $g_{OFF} \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}} = h(f)v$,
+
+\onslide<1->{$$P = \sum_i \sigma_i \Delta V_i^2$$}
+
+\onslide<2->{$$P = G(\{\sigma_i\})V^2$$}
+
+\onslide<3->{Effective Medium Theory, $G(\{\sigma_i\}) \approx G(f), \quad f = \frac{n_{on}}{N}$}
+
+\onslide<4->{$$\phi = \frac{\sum_i \sigma_i}{N} = \phi(f)\quad G(f) \to G(\phi)$$}
+
+\onslide<5->{$$P = \sum_i \sigma_i \frac{G(\phi)V^2}{\phi N}$$}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Mean-Field Theory}
+
+\onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}} = h(f)v$$}
+\onslide<2->{Self-Consistency Equation,
 $$f = \int_0^{h(f)v} p(t) dt$$
-\end{itemize}
+
 \begin{center}
-\includegraphics[width=0.6\textwidth]{MF_voltage.png}
+\includegraphics[width=0.8\textwidth]{MF_upper_limit.png}
 \end{center}
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{One-Dimensional Networks}
-\begin{itemize}
-\item In 1D, we can do this exactly!
-\item For a 1D chain of conductors in series, $G(f) = \frac{g_{ON}g_{OFF}}{N(g_{ON} - f (g_{ON} - g_{OFF}))}$
-$$f = \int_0^{G(f)V} p(t) dt$$
-\end{itemize}
+\centering
+\includegraphics[width=0.4\textwidth]{1D_memristor_chain.png}
+
 \begin{columns}
 \column{0.5\textwidth}
+$$G(f) = \frac{g_{on}g_{off}}{N(g_{on} - f (g_{on} - g_{off}))}$$
 \centering
 \includegraphics[width=\textwidth]{1D_Network_Cond.png}
 
 \column{0.5\textwidth}
-\centering
-\includegraphics[width=0.9\textwidth]{SC_1D_ON100_expon.png}
+$$f = \int_0^{G(f)V} p(t) dt$$
+\begin{center}
+\only<1>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_0.png}}
+\only<2>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_1.png}}
+\only<3>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_2.png}}
+\only<4>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_3.png}}
+\only<5>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_4.png}}
+\only<6>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_5.png}}
+\only<7>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_6.png}}
+\only<8>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_7.png}}
+\only<9>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_8.png}}
+\only<10>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_9.png}}
+\end{center}
 
 \end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Finding the transition}
-First order phase transition at the solution of:
-$$f = \int_0^{G(f)V} p(t) dt,  \quad 1 = p(G(f)V)G'(f)V \quad 0 \le f \le 1$$
-For Uniform(0,1) this gives, 
-$f_b = \frac{1}{2(1-\alpha)}, \: V_b = \frac{TN}{4g_{OFF}(1-\alpha)},
- \: \alpha = \frac{g_{OFF}}{g_{ON}}$
+First order phase transition:
+$$f = \int_0^{G(f)V} p(t) dt,  \quad\quad 1 = p(G(f)V)G'(f)V \quad 0 \le f \le 1$$
+For Uniform(0,1),
+$f_c = \frac{1}{2(1-\alpha)}, \: V_c = \frac{TN}{4g_{off}(1-\alpha)},
+ \: \alpha = \frac{g_{off}}{g_{on}}$
 \centering
 \includegraphics[width=\textwidth]{SC_1D_Uniform01.png}
 \end{frame}
@@ -182,36 +244,46 @@ $f_b = \frac{1}{2(1-\alpha)}, \: V_b = \frac{TN}{4g_{OFF}(1-\alpha)},
 
 \begin{frame}
 \frametitle{Back to 2D}
-Inflection points from effective medium theory give us a broad transition
-range.
-\begin{columns}
-\column{0.5\textwidth}
-\includegraphics[width=\textwidth]{2D_MF_Uniform01.png}
-\column{0.5\textwidth}
-\includegraphics[width=\textwidth]{2D_MF_Exponential.png}
-\end{columns}
+$p(t) = e^{-t}$
+\includegraphics[width=\textwidth]{2D_MF_expon.png}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Avalanches}
+\begin{columns}
+\column{0.65\textwidth}
 \begin{itemize}
-\item Suppose at a fraction $f$ we flip one memristor such that $f\to f'= f + \frac{1}{N}$.
-\item If the MF current is an increasing function of $f$, we may have an avalanche. For large
-$N$, the probability that $n$ memristors will switch in response is Poisson distributed
-$$P(n) = \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$
-\item For a sequence of switchings, $S_1=1, S_2, ...,S_n, S_{n+1}=0$ the
-probability distribution is
-$$P(S_1, S_2, ...S_{n+1}) = \prod_i  \frac{(S_{i-1}\mu)^n}{n!} e^{-S_{i-1}\mu} $$
+\item<2-> Switching a memristor: $f\to f+\frac{1}{N}$
+
+\item<3-> Increases current, $h(f)V\to h(f)V + \frac{h'(f)V}{N}$
+
+\item<4-> $$\frac{\int_{h(f)V}^{h(f)V + \frac{h'(f)V}{N}} p(t) }{\int_{h(f)V}^{\infty} p(t)} \approx \frac{p(h(f)V)h'(f)V}{(1-f)N}$$
+
+\item<5-> $$P(n) \to \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$
 
 \end{itemize}
+\column{0.33\textwidth}
+\onslide<1->{\includegraphics[width=\textwidth]{dist_init.png}}
+\onslide<4->{\includegraphics[width=\textwidth]{dist_first_switch.png}}
+\onslide<6->{\includegraphics[width=\textwidth]{dist_2nd_switch.png}}
+\end{columns}
+
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Branching Process with Poissonian Offspring}
+
+
+
+
+\end{frame}
 \begin{frame}
 \frametitle{Avalanche Size Distribution}
 \begin{itemize}
-\item Probability of observing a Poissonion branching process with total progeny $s$ is given
-by the Borel Distribution,
+\item<1-> Branching Process with poissonian offspring distribution
 $$P(s) = \frac{(\mu s)^{s-1}}{s!} e^{-\mu(s-1)}$$
 \item As $\mu\to 1$ we approach a critical branching process and
 $$P(s) \sim s^{-3/2}$$
@@ -220,15 +292,22 @@ $$P(s) \sim s^{-3/2}$$
 
 \begin{frame}
 \frametitle{Avalanches in Random Resistor Networks}
-%\includegraphics[width=0.8\textwidth]{Avalanches_p6.png}
+\includegraphics[width=0.8\textwidth]{Avalanches_p6.png}
 
 \end{frame}
 
 \begin{frame}
+\frametitle{Next Steps}
+\begin{columns}
+\column{0.5\textwidth}
 \begin{itemize}
 \item Phase Transitions in Current Controlled Networks
-\item Oscillations in Avalanches
+\item Pattern Formation/Structure in Avalanching
 \end{itemize}
+\column{0.5\textwidth}
+\includegraphics[width=\textwidth]{Current_MF.png}
+
+\end{columns}
 \end{frame}
 
 \end{document}

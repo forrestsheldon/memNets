@@ -1,6 +1,6 @@
 #fusethresholdnetworks.py
 #Forrest Sheldon
-#July 26, 2015
+#August 17 2015
 #==================================================================
 #A rendition of fuse_networks in which the thresholds are assigned
 #individually.  This is designed to accept a completely connected
@@ -91,4 +91,3 @@ class FuseThresholdNetwork(rnets.ResistorNetwork):
         will flip
         """
         self.external_voltages[0:int(np.sqrt(self.G.shape[0]))] = voltage
-
