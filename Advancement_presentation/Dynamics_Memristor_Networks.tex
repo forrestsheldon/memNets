@@ -146,19 +146,24 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Simulation Results}
-\begin{columns}
-\column{0.5\textwidth}
-\onslide<1->{\includegraphics[width=\textwidth]{2DL45ON2_cond.png}}
+\frametitle{Simulating Memristor Networks}
+\begin{center}
 
-\onslide<2->{\includegraphics[width=\textwidth]{2DL45ON10_cond.png}}
+\only<1>{\includegraphics[width=\textwidth]{2DL45ON2_cond.png}}
 
-\column{0.5\textwidth}
-\onslide<3->{\includegraphics[width=\textwidth]{2DL45ON100_cond.png}}
+\only<2>{\includegraphics[width=\textwidth]{2DL45ON4_cond.png}}
 
-\onslide<4->{\includegraphics[width=\textwidth]{2DL45ON10000_cond.png}}
+\only<3>{\includegraphics[width=\textwidth]{2DL45ON10_cond.png}}
 
-\end{columns}
+\only<4>{\includegraphics[width=\textwidth]{2DL45ON20_cond.png}}
+
+\only<5>{\includegraphics[width=\textwidth]{2DL45ON40_cond.png}}
+
+\only<6>{\includegraphics[width=\textwidth]{2DL45ON100_cond.png}}
+
+\only<7>{\includegraphics[width=\textwidth]{2DL45ON1000_cond.png}}
+
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -209,22 +214,46 @@ $$G(f)V = \frac{g_{on}g_{off}}{(g_{on} - f (g_{on} - g_{off}))}\frac{V}{N}$$
 \includegraphics[width=\textwidth]{1D_Network_Cond.png}
 
 \column{0.5\textwidth}
-$$f = \int_0^{G(f)V} p(t) dt$$
+\onslide<2->{$$f = \int_0^{G(f)V} p(t) dt$$}
 \begin{center}
-\only<1>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_0.png}}
-\only<2>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_1.png}}
-\only<3>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_2.png}}
-\only<4>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_3.png}}
-\only<5>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_4.png}}
-\only<6>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_5.png}}
-\only<7>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_6.png}}
-\only<8>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_7.png}}
-\only<9>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_8.png}}
-\only<10>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_9.png}}
+
+\only<2>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_0.png}}
+
+\only<3>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_1.png}}
+
+\only<4>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_2.png}}
+
+\only<5>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_3.png}}
+
+\only<6>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_4.png}}
+
+\only<7>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_5.png}}
+
+\only<8>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_6.png}}
+
+\only<9>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_7.png}}
+
+\only<10>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_8.png}}
+
+\only<11>{\includegraphics[width=0.8\textwidth]{SC_1D_ON100_expon_9.png}}
+
 \end{center}
 
 \end{columns}
 \end{frame}
+
+\begin{frame}
+\frametitle{Reduction to the ON/OFF Ratio}
+\onslide<1->{$$G(f)V = \frac{g_{on}g_{off}}{(g_{on} - f (g_{on} - g_{off}))}\frac{V}{N}\to \frac{1}{1 - f(1-\alpha)}\frac{g_{off}V}{N}\quad\alpha = \frac{g_{off}}{g_{on}}$$}
+\begin{center}
+
+\only<1>{\includegraphics[width=0.8\textwidth]{ONOFF_ratio_1.png}}
+
+\onslide<2->{\includegraphics[width=0.8\textwidth]{ONOFF_ratio_2.png}}
+
+\end{center}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Finding the transition}
@@ -233,13 +262,18 @@ $$f = \int_0^{G(f)V} p(t) dt,  \quad\quad 1 = p(G(f)V)G'(f)V \quad 0 \le f \le 1
 For Uniform(0,1),
 $f_c = \frac{1}{2(1-\alpha)}, \: V_c = \frac{TN}{4g_{off}(1-\alpha)},
  \: \alpha = \frac{g_{off}}{g_{on}}$
+
+\vspace{0.25in}
 \centering
-\includegraphics[width=\textwidth]{SC_1D_Uniform01.png}
+\includegraphics[width=1.1\textwidth]{SC_1D_Uniform01.png}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Finding the Transition}
 \centering
+$f_c = \frac{1}{2(1-\alpha)}, \: V_c = \frac{TN}{4g_{off}(1-\alpha)},
+ \: \alpha = \frac{g_{off}}{g_{on}}$
 \includegraphics[width=0.8\textwidth]{1D_Cond.png}
 
 \end{frame}
@@ -247,13 +281,14 @@ $f_c = \frac{1}{2(1-\alpha)}, \: V_c = \frac{TN}{4g_{off}(1-\alpha)},
 \begin{frame}
 \frametitle{Two-Dimensional Networks}
 \begin{center}
-\onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(\phi)}{\phi}}\frac{V}{\sqrt{N}} = h(\phi)v$$}
+\onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}} = h(f)v$$}
+\onslide<2->{$$G(f) = \frac{(2f-1)(g_{on}-g_{off}) + \sqrt{(2f-1)^2(g_{on}-g_{off})^2 + 4g_{on}g_{off}}}{2}$$}
 \includegraphics[width=0.8\textwidth]{MF_upper_limit.png}
 \end{center}
 
 \end{frame}
 \begin{frame}
-\frametitle{Back to 2D}
+\frametitle{Broad Critical Region}
 $p(t) = e^{-t}$
 \includegraphics[width=\textwidth]{2D_MF_expon.png}
 
@@ -263,16 +298,14 @@ $p(t) = e^{-t}$
 \frametitle{Avalanches}
 \begin{columns}
 \column{0.65\textwidth}
-\begin{itemize}
-\item<2-> Switching a memristor: $f\to f+\frac{1}{N}$
+\onslide<2->{Switching a memristor: $f\to f+\frac{1}{N}$}
 
-\item<3-> Increases current, $h(f)V\to h(f)V + \frac{h'(f)V}{N}$
+\onslide<3->{Increases current, $h(f)V\to h(f)V + \frac{h'(f)V}{N}$}
 
-\item<4-> $$\frac{\int_{h(f)V}^{h(f)V + \frac{h'(f)V}{N}} p(t) }{\int_{h(f)V}^{\infty} p(t)} \approx \frac{p(h(f)V)h'(f)V}{(1-f)N}$$
+\onslide<4->{$$\frac{\int_{h(f)V}^{h(f)V + \frac{h'(f)V}{N}} p(t) }{\int_{h(f)V}^{\infty} p(t)} \approx \frac{p(h(f)V)h'(f)V}{(1-f)N}$$}
 
-\item<5-> $$P(n) \to \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$
+\onslide<5->{$$P(n) \to \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$}
 
-\end{itemize}
 \column{0.33\textwidth}
 \onslide<1->{\includegraphics[width=\textwidth]{dist_init.png}}
 \onslide<4->{\includegraphics[width=\textwidth]{dist_first_switch.png}}
@@ -281,24 +314,56 @@ $p(t) = e^{-t}$
 
 \end{frame}
 
-
-
 \begin{frame}
 \frametitle{Branching Process with Poissonian Offspring}
 
+\begin{center}
+\only<1>{$$P(n) \to \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$
+\includegraphics[width=0.4\textwidth]{branch.png}}
+
+\only<2>{\includegraphics[width=\textwidth]{Avalanche_fullrun.png}}
+
+\only<3>{\includegraphics[width=\textwidth]{Avalanche_beginrun.png}}
+
+\only<4>{\includegraphics[width=\textwidth]{Diffusive.png}}
+
+\only<5>{\includegraphics[width=\textwidth]{SubCritical.png}}
+
+\only<6>{\includegraphics[width=\textwidth]{SuperCrit.png}}
+
+\end{center}
+
+\end{frame}
 
 
+\begin{frame}
+\frametitle{Avalanche Size Distribution}
+\onslide<1->{
+\centering
+\includegraphics[width=0.25\textwidth]{branch_Z.png}}
+\onslide<2->{$$Y_n = 1 + Z_1 + Z_2 + ...+Z_n$$}
+\onslide<3->{Generating Function $R_n(s)$
+$$R_1(s) = sP(s)$$}
+\onslide<4->{$$R_{n}(s) = sP(R_{n-1}(s))$$}
+\onslide<5->{$R_{n+1}(s) < R_{n}(s)$ suggests, $$\rho(s) = sP(\rho(s))$$}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Avalanche Size Distribution}
-\begin{itemize}
-\item<1-> Branching Process with poissonian offspring distribution
+\onslide<1->{$$s = \rho e^\mu e^{-\mu \rho}$$}
+\onslide<2->{$$\rho(s) = \sum_{n=1}^\infty s^n \frac{(\mu n)^{n-1}}{n!} e^{-\mu n}$$}
+\onslide<3->{Borel Distribution $E(X) = \frac{1}{1-\mu}$ $Var(X)=\frac{\mu}{(1-\mu)^3}$}
+
+
+\end{frame}
+
+\begin{frame}
+
+Branching Process with poissonian offspring distribution
 $$P(s) = \frac{(\mu s)^{s-1}}{s!} e^{-\mu(s-1)}$$
-\item As $\mu\to 1$ we approach a critical branching process and
+ As $\mu\to 1$ we approach a critical branching process and
 $$P(s) \sim s^{-3/2}$$
-\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -308,15 +373,17 @@ $$P(s) \sim s^{-3/2}$$
 \end{frame}
 
 \begin{frame}
-\frametitle{Next Steps}
+\frametitle{Future Work}
 \begin{columns}
 \column{0.5\textwidth}
 \begin{itemize}
 \item Phase Transitions in Current Controlled Networks
-\item Pattern Formation/Structure in Avalanching
+\item Thermal Effects in Networks of Memristors
+\item Connection to the Potts Model
 \end{itemize}
 \column{0.5\textwidth}
-\includegraphics[width=\textwidth]{Current_MF.png}
+\includegraphics[width=0.5\textwidth]{Current_MF.png}
+\includegraphics[width=0.5\textwidth]{ASN_jumps.png}
 
 \end{columns}
 \end{frame}
