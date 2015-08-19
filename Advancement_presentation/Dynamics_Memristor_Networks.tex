@@ -7,7 +7,7 @@
 \usetheme{Madrid}
 \AtBeginSection[]{}
 \setbeamerfont{footnote}{size=\tiny}
-\title{Phase Transitions and Scale Free Phenomena in Networks of Memristive Elements}
+\title{Phase Transitions in Networks of Memristive Elements}
 \author{Forrest Sheldon}
 \institute{UCSD}
 \date{August 7, 2015}
@@ -57,21 +57,21 @@
 \begin{frame}
 \frametitle{Memristive Networks}
 \begin{columns}
-
 \column{0.5\textwidth}
 \begin{center}
 \onslide<1->{\includegraphics[width=0.7\textwidth]{Crossbar.jpeg}\footnote[frame]{\url{http://spectrum.ieee.org/semiconductors/processors/how-we-found-the-missing-memristor/memrf1}}}
-\vspace{0.25in}
+\vspace{0.1in}
 
-\onslide<2->{\includegraphics[width=0.7\textwidth]{Associative_Memory.png}\footnote[frame]{D. Kuzum \emph{et al.} IEEE Trans. on Elec. Dev., \textbf{59}, 12 (2012)}}
+\onslide<4->{\includegraphics[width=0.4\textwidth]{UMM.png}\footnote[frame]{F. L. Traversa, M. Di Ventra, IEEE T Neural Networks and Learning Systems, \textbf{PP}, 90 (2015).}}
 
 \end{center}
 \column{0.5\textwidth}
 \begin{center}
-\onslide<3->{\includegraphics[width=0.5\textwidth]{Cell_Auto_Edge.png}\footnote[frame]{M. Itoh, L. O. Chua, Int.. J. Bifurcat. Chaos, \textbf{19}, 11 (2009).}}
-\vspace{0.25in}
+\onslide<2->{\includegraphics[width=0.6\textwidth]{Cell_Auto_Edge.png}\footnote[frame]{M. Itoh, L. O. Chua, Int.. J. Bifurcat. Chaos, \textbf{19}, 11 (2009).}}
+\vspace{0.2in}
 
-\onslide<4->{\includegraphics[width=0.7\textwidth]{Associative_Memory.png}\footnote[frame]{CITE}}
+\onslide<3->{\includegraphics[width=0.6\textwidth]{Associative_Memory.png}\footnote[frame]{D. Kuzum \emph{et al.} IEEE Trans. on Elec. Dev., \textbf{59}, 12 (2012)}}
+
 \end{center}
 \end{columns}
 \end{frame}
@@ -179,20 +179,22 @@
 
 \onslide<5->{$$P = \sum_i \sigma_i \frac{G(\phi)V^2}{\phi N}$$}
 
-
 \end{frame}
 
+
 \begin{frame}
-\frametitle{Mean-Field Theory}
+\frametitle{Self-Consistency Equation}
 
-\onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}} = h(f)v$$}
+\onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(\phi)}{\phi}}\frac{V}{\sqrt{N}} = h(\phi)v$$}
 \onslide<2->{Self-Consistency Equation,
-$$f = \int_0^{h(f)v} p(t) dt$$
-
-\begin{center}
-\includegraphics[width=0.8\textwidth]{MF_upper_limit.png}
-\end{center}
+$$\phi = g_{off} + (g_{on}-g_{off}) \int_0^{h(\phi)v} p(t) dt$$
 }
+\onslide<3->{$$f = \int_0^{h(f)v} p(t) dt$$
+\centering
+\includegraphics[width=0.4\textwidth]{dist_init.png}
+}
+
+
 \end{frame}
 
 \begin{frame}
@@ -202,7 +204,7 @@ $$f = \int_0^{h(f)v} p(t) dt$$
 
 \begin{columns}
 \column{0.5\textwidth}
-$$G(f) = \frac{g_{on}g_{off}}{N(g_{on} - f (g_{on} - g_{off}))}$$
+$$G(f)V = \frac{g_{on}g_{off}}{(g_{on} - f (g_{on} - g_{off}))}\frac{V}{N}$$
 \centering
 \includegraphics[width=\textwidth]{1D_Network_Cond.png}
 
@@ -243,6 +245,14 @@ $f_c = \frac{1}{2(1-\alpha)}, \: V_c = \frac{TN}{4g_{off}(1-\alpha)},
 \end{frame}
 
 \begin{frame}
+\frametitle{Two-Dimensional Networks}
+\begin{center}
+\onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(\phi)}{\phi}}\frac{V}{\sqrt{N}} = h(\phi)v$$}
+\includegraphics[width=0.8\textwidth]{MF_upper_limit.png}
+\end{center}
+
+\end{frame}
+\begin{frame}
 \frametitle{Back to 2D}
 $p(t) = e^{-t}$
 \includegraphics[width=\textwidth]{2D_MF_expon.png}
@@ -280,6 +290,7 @@ $p(t) = e^{-t}$
 
 
 \end{frame}
+
 \begin{frame}
 \frametitle{Avalanche Size Distribution}
 \begin{itemize}
