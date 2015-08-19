@@ -33,6 +33,7 @@
 \only<3>{\includegraphics[width=0.65\textwidth]{hysteresis_off.png}}
 
 \onslide<4->{\includegraphics[width=0.65\textwidth]{hysteresis_thresh.png}}
+
 \end{center}
 \column{0.5\textwidth}
 \centering
@@ -376,16 +377,40 @@ $$P(s) \sim s^{-3/2}$$
 \frametitle{Future Work}
 \begin{columns}
 \column{0.5\textwidth}
+\onslide<1->{\includegraphics[width=0.9\textwidth]{Current_MF.png}}
 \begin{itemize}
-\item Phase Transitions in Current Controlled Networks
-\item Thermal Effects in Networks of Memristors
-\item Connection to the Potts Model
+\item<1-> Phase Transitions in Current Controlled Networks
+\item<2-> Pattern Formation
+\item<3-> Thermal Effects in Networks of Memristors
 \end{itemize}
 \column{0.5\textwidth}
-\includegraphics[width=0.5\textwidth]{Current_MF.png}
-\includegraphics[width=0.5\textwidth]{ASN_jumps.png}
+\begin{center}
 
+\onslide<2->{\includegraphics[width=0.6\textwidth]{Cell_Aut_Serp.png}}
+
+\onslide<3->{\includegraphics[width=\textwidth]{ASN_Fluct.png}}
+
+\end{center}
 \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{SuperConducting Memristors\footnote[frame]{S. Peotta, M. Di Ventra, Phys. Rev. Applied \textbf{2}, 034011 (2014).}}
+
+\onslide<1->{Low Frequency Josephson Junction
+$$I = C\frac{dV}{dt} + G_L(1 + \epsilon \cos \gamma)V + I_c \sin \gamma + I_F (t)$$}
+\onslide<2->{
+\begin{center}
+Isolate with CA SQUID\\
+\includegraphics[width=0.25\textwidth]{CASQUID.png}
+$$I = G'_L (1 + \epsilon' \cos \gamma)V\quad \frac{d\gamma}{dt} = \frac{2e}{\hbar}V$$}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fluctuation Dissipation Relations for Memristive Elements}
+\onslide<1->{Noise Autocorrelation Function
+$$\langle I_F (t) I_F (t')\rangle = 2k_B TG'_L [1 + \epsilon ' \cos \gamma(t')]\delta(t - t')$$}
 \end{frame}
 
 \end{document}
