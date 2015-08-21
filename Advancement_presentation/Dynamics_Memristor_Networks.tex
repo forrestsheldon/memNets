@@ -10,7 +10,7 @@
 \title{Phase Transitions in Networks of Memristive Elements}
 \author{Forrest Sheldon}
 \institute{UCSD}
-\date{August 7, 2015}
+\date{August 21, 2015}
 \titlegraphic{\includegraphics[width=2.5cm]{gl-1-logo.png}}
 \begin{document}
 
@@ -173,7 +173,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Mean-Field Theory}
+\frametitle{Mean-Field Theory\footnote[frame]{S. Zapperi \emph{et al.} Phys. Rev. E \textbf{59}, 5049 (1999).}}
 
 \onslide<1->{$$P = \sum_i \sigma_i \Delta V_i^2$$}
 
@@ -181,7 +181,7 @@
 
 \onslide<3->{Effective Medium Theory, $G(\{\sigma_i\}) \approx G(f), \quad f = \frac{n_{on}}{N}$}
 
-\onslide<4->{$$\phi = \frac{\sum_i \sigma_i}{N} = \phi(f)\quad G(f) \to G(\phi)$$}
+\onslide<4->{$$\phi = \frac{\sum_i \sigma_i}{N} = g_{off} + f(g_{on} - g_{off})\quad G(f) \to G(\phi)$$}
 
 \onslide<5->{$$P = \sum_i \sigma_i \frac{G(\phi)V^2}{\phi N}$$}
 
@@ -192,13 +192,20 @@
 \frametitle{Self-Consistency Equation}
 
 \onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(\phi)}{\phi}}\frac{V}{\sqrt{N}} = h(\phi)v$$}
-\onslide<2->{Self-Consistency Equation,
+\onslide<2->{Average across network realizations,
+$$\langle\phi\rangle = g_{off} P(t>h(\phi)v) + g_{on} P(t< h(\phi)v)$$
+}
+\only<3>{
 $$\phi = g_{off} + (g_{on}-g_{off}) \int_0^{h(\phi)v} p(t) dt$$
 }
-\onslide<3->{$$f = \int_0^{h(f)v} p(t) dt$$
+\only<4->{
+$$f = \int_0^{h(f)v} p(t) dt$$
+}
+\onslide<3->{
 \centering
 \includegraphics[width=0.4\textwidth]{dist_init.png}
 }
+
 
 
 \end{frame}
@@ -260,7 +267,7 @@ $$G(f)V = \frac{g_{on}g_{off}}{(g_{on} - f (g_{on} - g_{off}))}\frac{V}{N}$$
 \frametitle{Finding the transition}
 First order phase transition:
 $$f = \int_0^{G(f)V} p(t) dt,  \quad\quad 1 = p(G(f)V)G'(f)V \quad 0 \le f \le 1$$
-For Uniform(0,1),
+For Uniform(0,T),
 $f_c = \frac{1}{2(1-\alpha)}, \: V_c = \frac{TN}{4g_{off}(1-\alpha)},
  \: \alpha = \frac{g_{off}}{g_{on}}$
 
@@ -284,36 +291,54 @@ $f_c = \frac{1}{2(1-\alpha)}, \: V_c = \frac{TN}{4g_{off}(1-\alpha)},
 \begin{center}
 \onslide<1->{$$\Delta V_{MF} = \sqrt{\frac{G(f)}{\phi(f)}}\frac{V}{\sqrt{N}} = h(f)v$$}
 \onslide<2->{$$G(f) = \frac{(2f-1)(g_{on}-g_{off}) + \sqrt{(2f-1)^2(g_{on}-g_{off})^2 + 4g_{on}g_{off}}}{2}$$}
-\includegraphics[width=0.8\textwidth]{MF_upper_limit.png}
+\onslide<3->{\includegraphics[width=0.8\textwidth]{MF_upper_limit.png}}
 \end{center}
 
 \end{frame}
-\begin{frame}
-\frametitle{Broad Critical Region}
-$p(t) = e^{-t}$
-\includegraphics[width=\textwidth]{2D_MF_expon.png}
 
+
+\begin{frame}
+\frametitle{ON/OFF ratio Induced Transition}
+$p(t) = e^{-t}$
+\begin{center}
+
+\includegraphics[width=\textwidth]{SC_2D_Exponential_set.png}
+\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Avalanches}
-\begin{columns}
-\column{0.65\textwidth}
-\onslide<2->{Switching a memristor: $f\to f+\frac{1}{N}$}
+\only<1>{\begin{center}
+\includegraphics[width=0.4\textwidth]{dist_init.png}
 
-\onslide<3->{Increases current, $h(f)V\to h(f)V + \frac{h'(f)V}{N}$}
+Switching a memristor: $f\to f+\frac{1}{N}$
+\end{center}
+}
+\only<2>{\begin{center}
+\includegraphics[width=0.4\textwidth]{dist_first_switch.png}
 
-\onslide<4->{$$\frac{\int_{h(f)V}^{h(f)V + \frac{h'(f)V}{N}} p(t) }{\int_{h(f)V}^{\infty} p(t)} \approx \frac{p(h(f)V)h'(f)V}{(1-f)N}$$}
+Changes the current, $h(f)V\to h(f)V + \frac{h'(f)V}{N}$
+\end{center}
+}
+\only<3>{\begin{center}
+\includegraphics[width=0.4\textwidth]{dist_first_switch.png}
+$$P(n) \to \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$
+\end{center}
+}
+\only<4>{\begin{center}
+\includegraphics[width=0.4\textwidth]{dist_2nd_switch.png}
+$$P(n) \to \frac{(3\mu)^n}{n!} e^{-3\mu}$$
+\end{center}
+}
+\only<5>{\begin{center}
+\includegraphics[width=0.4\textwidth]{dist_2nd_switch_separate.png}
+$$P(n=n_1+n_2+n_3) \to \frac{(\mu_1+\mu_2+\mu_3)^n}{n!} e^{-\mu_1+\mu_2+\mu_3}$$
+\end{center}
+}
 
-\onslide<5->{$$P(n) \to \frac{(\mu)^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v)h'(f)v$$}
-
-\column{0.33\textwidth}
-\onslide<1->{\includegraphics[width=\textwidth]{dist_init.png}}
-\onslide<4->{\includegraphics[width=\textwidth]{dist_first_switch.png}}
-\onslide<6->{\includegraphics[width=\textwidth]{dist_2nd_switch.png}}
-\end{columns}
 
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Branching Process with Poissonian Offspring}
@@ -342,34 +367,27 @@ $p(t) = e^{-t}$
 \onslide<1->{
 \centering
 \includegraphics[width=0.25\textwidth]{branch_Z.png}}
-\onslide<2->{$$Y_n = 1 + Z_1 + Z_2 + ...+Z_n$$}
-\onslide<3->{Generating Function $R_n(s)$
-$$R_1(s) = sP(s)$$}
-\onslide<4->{$$R_{n}(s) = sP(R_{n-1}(s))$$}
-\onslide<5->{$R_{n+1}(s) < R_{n}(s)$ suggests, $$\rho(s) = sP(\rho(s))$$}
+\onslide<2->{$$S = \lim_{n\to\infty} Y_n = 1 + Z_1 + Z_2 + ...+Z_n$$}
+\onslide<4->{$$\rho(z) = \sum_{s=1}^\infty z^s \frac{(\mu s)^{s-1}}{s!} e^{-\mu s}$$}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Avalanche Size Distribution}
-\onslide<1->{$$s = \rho e^\mu e^{-\mu \rho}$$}
-\onslide<2->{$$\rho(s) = \sum_{n=1}^\infty s^n \frac{(\mu n)^{n-1}}{n!} e^{-\mu n}$$}
-\onslide<3->{Borel Distribution $E(X) = \frac{1}{1-\mu}$ $Var(X)=\frac{\mu}{(1-\mu)^3}$}
-
+Borel Distribution, $P(s) = \frac{(\mu s)^{s-1}}{s!} e^{-\mu s}$ $s=1, 2, 3...$
+$$E(S) = \frac{1}{1-\mu}$$
+$$Var(S)=\frac{\mu}{(1-\mu)^3}$$
 
 \end{frame}
 
 \begin{frame}
-
-Branching Process with poissonian offspring distribution
-$$P(s) = \frac{(\mu s)^{s-1}}{s!} e^{-\mu(s-1)}$$
- As $\mu\to 1$ we approach a critical branching process and
-$$P(s) \sim s^{-3/2}$$
-\end{frame}
-
-\begin{frame}
-\frametitle{Avalanches in Random Resistor Networks}
-\includegraphics[width=0.8\textwidth]{Avalanches_p6.png}
+\frametitle{Avalanches on Randomly Dilute Lattice $p=0.6$}
+\onslide<1->{As $\mu\to 1$ we approach a critical branching process
+$$P(s) \sim s^{-3/2}$$}
+\onslide<2->{
+\centering
+\includegraphics[width=0.9\textwidth]{Avalanche_Lattice.png}
+}
 
 \end{frame}
 
@@ -381,7 +399,7 @@ $$P(s) \sim s^{-3/2}$$
 \begin{itemize}
 \item<1-> Phase Transitions in Current Controlled Networks
 \item<2-> Pattern Formation
-\item<3-> Thermal Effects in Networks of Memristors
+\item<3-> Including Thermal Effects
 \end{itemize}
 \column{0.5\textwidth}
 \begin{center}
@@ -395,7 +413,7 @@ $$P(s) \sim s^{-3/2}$$
 \end{frame}
 
 \begin{frame}
-\frametitle{SuperConducting Memristors\footnote[frame]{S. Peotta, M. Di Ventra, Phys. Rev. Applied \textbf{2}, 034011 (2014).}}
+\frametitle{Superconducting Memristors\footnote[frame]{S. Peotta, M. Di Ventra, Phys. Rev. Applied \textbf{2}, 034011 (2014).}}
 
 \onslide<1->{Low Frequency Josephson Junction
 $$I = C\frac{dV}{dt} + G_L(1 + \epsilon \cos \gamma)V + I_c \sin \gamma + I_F (t)$$}
@@ -411,6 +429,13 @@ $$I = G'_L (1 + \epsilon' \cos \gamma)V\quad \frac{d\gamma}{dt} = \frac{2e}{\hba
 \frametitle{Fluctuation Dissipation Relations for Memristive Elements}
 \onslide<1->{Noise Autocorrelation Function
 $$\langle I_F (t) I_F (t')\rangle = 2k_B TG'_L [1 + \epsilon ' \cos \gamma(t')]\delta(t - t')$$}
+\begin{itemize}
+\item<1->{General Memristive Form?}
+\item<2->{Link to Hydrodynamics and Spatial Correlations?}
+
+
+\end{itemize}
+
 \end{frame}
 
 \end{document}
