@@ -105,13 +105,13 @@ The impending limits of our current computational paradigm have galvanized
 interest in alternative forms of computation. Of particular interest to the
 authors are attempts to address the von Neumann Bottleneck \cite{Backus1978}
 whereby increases in processor speed are muted by the necessity of
-shuffling data and addresses back and forth between the processor and memory.
+shuttling data and addresses back and forth between the processor and memory.
 This necessity of the von Neumann architecture suggests a solution in which
 computation is performed directly in memory.  Physically coupled memory units
-that dynamically were driven into the solution of a computational problem
+whose dynamics drive the system to the solution of a computational problem
 would conceivably circumvent this problem (or at least translate it into the
-problem of transmitting information across it's extent) but the realization
-of such an architecture is a foreboding problem.
+problem of transmitting information across the system's extent) but the
+realization of such an architecture is a foreboding problem.
 
 In this however, we are buoyed by the fact that the nervous system seems to
 compute in just this manner; we perceive no separate logical and memory
@@ -121,8 +121,28 @@ in the strength of synaptic coupling between neurons and by the neuronal
 dynamics, the synaptic couplings are modified and computation is performed.
 The desire to mimic these properties in hardware is an active field of
 research in which memristors have begun to play a significant role.  
-memristor based associative memories, neural networks, cellular automata,
-and many other paradigms are being explored as ways of realizing 
+Memristor based associative memories \cite{Pershin2010, Eryilmaz2014},
+ neural networks, cellular automata,
+and other architectures are being explored as ways of realizing some
+of the computational abilities of biological neural systems
+\textit{in silico}.
+
+In most of these, some abstracted model/element of
+neural computation is adopted, such as the hopfield network or the
+perceptron, and these are then linked together to form a circuit which
+performs the desired function.  This design philosophy is termed 'bottom-up',
+where neuromorphic circuits are engineered from the simplest components
+upwards to accomplish some function.  The resulting circuits however, do not
+much resemble biological neural networks in which disorder and noise are
+prevalent.  A complementary approach to neuromorphic engineering is 'top-down'
+design, in which systems that duplicate the gross features neural tissue
+are constructed and their dynamics used to perform computation.  Reservoir
+computing is an example of this philosophy in which a complex dynamical
+system is used to classify inputs without detailed knowledge of the system's
+structure.  The presence of disorder and robustness to noise in the brain
+suggest a statistical character to the brain's function, at least at small
+scales.  We put forth that one of the hopes of 'top-down' neuromorphic
+engineering should be to 
 
 The impending limits of our current computational paradigm have galvanized
 interest in alternative forms of computation. As transistor densities have
@@ -265,7 +285,7 @@ densely interconnected network of wires
 %\end{acknowledgments}
 
 % Create the reference section using BibTeX:
-\bibliography{/home/fsheldon/Documents/BibTeX/Advancement_PT_Memnets}
+\bibliography{/home/forrest/Documents/BibTeX/Advancement_PT_Memnets}
 
 \end{document}
 %
