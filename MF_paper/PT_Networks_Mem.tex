@@ -98,9 +98,6 @@
 
 \section{INTRODUCTION}
 
-Memristors are two terminal passive devices that display pinched hysteresis
-in their I-V curve.  
-
 The impending limits of our current computational paradigm have galvanized
 interest in alternative forms of computation. Of particular interest to the
 authors are attempts to address the von Neumann Bottleneck \cite{Backus1978}
@@ -108,8 +105,8 @@ whereby increases in processor speed are muted by the necessity of
 shuttling data and addresses back and forth between the processor and memory.
 This necessity of the von Neumann architecture suggests a solution in which
 computation is performed directly in memory.  Physically coupled memory units
-whose dynamics drive the system to the solution of a computational problem
-would conceivably circumvent this problem (or at least translate it into the
+whose dynamics drive the system to the solution of problem
+would conceivably circumvent this (or at least translate it into the
 problem of transmitting information across the system's extent) but the
 realization of such an architecture is a foreboding problem.
 
@@ -128,18 +125,69 @@ of the computational abilities of biological neural systems
 \textit{in silico}.
 
 In most of these, some abstracted model/element of
-neural computation is adopted, such as the hopfield network or the
-perceptron, and these are then linked together to form a circuit which
+biological neural computation is adopted, such as the hopfield network or the
+perceptron, and these are then to form a circuit which
 performs the desired function.  This design philosophy is termed 'bottom-up',
 where neuromorphic circuits are engineered from the simplest components
 upwards to accomplish some function.  The resulting circuits however, do not
 much resemble biological neural networks in which disorder and noise are
 prevalent.  A complementary approach to neuromorphic engineering is 'top-down'
-design, in which systems that duplicate the gross features neural tissue
-are constructed and their dynamics used to perform computation.  Reservoir
-computing is an example of this philosophy in which a complex dynamical
-system is used to classify inputs without detailed knowledge of the system's
-structure.
+design, in which systems that duplicate the gross features of neural tissue
+are constructed and their dynamics studied to understand the role of these
+features in creating interesting behaviors.  We can view this as a physical
+analogy to studies of cellular automata. In these, sets of rules were examined
+to determine what dynamics they produced and whether those dynamics could
+support computation.\cite{Langton1990}  We instead examine the dynamics of
+physical systems and search for phenomena that may support computation.
+
+While it may seem that this leaves 'top-down' design overly open-ended, the
+challenge of fabricating electrical systems with complex, disordered
+architecture and interesting dynamics leaves few viable options.  Recently, by
+utilizing a growth process, Gimzewskii et al. were able to complex networks
+of silver wires from solution.  After exposure to sulfur gas, junctions
+between silver formations formed atomic switches, capable of bipolar resistive
+switching and duplicating many of the behaviors of biological synapses.  They
+have proposed this as a minimal hardware implementation neuropil, the
+synaptically dense areas of the brain populated by unmyelinated axons.
+Experiment has shown a variety of resistive switching and fluctuation
+behaviors which may be of interest.  Following the analogy with cellular
+automata, we focus on the potential for phase transitions in these systems,
+near which their computational capacity may be maximal.  As the experimental
+networks are subjected to an AC voltage, a sharp transition occurs between
+the insulating and conducting states of the network, causing it to act
+globally as a memristor.  This effect has also been shown in simulations of
+small memristor networks in which a conducting backbone is formed through
+the system.  We construct a mean field theory to describe the resistive
+switching of the network and show a transition in the $ON/OFF$ ratio of
+the memristors, below which no transition occurs.  The mean-field theory
+also supplies a dynamical description of the system.  Using this, we examine
+avalanches which occur in the course of the transition.  These are compared
+to avalanches observed in neuronal cultures and used to derive distributions
+of conductance jumps which serves as an analog of magnetic Barkhausen noise
+in a conductive system undergoing memristive switching.
+
+In order to highlight the general features of such networks, we take as
+a concrete example the Atomic Switch Networks of Stieg et al. CITE.
+
+
+\section{ATOMIC SWITCH NETWORKS}
+
+In order to achieve a complex disordered network architecture, the
+authors use an electroless deposition process in which solution phase
+$Ag^+$ exchanges with solid $Cu$.  By seeding an area with $Cu$ 
+microspheres or seed posts, the depositing $Ag$ is led to form a
+densely interconnected network of wires
+
+\section{MODEL \& METHODS}
+
+
+\section{SIMULATIONS}
+
+
+\section{MEAN-FIELD THEORY}
+
+
+\section{DISCUSSION}
 
 
 Until recently, realizing systems with complex architecture
@@ -195,27 +243,6 @@ and noise play a strong role in the nervous system, we suspect a statistical
 character to the dynamics and as such we investigate the statistical
 dynamics of 
 
-In order to highlight the general features of such networks, we take as
-a concrete example the Atomic Switch Networks of Stieg et al. CITE.
-
-\section{ATOMIC SWITCH NETWORKS}
-
-In order to achieve a complex disordered network architecture, the
-authors use an electroless deposition process in which solution phase
-$Ag^+$ exchanges with solid $Cu$.  By seeding an area with $Cu$ 
-microspheres or seed posts, the depositing $Ag$ is led to form a
-densely interconnected network of wires
-
-\section{MODEL \& METHODS}
-
-
-\section{SIMULATIONS}
-
-
-\section{MEAN-FIELD THEORY}
-
-
-\section{DISCUSSION}
 
 
 % If in two-column mode, this environment will change to single-column
