@@ -127,11 +127,11 @@ of the computational abilities of biological neural systems
 In most of these, some abstracted model/element of
 biological neural computation is adopted, such as the hopfield network or the
 perceptron, and these are then constructed to form a circuit which
-performs the desired function.  This design philosophy is termed 'bottom-up',
-where neuromorphic circuits are engineered from the simplest components
-upwards to accomplish some function.  The resulting circuits however, do not
+performs the desired function.  This design philosophy is termed 'top-down',
+where neuromorphic circuits are engineered to accomplish some specific 
+function.  The resulting circuits however, do not
 much resemble biological neural networks in which disorder and noise are
-prevalent.  A complementary approach to neuromorphic engineering is 'top-down'
+prevalent.  A complementary approach to neuromorphic engineering is 'bottom-up'
 design, in which systems that duplicate the gross features of neural tissue
 are constructed and their dynamics studied to understand the role of these
 features in creating interesting behaviors.  We can view this as a physical
@@ -143,8 +143,10 @@ physical systems and search for phenomena that may support computation.
 While it may seem that this leaves 'top-down' design overly open-ended, the
 challenge of fabricating electrical systems with complex, disordered
 architecture and interesting dynamics leaves few viable options.  Recently, by
-utilizing a growth process, Gimzewskii et al. were able to complex networks
-of silver wires from solution.  After exposure to sulfur gas, junctions
+utilizing a growth process, Gimzewskii et al. were able to construct
+complex networks
+of silver wires that self-assembed from  solution.  After exposure to sulfur
+gas, junctions
 between silver formations formed atomic switches, capable of bipolar resistive
 switching and duplicating many of the behaviors of biological synapses.  They
 have proposed this as a minimal hardware implementation neuropil, the
@@ -174,19 +176,53 @@ a concrete example the Atomic Switch Networks of Stieg et al. CITE.
 
 $Ag | Ag_2 S | Ag$ gapless atomic switches consist of an insulating layer
 of silver sulfide sandwiched between two silver electrodes.  As a voltage is
-applied, the silver sulfide crystal undergoes a phase transition from FIND AND
-CITE to SOMETHING in which the diffusivity of silver through the crystal
-increases dramatically.  As silver ions drift from anode to cathode and
-deposit, a filament structure is formed and with it comes an increase
-in the conductivity of the junction.  The long timescales associated with
-the thermal rearrangement of these ions in the crystal is what gives rise to
-the junction's memristance.  
+applied, the silver sulfide crystal undergoes a phase transition from
+monoclinic acanthite to body centered argentite in which the diffusivity of
+silver through the crystal increases dramatically.  As silver ions drift
+from anode to cathode and deposit, a filament structure is formed, eventually
+bridging the insulator \cite{Xu2010}. As the filament grows, the
+tunneling gap shrinks and there is an eventual transition from tunneling
+to ballistic conductance as the filament completes
+\cite{Hasegawa2010, Sun2014}. Competition between the transport induced
+filament growth and it's thermal fluctuation induced dissolution allow the
+atomic switch to display learning abilities analogous to an organic synapse:
+short current pulses through an incomplete filament will change the tunneling
+gap, but these changes to the conductivity will be erased over short timescales
+by thermal fluctuations, giving a short term memory behavior to the junction.
+Longer current pulses will complete the filament, lengthening the timescales
+for thermal dissolution and thus displaying a nonvolatile long term memory
+\cite{Hasegawa2010, Ohno2011}.
 
-In order to achieve a complex disordered network architecture, the
-authors use an electroless deposition process in which solution phase
-$Ag^+$ exchanges with solid $Cu$.  By seeding an area with $Cu$ 
+$Ag_2 S$ atomic switches display bipolar resistive switching, meaning that
+a resistance change can be reversed by reversing the polarity of the voltage.
+This requires that the devices themselves are polar and typically this
+polarity is imposed by the metallic configuration; devices are of the form
+$Ag|Ag_2 S|W$ where $W$ is some inert metal that does not diffuse readily into
+the crystal.  $Ag|Ag_2 S| Ag$ atomic switches are physically symmetric, yet
+display the same bipolar switching.  We infer that their polarity is imposed
+by the
+'functionalization' step.  Gapless atomic switches require a forming step
+to show bipolar resistive switching.  Voltage is applied from the $Ag$ side,
+causing the formation of a stable filament across the crystal.  When the
+voltage is reversed, the thinnest part of this filament undergoes a 
+joule-heating assisted dissolution \cite{Hasegawa2012} and this smaller
+junction in the filament is where subsequent switching will occur.  The device
+thus has the additional asymmetry of the filament formation.  While we have
+not seen this effect explored in detail in $Ag|Ag_2 S |Ag$ atomic switches,
+we believe this to be a reasonable explanation for their induced polarity.
+
+In order to achieve a complex disordered network architecture, Gimzewskii et
+al. used an electroless deposition process in which solution phase $Ag^+$
+exchanges with solid $Cu$.  By seeding an area with $Cu$ 
 microspheres or seed posts, the depositing $Ag$ is led to form a
-densely interconnected network of wires
+densely interconnected network of wires through diffusion-limited aggregation.
+The structure of this network can be controlled through the copper
+seeding and the concentration of the silver solution \cite{Avizienis2013},
+but many dynamical behaviors appear to be present across different network
+structures FIND CITATION.  Exposure of the resulting networks to sulfur gas
+led to the formation of $Ag|Ag_2 S|Ag$ junctions throughout the network with
+a density of $10^9$ switches/cm$^2$.  In order to functionalize the switches
+throughout the network, 
 
 \section{MODEL \& METHODS}
 
@@ -334,8 +370,8 @@ dynamics of
 %\end{acknowledgments}
 
 % Create the reference section using BibTeX:
-%\bibliography{/home/forrest/Documents/BibTeX/Advancement_PT_Memnets}
-\bibliography{/home/fsheldon/Documents/BibTeX/Advancement_PT_Memnets}
+\bibliography{/home/forrest/Documents/BibTeX/Advancement_PT_Memnets}
+%\bibliography{/home/fsheldon/Documents/BibTeX/Advancement_PT_Memnets}
 
 \end{document}
 %
