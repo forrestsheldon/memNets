@@ -288,7 +288,8 @@ the boundaries,
 where $G(\{\sigma_i\})$ is some function of the conductivity of each element
 (for example their sum if all elements are connected in parallel). While we
 do not in general know this function, we can obtain an approximate form
-from effective medium theory $G_{eff}(f)$ (See SI) as a function of the fraction of
+from effective medium theory $G_{eff}(f)$ (See Supplemental Material) as a
+function of the fraction of
 elements in the conducting state $f = n_{on}/N_{total}$. We can simply
 exchange this for a dependence on the average
 \(\phi = g_{off} + f(g_{on} - g_{off})\) to obtain
@@ -297,9 +298,37 @@ this yields
 \[P = \sum_i \sigma_i \frac{G_{eff}(\phi)V^2}{\phi N}.\]
 Thus, in the mean field theory, every element in the network is subject to
 the same mean field voltage drop
-\[\Delta V_{MF} = \sqrt{\frac{G_{eff}(\phi)}{\phi}}\frac{V}{\sqrt{N}} = h(\phi) v.\]
-This expression, to be discussed shortly, contains most of the physics of
-the mean field theory.
+\[\Delta V_{MF} = \sqrt{\frac{G_{eff}(\phi)}{\phi}}\frac{V}{\sqrt{N}}
+= h(\phi) v.\]
+We recognize $v=V/\sqrt{N}$ as the applied local field.  The function
+$h(\phi)$ determines what fraction of the applied field each element
+experiences at the mean field level.  In particular, if $h(f)$ is decreasing,
+switching an element at a fixed voltage decreases $\Delta V_{MF}$ and
+thus cannot cause other elements to switch.  If it is increasing, the
+increased mean field voltage may cause other elements whose threshold have
+been crossed to trip and precipitate an avalanche. From effective medium
+theory,
+\[G(f) = \frac{(2f-1)(g_{on} - g_{off}) + \sqrt{(2f-1)^2
+(g_{on} - g_{off})^2+ 4g_{on}g_{off}}}{2}.\]
+Using this to plot $h(f) = \sqrt{G(f)/\phi(f)}$ FIGURE we note both decreasing
+and increasing intervals.  According to the mean field theory, this is due
+to competition between $G(f)$, the network conductivity and $\phi(f)$ the
+average conductivity of an element.  In regions where $\phi(f)$ is increasing
+more quickly than $G(f)$, individual elements that switch are concentrating
+current faster
+than the network can increase the current at the boundaries, decreasing the
+current through unswitched elements.  When $G(f)$ begins increasing more
+quickly than $\phi(f)$, current is being drawn in at the boundaries faster
+than it can be concentrated by switched elements and $\Delta V_{MF}$ increases,
+allowing for avalanches and phase transitions. Here we see that our choice of
+a voltage controlled network was not arbitrary.  A current controlled network
+gives $h(f) = \frac{1}{\sqrt{G(f)\phi(f)}}$ which is decreasing for all $f$
+as without
+drawing more current at the boundaries, switching elements will always
+concentrate current away from others. This analysis ignores the effects of
+neighboring memristive elements however, and concentrating current may also
+cause avalanches but only due to this spatial interaction.  We will return
+to this point in the discussion.
 
 In order to form a self consistency equation, we consider an arbirary element,
 $\sigma_i$ with threshold $t_i$.  If the mean field voltage exceeds this
@@ -309,9 +338,23 @@ elements in the network, the average will thus be,
 g_{off} P(t> \Delta V_{MF}.\]
 This is conveniently recast in terms of $f$, and using the distribution
 $p(t)$ as
-\[f = \int_0^{h(f) v} p(t) dt\]
+\begin{equation}\label{selfconsist}
+f = \int_0^{h(f) v} p(t) dt
+\end{equation}
 which may be read as 'the fraction of elements that have switched is the
-fraction whose threshold is less than the mean field voltage.'
+fraction whose threshold is less than the mean field voltage.' Here we can
+note that, as opposed to the Random Field Ising Model, the dynamics of the
+mean field theory will be independent of the scale of $p(t)$.  Because the
+applied field enters multiplicatively, rescaling $t$ results in a factor that
+is absorbed into $v$ such that we will see the same switching dynamics but
+at a stretched voltage scale. The LHS and
+RHS are plotted for several values of the voltage in Figure FIGURE.  For
+the chosen distribution and ON/OFF ratio a transition is evident at the
+point
+\begin{equation}\label{PT_eqn}
+1 = p'(h(f)v)h'(f)v \quad 0\le f\le 1.
+\end{equation}
+If a particular disorder distribution and ON/OFF ratio
 
 \section{DISCUSSION}
 
@@ -450,8 +493,8 @@ dynamics of
 %\end{acknowledgments}
 
 % Create the reference section using BibTeX:
-\bibliography{/home/forrest/Documents/BibTeX/Advancement_PT_Memnets}
-%\bibliography{/home/fsheldon/Documents/BibTeX/Advancement_PT_Memnets}
+%\bibliography{/home/forrest/Documents/BibTeX/Advancement_PT_Memnets}
+\bibliography{/home/fsheldon/Documents/BibTeX/Advancement_PT_Memnets}
 
 \end{document}
 %
