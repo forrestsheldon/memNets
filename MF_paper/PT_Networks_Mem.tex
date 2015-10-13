@@ -221,17 +221,97 @@ seeding and the concentration of the silver solution \cite{Avizienis2013},
 but many dynamical behaviors appear to be present across different network
 structures FIND CITATION.  Exposure of the resulting networks to sulfur gas
 led to the formation of $Ag|Ag_2 S|Ag$ junctions throughout the network with
-a density of $10^9$ switches/cm$^2$.  In order to functionalize the switches
-throughout the network, 
+a density of $10^9$ switches/cm$^2$.  In order to functionalize the switches,
+voltage sweeps are applied across the network until a sharp increase
+in conductivity is observed.  After this, the network displays pinched
+hystesis with an ON/OFF ration of $10^3$.
 
 \section{MODEL \& METHODS}
+
+We consider a memristive network under an adiabatically swept voltage (by
+which we
+mean that the timescale of voltage changes is much longer than the timescale
+for an individual memristor to switch) and focus on the network transition
+to it's conductive state.  For ideal memristors, any current
+flowing through the network would eventually cause elements to progress to
+their conducting state.  However, in the presence of a threshold the
+conductivity will remain constant until the largest voltage drop in the
+network has crossed it's threshold and it's conductivity begins to increase.
+Increasing the
+element's conductivity draws more current, both by diverting it from nearby
+elements, and by increasing the conductivity of the network and drawing more
+current at the boundaries.  This accelerates the switching process and causes
+the element to switch to it's 'ON' or conductive state.  This switching
+process,
+through the two avenues just mentioned, increases the current through other
+elements in the network and may lead to avalanches of memristive elements
+switching from their 'OFF' insulating state to their 'ON' conducting state. 
+The role of the structural disorder in the network is to induce a voltage
+distribution across the elements which leads to their switching order. We also
+expect the thresholds in a physical network to show some disorder due to
+variations in the size of the elements. The switching order will be decided by some
+combination of these, for example the ratio of the threshold voltage to the
+voltage drop of each element.  This interplay of disorders allows us to
+simplify our model by absorbing all contributing disorders into a single
+distribution for the effective threshold of an element.  This assumption 
 
 
 \section{SIMULATIONS}
 
+Simulations were carried out for $p(t) = Uniform(0, 1)$ and a variety of
+ON/OFF ratios. The network conductivities as a function of applied voltage
+are displayed in Figure FIGURE. The lattice size is chosen so that the
+network conductivity varies between $g_{off}$ and $g_{on}$ and has been
+rescaled to accomodate the various plots.  We see that for small values
+of $g_{on}/g_{off}$ the conductance is a smooth function of the voltage.
+As we increase the ratio a discontinuity forms that at first appears
+continuous, but as we increase the ratio further a jump in the
+conductivity becomes evident, indicating a first order
+phase transition. In the following we construct a mean field theory to
+characterize this transition and from it clarify the roles of the disorder and
+ON/OFF ratio.
 
 \section{MEAN-FIELD THEORY}
 
+Following the method of Zapperi et al. \cite{Zapperi1999} used in analyzing
+random fuse networks,
+we begin with the power dissipated by the network,
+\[P = \sum_i \sigma_i \Delta V_i^2\]
+where the sum runs over all elements in the network, $\sigma_i$ is the 
+conductivity of element $i$  and the $\Delta V_i$ are assigned by minimizing
+the total power dissipated by the network for given boundary conditions.
+In order to construct a mean field theory, we aim to write the $\Delta V_i$ as
+some function of the average conductivity $\phi = \frac{\sum_i \sigma_i}{N}$.
+In this interest we  write the power dissipated in terms of the voltage at
+the boundaries,
+\[P = G(\{\sigma_i\}) V^2\]
+where $G(\{\sigma_i\})$ is some function of the conductivity of each element
+(for example their sum if all elements are connected in parallel). While we
+do not in general know this function, we can obtain an approximate form
+from effective medium theory $G_{eff}(f)$ (See SI) as a function of the fraction of
+elements in the conducting state $f = n_{on}/N_{total}$. We can simply
+exchange this for a dependence on the average
+\(\phi = g_{off} + f(g_{on} - g_{off})\) to obtain
+$P = G_{eff}(\phi) V^2$. Inserting factors of $\phi$ and pulling out the sum,
+this yields
+\[P = \sum_i \sigma_i \frac{G_{eff}(\phi)V^2}{\phi N}.\]
+Thus, in the mean field theory, every element in the network is subject to
+the same mean field voltage drop
+\[\Delta V_{MF} = \sqrt{\frac{G_{eff}(\phi)}{\phi}}\frac{V}{\sqrt{N}} = h(\phi) v.\]
+This expression, to be discussed shortly, contains most of the physics of
+the mean field theory.
+
+In order to form a self consistency equation, we consider an arbirary element,
+$\sigma_i$ with threshold $t_i$.  If the mean field voltage exceeds this
+threshold, $sigma_i = g_{on}$. If not, it remains in it's OFF state. Across
+elements in the network, the average will thus be,
+\[\langle \sigma \rangle = g_{on} P(t < \Delta V_{MF}) + 
+g_{off} P(t> \Delta V_{MF}.\]
+This is conveniently recast in terms of $f$, and using the distribution
+$p(t)$ as
+\[f = \int_0^{h(f) v} p(t) dt\]
+which may be read as 'the fraction of elements that have switched is the
+fraction whose threshold is less than the mean field voltage.'
 
 \section{DISCUSSION}
 
