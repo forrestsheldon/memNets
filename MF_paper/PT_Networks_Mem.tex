@@ -273,7 +273,9 @@ ON/OFF ratio.
 
 \section{MEAN-FIELD THEORY}
 
-Following the method of Zapperi et al. \cite{Zapperi1999} used in analyzing
+Including disorder in a mean field theory, we arrive at a self consistency
+equation similar to that of the Random Field Ising Model (RFIM) but with a
+more complexFollowing the method of Zapperi et al. \cite{Zapperi1999} used in analyzing
 random fuse networks,
 we begin with the power dissipated by the network,
 \[P = \sum_i \sigma_i \Delta V_i^2\]
@@ -341,12 +343,11 @@ $p(t)$ as
 \begin{equation}\label{selfconsist}
 f = \int_0^{h(f) v} p(t) dt
 \end{equation}
-which may be read as 'the fraction of elements that have switched is the
-fraction whose threshold is less than the mean field voltage.' Here we can
-note that, as opposed to the Random Field Ising Model, the dynamics of the
+Here we can note that, as opposed to the Random Field Ising Model, the
+dynamics of the
 mean field theory will be independent of the scale of $p(t)$.  Because the
 applied field enters multiplicatively, rescaling $t$ results in a factor that
-is absorbed into $v$ such that we will see the same switching dynamics but
+is absorbed into $v$ such that we will see the same switching behavior but
 at a stretched voltage scale. The LHS and
 RHS are plotted for several values of the voltage in Figure FIGURE.  For
 the chosen distribution and ON/OFF ratio a transition is evident at the
@@ -354,7 +355,9 @@ point
 \begin{equation}\label{PT_eqn}
 1 = p'(h(f)v)h'(f)v \quad 0\le f\le 1.
 \end{equation}
-If a particular disorder distribution and ON/OFF ratio
+If a particular disorder distribution and ON/OFF ratio allows for the
+simultaneous solution of \ref{selfconsist} and \ref{PT_eqn}, the mean-field
+theory demonstrates a phase transition.
 
 \section{DISCUSSION}
 
