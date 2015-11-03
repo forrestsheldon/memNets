@@ -78,6 +78,20 @@
 
 \begin{abstract}
 % insert abstract here
+The memory features of memristive elements, analogous to those in biological
+synapses have spurred the development of neuromorphic systems based on them.
+In turn, this requires a fundamental understanding of the collective
+dynamics of networks of memristive elements.  Here, we study an experimentally
+inspired model of disordered memristive networks in the limit of a slowly
+ramped voltage and show through simulations that these networks undergo a
+first-order phase transition in the conductivity for sufficiently high
+values of memory as quantified by the memristive ON/OFF ratio. We also
+provide a mean-field theory that reproduces many features of the transition
+and particularly examine the role of boundary conditions in current- vs.
+voltage-controlled networks.  The dynamics of the mean-field theory suggests
+a distribution of conductance jumps that may be accessible experimentally.  We
+finally discuss the ability of these networks to support massively
+parallel computatation.
 \end{abstract}
 
 % insert suggested PACS numbers in braces on next line
@@ -98,11 +112,106 @@
 
 \section{INTRODUCTION}
 
+While devices and materials that display resistive switching have been known
+since the 60s, interest has surged recently with the realization that their
+dynamics can support computation both as logical and memory components.
+Initially, much of this interest focused on the memristor, an ideal
+resistive switching device characterized by Chua whose resistance depends
+only on the past
+history of the current.  Recently, the wider class of memristive elements, whose
+resistance can depend on other state variables and with more complex
+dependencies, has begun to see attention, especially in the field of
+neuromorphic computing.  Of particular note is the tendency of some memristive
+elements to display a history dependent decay constant, allowing a transition
+between a volatile and non-volatile regime of memory.  The resulting dynamics
+bear a resemblance to the short-term and long-term potentiation observed in
+biological synapses and thought to be of central importance to learning and
+plasticity in the brain.  This resemblance has begun to inpsire experimental
+systems that seek to combine the memory features of biological synapses with
+the structural complexity of neural tissue.
+
+Until recently, fabricating structures with a complex, disordered architecture
+similar to that seen in the nervous system was an unmet challenge.  By
+utilizing a growth process, Gimzewski et al. succeeded in producing a material
+that appoximates this structure with a high density of inorganic synapses
+($\approx 10^9 /cm^2$) in the form of memristive $Ag|Ag_2 S|Ag$ atomic
+ switches.  $Ag$ depositing from solution forms complex structures through a
+diffusion-limited aggregation-like growth process.  After these have formed
+an inteconnected netwok, exposure to sulfur gas forms insulating junctions
+of $Ag_2 S$ throughout the network capable of bipolar memristive switching.
+It is hoped that through the interplay of the synaptic dynamics and complex
+structure, these biomimetic chips might show emergent behaviors useful to
+neuromorphic systems or relevant to brain function.
+
+Additionally, memristive elements are being actively researched as medium for
+non-von Neumann computers to address the von Neumann Bottleneck
+\cite{Backus1978} whereby increases in processor speed are muted by the
+necessity of shuttling data and addresses back and forth between the
+processor and memory.  In these devices, networks of memristive elements
+dynamically organize to seek solutions of computational problems, thereby
+performing the computation directly in the memory and avoiding the separation
+between logical and memory units that leads to the bottleneck.  Understanding
+the capabilities of these computers will require an undestanding of memristive
+dynamics in networks.
+
+Theoretical investigations of one-dimensional networks have shown the
+capability for complex temporal dynamics and scale-invariant properties but
+have not clarified if or how collective behaviors might arise.  In
+two-dimensions, theoretical work has been limited to simulations or memristor
+models in relatively small networks but these have duplicated several features
+seen in the experimental systems produced by Gimzewski.  An analytical
+description is still lacking and to address this we propose a simplified model
+for disordered memristor networks inspired by the experiments of Gimzewski.
+Through simulations we show that this model experiences a first order phase
+transition in the conductivity in the limit of a slowly ramped voltage for
+sufficiently large values of the memory as quantified by the memristive ON/OFF
+ratio.  We find that this behavior is well described by a mean field theory
+similar to that of the zero-temperature random-field Ising model (RFIM).
+Though a judicious choice of boundary conditions, the mean-field theory
+demonstrates several regimes of behavior observed in simulations and is
+capable of showing bipolar switching (a phase transition from OFF to ON and
+ON to OFF).  The dynamics implied by the mean-field theory demonstrate
+avalanches similar to those observed in neuronal cultures and these lead
+to a distribution of conductance jumps which may be accessible experimentally.
+We conclude by discussing the implications these results have on device design
+for supporting massively-parallel computation where an important design
+goal is maximizing the number of accessible internal states.
+
+
+\section{MODEL}
+
+$Ag | Ag_2 S | Ag$ gapless atomic switches consist of an insulating layer
+of silver sulfide between two silver electrodes.  As a voltage is
+applied, the silver sulfide crystal undergoes a phase transition from
+monoclinic acanthite to body centered argentite in which the diffusivity of
+silver through the crystal increases dramatically.  As silver ions drift
+from anode to cathode and deposit, a filament structure is formed, eventually
+bridging the insulator \cite{Xu2010}. As the filament grows, the
+tunneling gap shrinks and there is an eventual transition from tunneling
+to ballistic conductance as the filament completes
+\cite{Hasegawa2010, Sun2014}. Competition between the transport induced
+filament growth and it's thermal fluctuation induced dissolution allow the
+atomic switch to display learning abilities analogous to an organic synapse:
+short current pulses through an incomplete filament will change the tunneling
+gap, but these changes to the conductivity will be erased over short timescales
+by thermal fluctuations, giving a short term memory behavior to the junction.
+Longer current pulses will complete the filament, lengthening the timescales
+for thermal dissolution and thus displaying a nonvolatile long term memory
+\cite{Hasegawa2010, Ohno2011}.
+
+From this we note that the insulating OFF phase is thermodynamically favored
+and so devices may be assumed to be initially OFF, the conductance of
+individual junctions is not necessarily a linear function of filament length
+and may increase sharply across some short range (this seems to be supported
+by fluctuations in experimental networks in which the conductance of the
+jumps sharply, indicating similar behavior for junctions within), and that
+there is a threshold below which thermal fluctuations dominate and filament
+growth will not occur but above which the devices will proceed to a
+a conducting state.
+
 The impending limits of our current computational paradigm have galvanized
 interest in alternative forms of computation. Of particular interest to the
-authors are attempts to address the von Neumann Bottleneck \cite{Backus1978}
-whereby increases in processor speed are muted by the necessity of
-shuttling data and addresses back and forth between the processor and memory.
+authors are attempts to address the 
 This necessity of the von Neumann architecture suggests a solution in which
 computation is performed directly in memory.  Physically coupled memory units
 whose dynamics drive the system to the solution of problem
@@ -174,24 +283,6 @@ a concrete example the Atomic Switch Networks of Stieg et al. CITE.
 
 \section{ATOMIC SWITCH NETWORKS}
 
-$Ag | Ag_2 S | Ag$ gapless atomic switches consist of an insulating layer
-of silver sulfide sandwiched between two silver electrodes.  As a voltage is
-applied, the silver sulfide crystal undergoes a phase transition from
-monoclinic acanthite to body centered argentite in which the diffusivity of
-silver through the crystal increases dramatically.  As silver ions drift
-from anode to cathode and deposit, a filament structure is formed, eventually
-bridging the insulator \cite{Xu2010}. As the filament grows, the
-tunneling gap shrinks and there is an eventual transition from tunneling
-to ballistic conductance as the filament completes
-\cite{Hasegawa2010, Sun2014}. Competition between the transport induced
-filament growth and it's thermal fluctuation induced dissolution allow the
-atomic switch to display learning abilities analogous to an organic synapse:
-short current pulses through an incomplete filament will change the tunneling
-gap, but these changes to the conductivity will be erased over short timescales
-by thermal fluctuations, giving a short term memory behavior to the junction.
-Longer current pulses will complete the filament, lengthening the timescales
-for thermal dissolution and thus displaying a nonvolatile long term memory
-\cite{Hasegawa2010, Ohno2011}.
 
 $Ag_2 S$ atomic switches display bipolar resistive switching, meaning that
 a resistance change can be reversed by reversing the polarity of the voltage.
@@ -227,6 +318,7 @@ in conductivity is observed.  After this, the network displays pinched
 hystesis with an ON/OFF ration of $10^3$.
 
 \section{MODEL \& METHODS}
+
 
 We consider a memristive network under an adiabatically swept voltage (by
 which we
@@ -499,8 +591,8 @@ dynamics of
 %\end{acknowledgments}
 
 % Create the reference section using BibTeX:
-%\bibliography{/home/forrest/Documents/BibTeX/Advancement_PT_Memnets}
-\bibliography{/home/fsheldon/Documents/BibTeX/Advancement_PT_Memnets}
+\bibliography{/home/forrest/Documents/BibTeX/Advancement_PT_Memnets}
+%\bibliography{/home/fsheldon/Documents/BibTeX/Advancement_PT_Memnets}
 
 \end{document}
 %
