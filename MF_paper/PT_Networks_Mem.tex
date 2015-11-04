@@ -199,15 +199,87 @@ Longer current pulses will complete the filament, lengthening the timescales
 for thermal dissolution and thus displaying a nonvolatile long term memory
 \cite{Hasegawa2010, Ohno2011}.
 
-From this we note that the insulating OFF phase is thermodynamically favored
+From this we note the following: the insulating OFF phase is
+thermodynamically favored
 and so devices may be assumed to be initially OFF, the conductance of
 individual junctions is not necessarily a linear function of filament length
 and may increase sharply across some short range (this seems to be supported
 by fluctuations in experimental networks in which the conductance of the
 jumps sharply, indicating similar behavior for junctions within), and that
-there is a threshold below which thermal fluctuations dominate and filament
+there is a voltage or current threshold below which thermal fluctuations
+dominate and filament
 growth will not occur but above which the devices will proceed to a
-a conducting state.
+conducting state.
+
+We now turn to a network of these elements.  We consider a bus bar
+architecture
+where the upper and lower boundaries of a network are held to the same
+voltage or total current as was used in studies of the random resistor network.
+Structural disorder in the
+network induces a voltage distribution over the elements, concentrating
+current near defects. As the voltage is raised, the bond with the largest
+current will cross it's threshold first and proceed to it's conducting state.
+As this occurs, other bonds currents may be raised above threshold through
+two avenues: as a bond becomes more conductive, it draws from the surrounding
+network, decreasing currents in parallel but increasing currents in bonds near
+its entrance and exit, and the conductivity of a single bond increasing also
+increases the conductivity of the network thus draws more current at the
+boundaries in a voltage-controlled network. These bonds will then proceed to
+their conducting state and the process can repeat.  If the voltage varies
+slowly relative to the switching of an individual memristive element, we may
+regard it as fixed during this switching process, and if the conductance
+function is rapidly varying over some small range of filament growth (as,
+we noted above, seems to be true of experimental devices) we can regard the
+individual elements as switching discontinuously from their OFF conductance
+$g_{off}$ to their ON conductance $g_{on}$.
+
+As structural disorder is somewhat difficult to treat analytically we simplify
+the role of disorder in our model as follows.  As the structural disorder
+influences the dynamics through the voltage distribution it induces we turn
+our attention to the voltages.  If we could randomly assign voltages directly
+from this distribution, the element with the largest voltage drop in the
+network would cross its threshold first as the voltage at the boundaries was
+increased.  This is equivalent, however, to
+assigning a threshold randomly to elements all held at the same voltage and
+allowing the element with the lowest threshold to switch as the voltage is
+increased.  As we can regard these two types of disorder as equivalent, and
+networks may have some disorder in the threshold distribution, we absorb
+the structural disorder into the threshold distribution and regard the
+randomly assigned threshold as representing the combination of many possible
+types of disorder in the network.  We also note that this comes at the price
+of removing spatial correlations in the voltage distribution induced by the
+structural disorder.
+
+We thus propose a model for a disordered memristive lattice consisting of a
+regular lattice biased along the upper and lower boundaries.  Elements in
+the lattice begin in the thermodynamically favored OFF state with conductance
+$g_{off}$ and each is assigned a current threshold $t_i$ from distribution
+$p(t)$.  When an element's threshold is crossed, it switches immediately to
+it's conducting ON state with conductance $g_{on}$.  When no elements are
+switching, the voltage is raised to cross the smallest threshold of a device
+in it's OFF state and subsequent switchings are allowed to occur with the
+boundary voltage held fixed.  While in the case of discretely switching
+elements it makes no difference, we note that we have formulated the threshold
+as a current, rather than voltage threshold.  For devices that proceed
+continuously from $g_{on}$ to $g_{off}$ in networks, these can lead to very
+different behaviors and we believe that the correct formulation in a network
+should be in terms of current.  Atomic switches are also polar elements and
+here we have chosen the polarity to coincide with the direction selected by
+currents from the boundaries.  This assumption should be the case for
+the experimental networks discussed above.  See Supplemental Material at []
+for a discussion of these two effects.
+
+\section{SIMULATIONS}
+
+Simulations were carried out for a square lattice at a variety of sizes,
+ON/OFF ratios, and threshold distributions $p(t)$.  The sizes of the network
+were chosen such that the conductivity of the network preceded from $g_{off}$
+to $g_{on}$.  To reduce finite size effects, networks were periodic in the
+$\hat{x}$ direction and an external voltage was applied along $\hat{y}$. In
+Figure FIGURE HERE we have displayed the network conductances as a function
+applied voltage for various values of $g_{on}$ setting $g_{off} = 1$ and for
+threshold distibution $p(t) = Uniform(0,1)$.  We note that for small values
+of $g_{on}$ the conductance is a smooth function of the voltage.  
 
 The impending limits of our current computational paradigm have galvanized
 interest in alternative forms of computation. Of particular interest to the
