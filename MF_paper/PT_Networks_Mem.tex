@@ -272,14 +272,43 @@ for a discussion of these two effects.
 \section{SIMULATIONS}
 
 Simulations were carried out for a square lattice at a variety of sizes,
-ON/OFF ratios, and threshold distributions $p(t)$.  The sizes of the network
+ON/OFF ratios, and threshold distributions $p(t)$.  The network dimensions
 were chosen such that the conductivity of the network preceded from $g_{off}$
 to $g_{on}$.  To reduce finite size effects, networks were periodic in the
 $\hat{x}$ direction and an external voltage was applied along $\hat{y}$. In
 Figure FIGURE HERE we have displayed the network conductances as a function
 applied voltage for various values of $g_{on}$ setting $g_{off} = 1$ and for
-threshold distibution $p(t) = Uniform(0,1)$.  We note that for small values
-of $g_{on}$ the conductance is a smooth function of the voltage.  
+threshold distibution $p(t) = Uniform(0,1)$.  The displayed networks have
+a linear size of $L_x=64$ lattice sites which we found large enough to achieve
+regular results over multiple realizations of the disorder. Conductances
+have been scaled to lie on the interval $[0,1]$. We note that for small values
+of $g_{on}$ the conductance is a smooth function of the voltage.  As $g_{on}$
+is increased, a discontinuity forms in the slope which sharpens, appearing
+almost continuous until a discontinuous jump appears for large $g_{on}$
+indicating a first-order phase transition.  Similar behavior was seen for
+a variety of other distributions with the point of transition being
+distribution dependent.
+
+Observing the dynamics of a network leading up to a transition, we observe
+distinct regimes of behavior similar to those seen in studies of fuse
+networks. These have been plotted in Figure FIGURE HERE
+where unswitched elements are colored grey and elements that have switched
+ON are colored black. Early on, when few elements have switched,
+we observe a diffusive regime, when switchings are largely individual and
+spatially separated across the lattice FIGURE A.  As the process continues,
+small avalanches can be observed and the switching becomes increasingly
+localized FIGURE B.  At the transition, a conducting backbone is formed
+FIGURE C and the networks proceed to quickly saturate in the conducting state.
+
+The transition observed in this simplified model of a memristive network
+matches behavior seen in experimental and theoretical investigations of
+memristors where the full time integration of their memristive state is
+undertaken.  Experimental networks exhibit bipolar switching as a network
+
+
+
+\section{MEAN-FIELD THEORY}
+
 
 The impending limits of our current computational paradigm have galvanized
 interest in alternative forms of computation. Of particular interest to the
