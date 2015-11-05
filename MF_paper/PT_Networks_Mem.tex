@@ -303,11 +303,58 @@ FIGURE C and the networks proceed to quickly saturate in the conducting state.
 The transition observed in this simplified model of a memristive network
 matches behavior seen in experimental and theoretical investigations of
 memristors where the full time integration of their memristive state is
-undertaken.  Experimental networks exhibit bipolar switching as a network
-
-
+undertaken.  Experimental networks exhibit a transition with a sharp
+threshold from an OFF to ON state as seen in CITE FIGURE GEMZEWSKI and a
+similar transition from ON to OFF when the applied voltage is reversed.
+This ability for the network to switch coherently and thus act as a large
+memristive device was also seen in simulations of small networks, but due to
+small sizes and timescales, it is difficult to perceive a sharp transition.
+They do, however, connect the transition of the network to the appearance of
+a conducting backbone.  Our simplified model thus appears relevant to the
+dynamics of actual memristors undergoing their full time evolution.  We now
+propose a mean-field theory that captures many features of the transition.
 
 \section{MEAN-FIELD THEORY}
+
+Including disorder in a mean field theory, we arrive at a self consistency
+equation similar to that of the Random Field Ising Model (RFIM)
+\cite{Sethna1993} but with a
+more complex form for the upper limit. In order to treat conductive networks
+we follow the method of Zapperi et al.
+\cite{Zapperi1999} used in analyzing
+random fuse networks.
+We begin with the power dissipated by the network,
+\[P = \sum_i \sigma_i \Delta V_i^2\]
+where the sum runs over all elements in the network, $\sigma_i$ is the 
+conductivity of element $i$  and the $\Delta V_i$ are assigned by minimizing
+the total power dissipated by the network for given boundary conditions.  By
+utilizing an effective medium approximation for the conductivity of the network
+as a function of $f$, the fraction of devices in their ON conductive state.
+Formulating the network in a voltage-controlled setting (See Supplemental
+Material at HERE for a more detailed derivation of the self-consistency
+equation.) yields,
+\[P = \sum_i \sigma_i \frac{G_{eff}(\phi)V^2}{\phi N}.\]
+Thus, in the mean field theory, every element in the network is subject to
+the same mean field voltage drop
+\[\Delta V_{MF} = \sqrt{\frac{G_{eff}(\phi)}{\phi}}\frac{V}{\sqrt{N}}
+= h(\phi) v.\]
+We recognize $v=V/\sqrt{N}$ as the applied local field.  The function
+$h(\phi)$ determines what fraction of the applied field each element
+experiences at the mean field level.  In particular, if $h(f)$ is decreasing,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 The impending limits of our current computational paradigm have galvanized
