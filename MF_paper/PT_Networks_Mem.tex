@@ -21,9 +21,9 @@
 %  Add 'draft' option to mark overfull boxes with black boxes
 %  Add 'showpacs' option to make PACS codes appear
 %  Add 'showkeys' option to make keywords appear
-\documentclass[aps,prl,preprint,groupedaddress]{revtex4-1}
+%\documentclass[aps,prl,preprint,groupedaddress]{revtex4-1}
 %\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-1}
-%\documentclass[aps,prl,reprint,groupedaddress]{revtex4-1}
+\documentclass[aps,prl,reprint,groupedaddress]{revtex4-1}
 
 % You should use BibTeX and apsrev.bst for references
 % Choosing a journal automatically selects the correct APS
@@ -58,14 +58,15 @@
 %\homepage[]{Your web page}
 %\thanks{}
 %\altaffiliation{}
-\affiliation{UCSD}
+
 
 \author{Massimiliano Di Ventra}
 \email[]{diventra@ucsd.edu}
 %\homepage[]{Your web page}
 %\thanks{}
 %\altaffiliation{}
-\affiliation{UCSD}
+\affiliation{Department of Physics, University of California San Diego,
+La Jolla, California 92093, USA}
 
 %Collaboration name if desired (requires use of superscriptaddress
 %option in \documentclass). \noaffiliation is required (may also be
@@ -88,10 +89,7 @@ first-order phase transition in the conductivity for sufficiently high
 values of memory as quantified by the memristive ON/OFF ratio. We also
 provide a mean-field theory that reproduces many features of the transition
 and particularly examine the role of boundary conditions in current- vs.
-voltage-controlled networks.  The dynamics of the mean-field theory suggests
-a distribution of conductance jumps that may be accessible experimentally.  We
-finally discuss the ability of these networks to support massively
-parallel computatation.
+voltage-controlled networks.
 \end{abstract}
 
 % insert suggested PACS numbers in braces on next line
@@ -113,7 +111,7 @@ parallel computatation.
 \section{INTRODUCTION}
 
 While devices and materials that display resistive switching have been known
-since the 60s, interest has surged recently with the realization that their
+since the 1960s, interest has surged recently with the realization that their
 dynamics can support computation both as logical and memory components.
 Initially, much of this interest focused on the memristor, an ideal
 resistive switching device characterized by Chua whose resistance depends
@@ -126,19 +124,19 @@ elements to display a history dependent decay constant, allowing a transition
 between a volatile and non-volatile regime of memory.  The resulting dynamics
 bear a resemblance to the short-term and long-term potentiation observed in
 biological synapses and thought to be of central importance to learning and
-plasticity in the brain.  This resemblance has begun to inpsire experimental
+plasticity in the brain.  This resemblance has begun to inspire experimental
 systems that seek to combine the memory features of biological synapses with
 the structural complexity of neural tissue.
 
 Until recently, fabricating structures with a complex, disordered architecture
 similar to that seen in the nervous system was an unmet challenge.  By
 utilizing a growth process, Gimzewski et al. succeeded in producing a material
-that appoximates this structure with a high density of inorganic synapses
+that approximates this structure with a high density of inorganic synapses
 ($\approx 10^9 /cm^2$) in the form of memristive $Ag|Ag_2 S|Ag$ atomic
  switches.  $Ag$ depositing from solution forms complex structures through a
 diffusion-limited aggregation-like growth process.  After these have formed
-an inteconnected netwok, exposure to sulfur gas forms insulating junctions
-of $Ag_2 S$ throughout the network capable of bipolar memristive switching.
+an inteconnected network, exposure to sulfur gas forms insulating junctions
+of $Ag_2 S$ throughout, capable of bipolar memristive switching.
 It is hoped that through the interplay of the synaptic dynamics and complex
 structure, these biomimetic chips might show emergent behaviors useful to
 neuromorphic systems or relevant to brain function.
@@ -150,33 +148,29 @@ necessity of shuttling data and addresses back and forth between the
 processor and memory.  In these devices, networks of memristive elements
 dynamically organize to seek solutions of computational problems, thereby
 performing the computation directly in the memory and avoiding the separation
-between logical and memory units that leads to the bottleneck.  Understanding
+between logical and memory units.  Understanding
 the capabilities of these computers will require an undestanding of memristive
 dynamics in networks.
 
 Theoretical investigations of one-dimensional networks have shown the
 capability for complex temporal dynamics and scale-invariant properties but
 have not clarified if or how collective behaviors might arise.  In
-two-dimensions, theoretical work has been limited to simulations or memristor
+two-dimensions, theoretical work has been limited to simulations of memristor
 models in relatively small networks but these have duplicated several features
 seen in the experimental systems produced by Gimzewski.  An analytical
 description is still lacking and to address this we propose a simplified model
 for disordered memristor networks inspired by the experiments of Gimzewski.
 Through simulations we show that this model experiences a first order phase
 transition in the conductivity in the limit of a slowly ramped voltage for
-sufficiently large values of the memory as quantified by the memristive ON/OFF
+sufficiently large values of the memristive ON/OFF
 ratio.  We find that this behavior is well described by a mean field theory
 similar to that of the zero-temperature random-field Ising model (RFIM).
-Though a judicious choice of boundary conditions, the mean-field theory
+The mean-field theory
 demonstrates several regimes of behavior observed in simulations and is
 capable of showing bipolar switching (a phase transition from OFF to ON and
 ON to OFF).  The dynamics implied by the mean-field theory demonstrate
 avalanches similar to those observed in neuronal cultures and these lead
 to a distribution of conductance jumps which may be accessible experimentally.
-We conclude by discussing the implications these results have on device design
-for supporting massively-parallel computation where an important design
-goal is maximizing the number of accessible internal states.
-
 
 \section{MODEL}
 
@@ -184,9 +178,9 @@ $Ag | Ag_2 S | Ag$ gapless atomic switches consist of an insulating layer
 of silver sulfide between two silver electrodes.  As a voltage is
 applied, the silver sulfide crystal undergoes a phase transition from
 monoclinic acanthite to body centered argentite in which the diffusivity of
-silver through the crystal increases dramatically.  As silver ions drift
-from anode to cathode and deposit, a filament structure is formed, eventually
-bridging the insulator \cite{Xu2010}. As the filament grows, the
+silver through the crystal increases dramatically.  Silver ions drift
+from anode to cathode and deposit, forming a filament structure that eventually
+bridges the insulator \cite{Xu2010}. As the filament grows, the
 tunneling gap shrinks and there is an eventual transition from tunneling
 to ballistic conductance as the filament completes
 \cite{Hasegawa2010, Sun2014}. Competition between the transport induced
@@ -204,8 +198,8 @@ thermodynamically favored
 and so devices may be assumed to be initially OFF, the conductance of
 individual junctions is not necessarily a linear function of filament length
 and may increase sharply across some short range (this seems to be supported
-by fluctuations in experimental networks in which the conductance of the
-jumps sharply, indicating similar behavior for junctions within), and that
+by fluctuations in experimental networks in which the conductance jumps
+sharply, indicating similar behavior for junctions within), and that
 there is a voltage or current threshold below which thermal fluctuations
 dominate and filament
 growth will not occur but above which the devices will proceed to a
@@ -230,20 +224,20 @@ slowly relative to the switching of an individual memristive element, we may
 regard it as fixed during this switching process, and if the conductance
 function is rapidly varying over some small range of filament growth (as,
 we noted above, seems to be true of experimental devices) we can regard the
-individual elements as switching discontinuously from their OFF conductance
-$g_{off}$ to their ON conductance $g_{on}$.
+individual elements as switching discontinuously from
+$g_{off}$ to $g_{on}$.
 
 As structural disorder is somewhat difficult to treat analytically we simplify
-the role of disorder in our model as follows.  As the structural disorder
-influences the dynamics through the voltage distribution it induces we turn
-our attention to the voltages.  If we could randomly assign voltages directly
+the role of disorder in our model as follows.  Structural disorder
+influences the dynamics through the voltage distribution it induces and so we
+turn our attention there.  If we could randomly assign voltages directly
 from this distribution, the element with the largest voltage drop in the
 network would cross its threshold first as the voltage at the boundaries was
 increased.  This is equivalent, however, to
 assigning a threshold randomly to elements all held at the same voltage and
 allowing the element with the lowest threshold to switch as the voltage is
 increased.  As we can regard these two types of disorder as equivalent, and
-networks may have some disorder in the threshold distribution, we absorb
+networks may display disorder in the threshold distribution as well, we absorb
 the structural disorder into the threshold distribution and regard the
 randomly assigned threshold as representing the combination of many possible
 types of disorder in the network.  We also note that this comes at the price
@@ -255,19 +249,17 @@ regular lattice biased along the upper and lower boundaries.  Elements in
 the lattice begin in the thermodynamically favored OFF state with conductance
 $g_{off}$ and each is assigned a current threshold $t_i$ from distribution
 $p(t)$.  When an element's threshold is crossed, it switches immediately to
-it's conducting ON state with conductance $g_{on}$.  When no elements are
+it's conducting ON state with conductance $g_{on}$ in a non-volatile manner,
+such that reducing the voltage will not cause it to switch back until
+it has crossed a negative threshold.  When no elements are
 switching, the voltage is raised to cross the smallest threshold of a device
 in it's OFF state and subsequent switchings are allowed to occur with the
-boundary voltage held fixed.  While in the case of discretely switching
-elements it makes no difference, we note that we have formulated the threshold
-as a current, rather than voltage threshold.  For devices that proceed
-continuously from $g_{on}$ to $g_{off}$ in networks, these can lead to very
-different behaviors and we believe that the correct formulation in a network
-should be in terms of current.  Atomic switches are also polar elements and
+boundary voltage held fixed.  Atomic switches are also polar elements and
 here we have chosen the polarity to coincide with the direction selected by
 currents from the boundaries.  This assumption should be the case for
-the experimental networks discussed above.  See Supplemental Material at []
-for a discussion of these two effects.
+the experimental networks discussed above as their polarity is seemingly
+imposed by a formation step.  See Supplemental Material at []
+for a discussion of this effect.
 
 \section{SIMULATIONS}
 
@@ -276,7 +268,7 @@ ON/OFF ratios, and threshold distributions $p(t)$.  The network dimensions
 were chosen such that the conductivity of the network preceded from $g_{off}$
 to $g_{on}$.  To reduce finite size effects, networks were periodic in the
 $\hat{x}$ direction and an external voltage was applied along $\hat{y}$. In
-Figure FIGURE HERE we have displayed the network conductances as a function
+Figure FIGURE HERE we have displayed the network conductances as a function of
 applied voltage for various values of $g_{on}$ setting $g_{off} = 1$ and for
 threshold distibution $p(t) = Uniform(0,1)$.  The displayed networks have
 a linear size of $L_x=64$ lattice sites which we found large enough to achieve
@@ -316,282 +308,68 @@ propose a mean-field theory that captures many features of the transition.
 
 \section{MEAN-FIELD THEORY}
 
-Including disorder in a mean field theory, we arrive at a self consistency
-equation similar to that of the Random Field Ising Model (RFIM)
-\cite{Sethna1993} but with a
-more complex form for the upper limit. In order to treat conductive networks
-we follow the method of Zapperi et al.
-\cite{Zapperi1999} used in analyzing
-random fuse networks.
-We begin with the power dissipated by the network,
-\[P = \sum_i \sigma_i \Delta V_i^2\]
-where the sum runs over all elements in the network, $\sigma_i$ is the 
-conductivity of element $i$  and the $\Delta V_i$ are assigned by minimizing
-the total power dissipated by the network for given boundary conditions.  By
-utilizing an effective medium approximation for the conductivity of the network
-as a function of $f$, the fraction of devices in their ON conductive state.
-Formulating the network in a voltage-controlled setting (See Supplemental
-Material at HERE for a more detailed derivation of the self-consistency
-equation.) yields,
-\[P = \sum_i \sigma_i \frac{G_{eff}(\phi)V^2}{\phi N}.\]
-Thus, in the mean field theory, every element in the network is subject to
-the same mean field voltage drop
-\[\Delta V_{MF} = \sqrt{\frac{G_{eff}(\phi)}{\phi}}\frac{V}{\sqrt{N}}
-= h(\phi) v.\]
+\subsection{Self-Consistency Equation}
+
+In order to treat conductive networks we follow the method of Zapperi et al.
+\cite{Zapperi1999} used in analyzing random fuse networks.  In the following,
+$\sigma_i$ is the conductance of the $i$th element of the network,
+and \(\phi(f) = \frac{1}{N}\sum_i \sigma_i = g_{off} + f (g_{on} - g_{off})\)
+is the average conductance of an element where $f$ is the fraction of elements
+in the ON state. Central to this method is the approximation of the network
+conductance $G(\{\sigma_i\})$ by an effective medium theory giving $G_{eff}(f)$
+as a function only of the fraction of devices in the ON state.  This
+simplification is possible with the assumption that the conductors are
+uniformly mixed throughout the system, however in simulations we have seen
+that this is not the case and correlations are present in the switchings of
+elements, especially at the transition where a conducting backbone appears.
+While the mean-field theory should thus over-estimate the transition voltage,
+we will find that it does account for many behaviors seen in simulations and
+gives a description of the system dynamics.
+
+Beginning with the power dissipated by the network, this may be written as a
+sum over individual elements, or using the network conductance and applied
+voltage $V$,
+\[P = \sum_i \sigma_i \Delta V_i^2 = G(\{\sigma_i\}) V^2\]
+where this equivalence defines the network conductance $G(\{\sigma_i\})$.
+Using the effective medium approximation and inserting factors of $\phi(f)$,
+we find,
+\[P = \sum_i \sigma_i \Delta V_i^2 = \sum_i \sigma_i \frac{G_{eff}(f)V^2}
+{\phi(f) N}\]
+and thus, at the mean-field level, each element is subjected to a voltage
+\[\Delta V_{MF} = \sqrt{\frac{G_{eff}(f)}{\phi(f)}}\frac{V}{\sqrt{N}}
+= h(f) v.\]
 We recognize $v=V/\sqrt{N}$ as the applied local field.  The function
-$h(\phi)$ determines what fraction of the applied field each element
-experiences at the mean field level.  In particular, if $h(f)$ is decreasing,
+$h(f)$ determines what fraction of the applied field each element
+experiences at the mean field level.  The functions $\phi(f)$, $G_{eff}(f)$,
+and $h(f)$ are plotted in Figure FIGURE. We can understand the non-monotonic
+form of $h(f)$ as arising from competition between switching elements
+concentrating current away from other elements, and the increasing conductance
+of the network pulling more current in at the boundaries.  For small $f$, the
+average conductance of an element is increasing faster than the network
+conductivity, indicating that current is concentrated away from other elements
+more quickly than it increases at the boundaries and the mean field voltage
+decreases.  For larger $f$, the network conductance begins to increase more
+quickly than the average conductance, pulling in current faster than switching
+elements can concentrate it, and the mean field voltage increases.  The
+increasing regime at large $f$ allows for a phase transition to occur from
+OFF to ON and the decreasing portion at low $f$ allows for the possibility
+of the reverse transition when the voltage is reversed.  One-dimensional and
+current controlled networks do not show this non-monotonic $f$ dependence and
+so can only show a transition in one direction.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-The impending limits of our current computational paradigm have galvanized
-interest in alternative forms of computation. Of particular interest to the
-authors are attempts to address the 
-This necessity of the von Neumann architecture suggests a solution in which
-computation is performed directly in memory.  Physically coupled memory units
-whose dynamics drive the system to the solution of problem
-would conceivably circumvent this (or at least translate it into the
-problem of transmitting information across the system's extent) but the
-realization of such an architecture is a foreboding problem.
-
-In this however, we are buoyed by the fact that the nervous system seems to
-compute in just this manner; we perceive no separate logical and memory
-faculties that information is shuttled between in the brain.  Memory seems
-to be stored
-in the strength of synaptic coupling between neurons and through the neuronal
-dynamics, the synaptic couplings are modified and computation is performed.
-The desire to mimic these properties in hardware is an active field of
-research in which memristors have begun to play a significant role.  
-Memristor based associative memories \cite{Pershin2010, Eryilmaz2014},
- neural networks, cellular automata,
-and other architectures are being explored as ways of realizing some
-of the computational abilities of biological neural systems
-\textit{in silico}.
-
-In most of these, some abstracted model/element of
-biological neural computation is adopted, such as the hopfield network or the
-perceptron, and these are then constructed to form a circuit which
-performs the desired function.  This design philosophy is termed 'top-down',
-where neuromorphic circuits are engineered to accomplish some specific 
-function.  The resulting circuits however, do not
-much resemble biological neural networks in which disorder and noise are
-prevalent.  A complementary approach to neuromorphic engineering is 'bottom-up'
-design, in which systems that duplicate the gross features of neural tissue
-are constructed and their dynamics studied to understand the role of these
-features in creating interesting behaviors.  We can view this as a physical
-analogy to studies of cellular automata. In these, sets of rules were examined
-to determine what dynamics they produced and whether those dynamics could
-support computation.\cite{Langton1990}  We instead examine the dynamics of
-physical systems and search for phenomena that may support computation.
-
-While it may seem that this leaves 'top-down' design overly open-ended, the
-challenge of fabricating electrical systems with complex, disordered
-architecture and interesting dynamics leaves few viable options.  Recently, by
-utilizing a growth process, Gimzewskii et al. were able to construct
-complex networks
-of silver wires that self-assembed from  solution.  After exposure to sulfur
-gas, junctions
-between silver formations formed atomic switches, capable of bipolar resistive
-switching and duplicating many of the behaviors of biological synapses.  They
-have proposed this as a minimal hardware implementation neuropil, the
-synaptically dense areas of the brain populated by unmyelinated axons.
-Experiment has shown a variety of resistive switching and fluctuation
-behaviors which may be of interest.  Following the analogy with cellular
-automata, we focus on the potential for phase transitions in these systems,
-near which their computational capacity may be maximal.  As the experimental
-networks are subjected to an AC voltage, a sharp transition occurs between
-the insulating and conducting states of the network, causing it to act
-globally as a memristor.  This effect has also been shown in simulations of
-small memristor networks in which a conducting backbone is formed through
-the system.  We construct a mean field theory to describe the resistive
-switching of the network and show a transition in the $ON/OFF$ ratio of
-the memristors, below which no transition occurs.  The mean-field theory
-also supplies a dynamical description of the system.  Using this, we examine
-avalanches which occur in the course of the transition.  These are compared
-to avalanches observed in neuronal cultures and used to derive distributions
-of conductance jumps which serves as an analog of magnetic Barkhausen noise
-in a conductive system undergoing memristive switching.
-
-In order to highlight the general features of such networks, we take as
-a concrete example the Atomic Switch Networks of Stieg et al. CITE.
-
-
-\section{ATOMIC SWITCH NETWORKS}
-
-
-$Ag_2 S$ atomic switches display bipolar resistive switching, meaning that
-a resistance change can be reversed by reversing the polarity of the voltage.
-This requires that the devices themselves are polar and typically this
-polarity is imposed by the metallic configuration; devices are of the form
-$Ag|Ag_2 S|W$ where $W$ is some inert metal that does not diffuse readily into
-the crystal.  $Ag|Ag_2 S| Ag$ atomic switches are physically symmetric, yet
-display the same bipolar switching.  We infer that their polarity is imposed
-by the
-'functionalization' step.  Gapless atomic switches require a forming step
-to show bipolar resistive switching.  Voltage is applied from the $Ag$ side,
-causing the formation of a stable filament across the crystal.  When the
-voltage is reversed, the thinnest part of this filament undergoes a 
-joule-heating assisted dissolution \cite{Hasegawa2012} and this smaller
-junction in the filament is where subsequent switching will occur.  The device
-thus has the additional asymmetry of the filament formation.  While we have
-not seen this effect explored in detail in $Ag|Ag_2 S |Ag$ atomic switches,
-we believe this to be a reasonable explanation for their induced polarity.
-
-In order to achieve a complex disordered network architecture, Gimzewskii et
-al. used an electroless deposition process in which solution phase $Ag^+$
-exchanges with solid $Cu$.  By seeding an area with $Cu$ 
-microspheres or seed posts, the depositing $Ag$ is led to form a
-densely interconnected network of wires through diffusion-limited aggregation.
-The structure of this network can be controlled through the copper
-seeding and the concentration of the silver solution \cite{Avizienis2013},
-but many dynamical behaviors appear to be present across different network
-structures FIND CITATION.  Exposure of the resulting networks to sulfur gas
-led to the formation of $Ag|Ag_2 S|Ag$ junctions throughout the network with
-a density of $10^9$ switches/cm$^2$.  In order to functionalize the switches,
-voltage sweeps are applied across the network until a sharp increase
-in conductivity is observed.  After this, the network displays pinched
-hystesis with an ON/OFF ration of $10^3$.
-
-\section{MODEL \& METHODS}
-
-
-We consider a memristive network under an adiabatically swept voltage (by
-which we
-mean that the timescale of voltage changes is much longer than the timescale
-for an individual memristor to switch) and focus on the network transition
-to it's conductive state.  For ideal memristors, any current
-flowing through the network would eventually cause elements to progress to
-their conducting state.  However, in the presence of a threshold the
-conductivity will remain constant until the largest voltage drop in the
-network has crossed it's threshold and it's conductivity begins to increase.
-Increasing the
-element's conductivity draws more current, both by diverting it from nearby
-elements, and by increasing the conductivity of the network and drawing more
-current at the boundaries.  This accelerates the switching process and causes
-the element to switch to it's 'ON' or conductive state.  This switching
-process,
-through the two avenues just mentioned, increases the current through other
-elements in the network and may lead to avalanches of memristive elements
-switching from their 'OFF' insulating state to their 'ON' conducting state. 
-The role of the structural disorder in the network is to induce a voltage
-distribution across the elements which leads to their switching order. We also
-expect the thresholds in a physical network to show some disorder due to
-variations in the size of the elements. The switching order will be decided by some
-combination of these, for example the ratio of the threshold voltage to the
-voltage drop of each element.  This interplay of disorders allows us to
-simplify our model by absorbing all contributing disorders into a single
-distribution for the effective threshold of an element.  This assumption 
-
-
-\section{SIMULATIONS}
-
-Simulations were carried out for $p(t) = Uniform(0, 1)$ and a variety of
-ON/OFF ratios. The network conductivities as a function of applied voltage
-are displayed in Figure FIGURE. The lattice size is chosen so that the
-network conductivity varies between $g_{off}$ and $g_{on}$ and has been
-rescaled to accomodate the various plots.  We see that for small values
-of $g_{on}/g_{off}$ the conductance is a smooth function of the voltage.
-As we increase the ratio a discontinuity forms that at first appears
-continuous, but as we increase the ratio further a jump in the
-conductivity becomes evident, indicating a first order
-phase transition. In the following we construct a mean field theory to
-characterize this transition and from it clarify the roles of the disorder and
-ON/OFF ratio.
-
-\section{MEAN-FIELD THEORY}
-
-Including disorder in a mean field theory, we arrive at a self consistency
-equation similar to that of the Random Field Ising Model (RFIM)
-\cite{Sethna1993} but with a
-more complex form for the upper limit. In order to treat conductive networks
-we follow the method of Zapperi et al.
-\cite{Zapperi1999} used in analyzing
-random fuse networks.
-We begin with the power dissipated by the network,
-\[P = \sum_i \sigma_i \Delta V_i^2\]
-where the sum runs over all elements in the network, $\sigma_i$ is the 
-conductivity of element $i$  and the $\Delta V_i$ are assigned by minimizing
-the total power dissipated by the network for given boundary conditions.
-In order to construct a mean field theory, we aim to write the $\Delta V_i$ as
-some function of the average conductivity $\phi = \frac{\sum_i \sigma_i}{N}$.
-In this interest we  write the power dissipated in terms of the voltage at
-the boundaries,
-\[P = G(\{\sigma_i\}) V^2\]
-where $G(\{\sigma_i\})$ is some function of the conductivity of each element
-(for example their sum if all elements are connected in parallel). While we
-do not in general know this function, we can obtain an approximate form
-from effective medium theory $G_{eff}(f)$ (See Supplemental Material) as a
-function of the fraction of
-elements in the conducting state $f = n_{on}/N_{total}$. We can simply
-exchange this for a dependence on the average
-\(\phi = g_{off} + f(g_{on} - g_{off})\) to obtain
-$P = G_{eff}(\phi) V^2$. Inserting factors of $\phi$ and pulling out the sum,
-this yields
-\[P = \sum_i \sigma_i \frac{G_{eff}(\phi)V^2}{\phi N}.\]
-Thus, in the mean field theory, every element in the network is subject to
-the same mean field voltage drop
-\[\Delta V_{MF} = \sqrt{\frac{G_{eff}(\phi)}{\phi}}\frac{V}{\sqrt{N}}
-= h(\phi) v.\]
-We recognize $v=V/\sqrt{N}$ as the applied local field.  The function
-$h(\phi)$ determines what fraction of the applied field each element
-experiences at the mean field level.  In particular, if $h(f)$ is decreasing,
-switching an element at a fixed voltage decreases $\Delta V_{MF}$ and
-thus cannot cause other elements to switch.  If it is increasing, the
-increased mean field voltage may cause other elements whose threshold have
-been crossed to trip and precipitate an avalanche. From effective medium
-theory,
-\[G(f) = \frac{(2f-1)(g_{on} - g_{off}) + \sqrt{(2f-1)^2
-(g_{on} - g_{off})^2+ 4g_{on}g_{off}}}{2}.\]
-Using this to plot $h(f) = \sqrt{G(f)/\phi(f)}$ FIGURE we note both decreasing
-and increasing intervals.  According to the mean field theory, this is due
-to competition between $G(f)$, the network conductivity and $\phi(f)$ the
-average conductivity of an element.  In regions where $\phi(f)$ is increasing
-more quickly than $G(f)$, individual elements that switch are concentrating
-current faster
-than the network can increase the current at the boundaries, decreasing the
-current through unswitched elements.  When $G(f)$ begins increasing more
-quickly than $\phi(f)$, current is being drawn in at the boundaries faster
-than it can be concentrated by switched elements and $\Delta V_{MF}$ increases,
-allowing for avalanches and phase transitions. Here we see that our choice of
-a voltage controlled network was not arbitrary.  A current controlled network
-gives $h(f) = \frac{1}{\sqrt{G(f)\phi(f)}}$ which is decreasing for all $f$
-as without
-drawing more current at the boundaries, switching elements will always
-concentrate current away from others. This analysis ignores the effects of
-neighboring memristive elements however, and concentrating current may also
-cause avalanches but only due to his spatial interaction.  We will return
-to this point in the discussion.
-
-In order to form a self consistency equation, we consider an arbirary element,
-$\sigma_i$ with threshold $t_i$.  If the mean field voltage exceeds this
-threshold, $sigma_i = g_{on}$. If not, it remains in it's OFF state. Across
-elements in the network, the average will thus be,
-\[\langle \sigma \rangle = g_{on} P(t < \Delta V_{MF}) + 
-g_{off} P(t> \Delta V_{MF}.\]
-This is conveniently recast in terms of $f$, and using the distribution
-$p(t)$ as
+To determine whether a transition occurs for a particular disorder
+distribution, we form a
+self consistency equation, ensemble averaging over the number of elements
+that have switched for a given mean field voltage. For the transition from
+OFF to ON, the fraction that have switched will approach the average fraction
+of elements with thresholds below the mean-field voltage,
 \begin{equation}\label{selfconsist}
-f = \int_0^{h(f) v} p(t) dt
+f = \int_0^{h(f) v} p(t) dt.
 \end{equation}
-Here we can note that, as opposed to the RFIM, the
-dynamics of the
-mean field theory will be independent of the scale of $p(t)$.  Because the
-applied field enters multiplicatively, rescaling $t$ results in a factor that
-is absorbed into $v$ such that we will see the same switching behavior but
-at a stretched voltage scale. The LHS and
+Because the applied field enters multiplicatively, the dynamics given by
+the mean-field theory depends only on the conductance ratio $g_{on}/g_{off}$
+and is independent of the scale of the disorder, either amounting only to
+a rescaling of the applied field $v$.  The LHS and
 RHS are plotted for several values of the voltage in Figure FIGURE.  For
 the chosen distribution and ON/OFF ratio a transition is evident at the
 point
@@ -600,65 +378,106 @@ point
 \end{equation}
 If a particular disorder distribution and ON/OFF ratio allows for the
 simultaneous solution of \ref{selfconsist} and \ref{PT_eqn}, the mean-field
-theory demonstrates a phase transition.
+theory demonstrates a phase transition. We also note that the inflection
+of the curves from the RHS gives behavior that looks almost like a continuous
+transition, corresponding to the behavior seen in simulations for intermediate
+values of $g_{on}$.
+A similar analysis can be performed
+for switching from ON to OFF. This is included in Supplemental Material
+at [].
+
+\subsection{Dynamics}
+
+We now turn to the dynamics of a single network as it approaches the
+transition.  As the external voltage is raised, a single memristive element
+will cross it's threshold and switch, taking $f\to f + \frac{1}{N}$.
+According to the RHS of the self consistency equation \ref{selfconsist},
+this will cause
+elements with thresholds on the interval $[h(f)v, h(f)v + \frac{h'(f)v}{N}]$
+to switch.  The probability of finding $n$ memristors on this interval is
+poisson distributed with mean $\mu = p(h(f)v)h'(f)v$. Several elements
+switching will lead to a corresponding interval for each. In the large $N$
+limit, we can thus treat the avalanches as a branching process with a
+poissonian offspring distribution as given above.  As the behavior of a
+branching process is characterized by the mean of its offspring distribution,
+we can use this to make precise the regimes of behavior noted in simulations.
+When $h'(f)<0$ we should see no avalanches, corresponding to the diffusive
+regime.  As $f$ increases, for $0<\mu < 1$ we will see avalanches of finite
+size, corresponding to a subcritical branching regime.  When $\mu$ reaches 1,
+the system reaches a critical branching process, in which the probability of
+an infinite avalanche begins to rise from 0. Taking $\mu=1$ with the form of
+$\mu$ given above return the same requirement for the transition given by the
+self-consistency equation.
+
+In order to make understand how relevant this description of the dynamics is to
+experiment, we note that the jumps in conductance of the network should be 
+related in a simple way to the avalanche size distribution.  In particular,
+an avalanche of $S$ elements, should correspond to a jump of conductance of
+$G'(f)\frac{S}{N}$.  The conductance jump distribution should thus have the
+same form as the avalanche size distribution. For a Poissonian branching
+process, this takes the form of a Borel distibution
+(see Supplemental Material at [URL]),
+\[p(s) = \frac{(\mu s)^{s-1}}{s!}e^{-\mu s}.\]
+While achieving a quantitative agreement with simulation based on this is
+difficult because because of the effect of correlations,
+as $\mu\to 1$ this distribution takes on a particularly simple form,
+\[P(s) \to s^{-3/2}.\]
+In order to examine whether this would be accessible in experiments, we
+simulated randomly diluted lattices without threshold disorder as the
+effect of spatial correlations may modify the behavior.  Avalanches were
+binned in the region surrounding the peak in the avalanche size for
+various sizes of the networks. The histograms produced are plotted in
+figure FIGURE HERE. As the system size increases, the histograms approach
+the form predicted by the mean field theory but subject to a finite-size
+cutoff.
 
 \section{DISCUSSION}
 
+We have presented a simple model that captures the behavior of a memristive
+network in the adiabatic limit.  As the memristive ON/OFF ratio is increased,
+the conductivity moves from a smooth function of the applied voltage to
+displaying a discontinuous jump indicating a first-order phase transition.
+A mean-field theory captures this behavior and describes the dynamics
+surrounding the transition well.  We have emphasized that the transition is
+due to two effects in the lattice, the switching memristive elements alter the
+conductivity of the lattice and thus change the amount of current being drawn
+in at the boundaries, and they concentrate current, pulling it away from
+elements in parallel with them and increasing it in elements in series.  While
+it is expected that the mean-field theory can capture the first of these, it
+is perhaps surprising that it captures part of the second.  Competition
+between these two effects leads to behavior in two-dimensional 
+voltage-controlled networks not seen in one-dimension or current controlled
+networks and this behavior, given by the non-monotonic form of $h(f)$ allows
+for bipolar transitions.
 
-Until recently, realizing systems with complex architecture
-experimentally was an unmet challenge.  The advent of the memristor has
-created opportunities for building electrical systems with complex, disordered
-architecture and dynam
+The mean-field theory also accounts for the dynamics of the model, giving
+a 'conductance noise' analogous the Barkhausen noise seen in magnetic systems
+displaying hysteresis.  At the transition of the network the avalanche
+size distribution approaches a power law.  It is interesting to note that
+the exponent matches that seen in neural cultures displaying avalanches which
+are also described by a branching process but, as the spiking in neural
+networks is quite different from the switching of memristive elements the
+analogy is difficult to push too far.  It does however demonstrate that
+memristors should be capable of some of the complex dynamics seen in biological
+neural networks.
 
-By taking advantage of a growth process, Gimzewskii et
-al. CITE were able to fabricate disordered networks of memristive synapses
-with a density of $10^8\; \text{synthetic synapses/cm}^2$.
-
-The presence of disorder and robustness to noise in the brain
-suggest a statistical character to the brain's function, at least at small
-scales.  We put forth that one of the hopes of 'top-down' neuromorphic
-engineering should be to 
-
-The impending limits of our current computational paradigm have galvanized
-interest in alternative forms of computation. As transistor densities have
-increased, limits on transistor size and increased energy consumption have
-spurred interest in electronic components that function reliably at small
-scales and store their states passively.  Similarly, limits due to our
-computational model such as the von Neumann Bottleneck have generated
-interest in alternative schemes that do computation directly in memory.
-CITE
-
-Memristor based solutions have been proposed to meet both of these needs.
-They are
-necessarily nanoscale devices that passively maintain their resistance
-state and can function both as logical and memory components.  As such,
-several emerging technologies have centered around the memristor as
-their core computational unit.  Among these are the crossbar array,
-memristor neural networks and associative memories, memristive cellular
-automata, and memcomputing.  While the conceptual and engineering
-challenges to realizing new computational paradigms are great, we are
-buoyed by the fact that the nervous system appears to perform computation
-in just this way, with no discernable separation between memory and
-logical faculties.  It would seem that memories are stored in a
-distributed manner, within the synaptic connections of many neurons
-and computation occurs through the generation of action potentials that
-propogate through the system, modifying synaptic coupling globally.
-Memristors' ability to mimic the learning properties of synapses such as
-short-term and long-term memory, have further propelled their standing as
-a possible hardware element for neuromorphic computing.
-
-While most neuromorphic computing solutions have advocated a bottom-up
-approach, designing fundamental units such as CMOS neurons
-and linking them together in a
-particular configuration to solve problems, a few have advocated a top
-down approach.  In such an approach, the gross features of nervous
-tissue are duplicated: a disordered, recurrent network with memory, and
-the resulting system is studied to see what behaviors emerge.  As disorder
-and noise play a strong role in the nervous system, we suspect a statistical
-character to the dynamics and as such we investigate the statistical
-dynamics of 
-
-
+Lastly, an important application of memristive networks such as these is the
+fabrication of memristors with dimensions larger than the nanoscale. As
+previous work has shown through simulation, networks of memristors will act
+as a larger single memristor.  Here we demonstrate that the inclusion of
+disorder in these networks still allows for regular memristive switching
+through the collective behavior of the elements.  In using such devices to
+support massively parallel computation, an important design criteria is the
+number of accessible conductance states.  While for a network of two state
+devices, the number of network states is $2^N$, only a subset of these are
+accessible when the network is controlled from the boundary. For small values
+of the ON/OFF ratio, there are many internal states as the elements
+switch individually, but these states are closely spaces.  For large values,
+conductances are more widely spaced but the system proceeds in avalanches
+switching many elements for a small change in the voltage and reducing the
+number of accessible states.  Exercising control over the ON/OFF ratio may
+thus be a useful way to engineer the desired characteristics into networks
+for a particular application.
 
 % If in two-column mode, this environment will change to single-column
 % format so that long equations can be displayed. Use
