@@ -346,7 +346,11 @@ so can only show a transition in one direction.
 
 \begin{figure}
 \includegraphics[width=8.3cm]{MF_voltage.png}
-\caption{\label{MF_voltage_fig}}
+\caption{$h(f) = \sqrt{\frac{G(f)}{\phi(f)}}$ is plotted for several values of
+$g_{on}$.  In the inset, $\phi(f)$ and $G(f)$ are plotted for $g_{on}=100$.
+Note that when the average conductance increases more quickly than the network
+conductance as for small $f$, $h(f)$ is decreasing and vice versa
+for large $f$.\label{MF_voltage_fig}}
 \end{figure}
 
 To determine whether a transition occurs for a particular disorder
@@ -389,24 +393,16 @@ solution jumps discontinuously.  This voltage is highlighted in Figure B.
 \end{figure}
 
 We now turn to the dynamics of a single network as it approaches the
-transition.  As the external voltage is raised, a single memristive element
-will cross its threshold and switch, taking $f\to f + \frac{1}{N}$.
-According to the RHS of the self consistency equation~(\ref{selfconsist}),
-this will cause
-elements with thresholds on the interval $[h(f)v, h(f)v + \frac{h'(f)v}{N}]$
-to switch.  The probability of finding $n$ memristors on this interval is
-Poisson distributed with mean $\mu = p(h(f)v)h'(f)v$ {\bf Should we show this in the Supplemental Material?}. Several elements
-switching will lead to a corresponding interval for each. In the large $N$
-limit, we can thus treat the avalanches as a branching process with a
-poissonian offspring distribution as given above.  As the behavior of a
+transition. The mean-field dynamics give, to lowest order in $1/N$, a
+branching process with Poissonian offspring distribution of mean
+$\mu = p(h(f)v)h'(f)v$.   As the behavior of a
 branching process is characterized by the mean of its offspring distribution,
 we can use this to make precise the regimes of behavior noted in simulations.
 
 When $h'(f)<0$ we should see no avalanches, corresponding to the diffusive
 regime.  As $f$ increases, for $0<\mu < 1$ we will see avalanches of finite
 size, corresponding to a subcritical branching regime.  When $\mu$ reaches 1,
-the system reaches a critical branching process, in which the probability of
-an infinite avalanche begins to rise from 0. {\bf REPHRASE BETTER Taking $\mu=1$, with the form of
+the system reaches a critical branching process, {\bf REPHRASE BETTER Taking $\mu=1$, with the form of
 $\mu$ given above return the same requirement for the transition given by the
 self-consistency equation }.
 
