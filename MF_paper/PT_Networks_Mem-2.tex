@@ -387,24 +387,33 @@ for switching from ON to OFF. This is included in the Supplemental Material.
 \caption{The LHS (blue) and RHS (red) of Eqn.~(\ref{selfconsist}) are plotted
 for several values of the applied voltage.  For low values of $g_{on}$ their
 intersection gives a solution that is smooth function of the voltage (Figure A).
-For sufficiently large values of $g_{on}$, a transition occurs where the
-solution jumps discontinuously.  This voltage is highlighted in Figure B.
+A transition develops for intermediate values that can appear continuous
+(Figure B). For sufficiently large values of $g_{on}$, a transition occurs where the
+solution jumps discontinuously.  The transition voltage is highlighted in
+Figures B and C.
 \label{MF_SC_fig}}
 \end{figure}
 
 We now turn to the dynamics of a single network as it approaches the
 transition. The mean-field dynamics give, to lowest order in $1/N$, a
 branching process with Poissonian offspring distribution of mean
-$\mu = p(h(f)v)h'(f)v$.   As the behavior of a
+$\mu = p(h(f)v)h'(f)v$. (See Supplemental Material at [].)  As the behavior of a
 branching process is characterized by the mean of its offspring distribution,
 we can use this to make precise the regimes of behavior noted in simulations.
 
-When $h'(f)<0$ we should see no avalanches, corresponding to the diffusive
+When $h'(f)<0$ the mean field theory predicts no avalanches, corresponding
+to the diffusive
 regime.  As $f$ increases, for $0<\mu < 1$ we will see avalanches of finite
 size, corresponding to a subcritical branching regime.  When $\mu$ reaches 1,
-the system reaches a critical branching process, {\bf REPHRASE BETTER Taking $\mu=1$, with the form of
-$\mu$ given above return the same requirement for the transition given by the
-self-consistency equation }.
+the system reaches a critical branching process, at which the probability of
+an infinite avalanche begins to grow from 0. At this point our description to
+lowest order in $1/N$ fails as we may see avalanches on the order of the
+system size and large jumps in the conductance.  We note that $\mu$ is also
+the derivative of the RHS of Eqn.~(\ref{selfconsist}), and thus the point
+$\mu=1$ is the same requirement given by Eqn.~(\ref{PT_eqn}) for the transition. A system
+should thus proceed in small conductivity jumps leading the mean-field theory
+solution until the transition, when $\mu=1$ and the system experiences
+avalanches of order $N$.
 
 In order to better connect to
 experiment, we note that the jumps in conductance of the network should be 
@@ -428,9 +437,19 @@ simulated randomly diluted lattices without threshold disorder as the
 effect of spatial correlations may modify the behavior.  Avalanches were
 binned in the region surrounding the peak in the avalanche size for
 various sizes of the networks. The histograms produced are plotted in
-figure FIGURE HERE. As the system size increases, the histograms approach
+Figure \ref{Avalanche_fig}. As the system size increases, the histograms approach
 the form predicted by the mean-field theory, although clearly subject to a finite-size
 cutoff.
+
+\begin{figure}
+\includegraphics[width=8.3cm]{Avalanche_Size_Dist.png}
+\caption{Avalanches sizes were binned surrounding the transition for randomly
+diluted lattices ($p=0.6,\,g_{on}=100$) of size $L=32, 64, 128, 256$ for 1000
+(100 for $L=256$) randomly generated networks.  As the network size increases,
+the avalanche size distribution approaches the asymptotic form given by the
+mean-field theory, subject to a finite size cuttoff.
+\label{Avalanche_fig}}
+\end{figure}
 
 {\it Conclusions - } We have presented a simple model that captures the behavior of a disordered two-dimensional memristive
 network in the adiabatic limit.  As the memristive ON/OFF ratio is increased,
