@@ -21,9 +21,9 @@
 %  Add 'draft' option to mark overfull boxes with black boxes
 %  Add 'showpacs' option to make PACS codes appear
 %  Add 'showkeys' option to make keywords appear
-\documentclass[aps,prl,preprint,groupedaddress]{revtex4-1}
+%\documentclass[aps,prl,preprint,groupedaddress]{revtex4-1}
 %\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-1}
-%\documentclass[aps,prl,reprint,groupedaddress]{revtex4-1}
+\documentclass[aps,prl,reprint,groupedaddress]{revtex4-1}
 
 % You should use BibTeX and apsrev.bst for references
 % Choosing a journal automatically selects the correct APS
@@ -41,24 +41,22 @@
 %\preprint{}
 
 %Title of paper
-\title{}
+    \title{Mean-Field Dynamics}
 
-% repeat the \author .. \affiliation  etc. as needed
-% \email, \thanks, \homepage, \altaffiliation all apply to the current
-% author. Explanatory text should go in the []'s, actual e-mail
-% address or url should go in the {}'s for \email and \homepage.
-% Please use the appropriate macro foreach each type of information
-
-% \affiliation command applies to all authors since the last
-% \affiliation command. The \affiliation command should follow the
-% other information
-% \affiliation can be followed by \email, \homepage, \thanks as well.
-\author{}
-%\email[]{Your e-mail address}
+\author{Forrest C. Sheldon}
+\email[]{fsheldon@ucsd.edu}
 %\homepage[]{Your web page}
 %\thanks{}
 %\altaffiliation{}
-\affiliation{}
+
+
+\author{Massimiliano Di Ventra}
+\email[]{diventra@physics.ucsd.edu}
+%\homepage[]{Your web page}
+%\thanks{}
+%\altaffiliation{}
+\affiliation{Department of Physics, University of California San Diego,
+La Jolla, California 92093, USA}
 
 %Collaboration name if desired (requires use of superscriptaddress
 %option in \documentclass). \noaffiliation is required (may also be
@@ -67,11 +65,14 @@
 %\collaboration{}
 %\noaffiliation
 
-\date{\today}
+% repeat the \author .. \affiliation  etc. as needed
+% \email, \thanks, \homepage, \altaffiliation all apply to the current
+% author. Explanatory text should go in the []'s, actual e-mail
+% address or url should go in the {}'s for \email and \homepage.
+% Please use the appropriate macro foreach each type of information
 
-\begin{abstract}
-% insert abstract here
-\end{abstract}
+
+\date{\today}
 
 % insert suggested PACS numbers in braces on next line
 \pacs{}
@@ -81,13 +82,25 @@
 %\maketitle must follow title, authors, abstract, \pacs, and \keywords
 \maketitle
 
-% body of paper here - Use proper section commands
-% References should be done using the \cite, \ref, and \label commands
-\section{}
-% Put \label in argument of \section for cross-referencing
-%\section{\label{}}
-\subsection{}
-\subsubsection{}
+To understand the dynamics implied by the mean-field theory, we consider a single instantiation of
+a network, consisting of a sample of $N$ thresholds drawn from the distribution $p(t)$. Beginning
+with a fraction $f$ of these in the ON state and the self consistency equation satisfied,
+\[ f = \int_0^{h(f) v} p(t) dt,\quad h(f) = \sqrt{\frac{G(f)}{\phi(f)}}\]
+we raise the voltage until the next threshold is passed.  This takes $f\to f+\frac{1}{N}$, increasing 
+the mean-field voltage by $\frac{h'(f)v}{N}$. The probability that $n$ memristors are switched ON
+ by this increase is given by a poisson distribution
+\[p_n = \frac{\mu^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v) h'(f)v.\]
+Each of the $n$ memristors will cause a similar increase in the mean-field voltage, and thus will give rise to the same distribution.  Thus, switching a single memristor gives rise to a Poissonian
+branching process.  This may be brought into a more useful form by calculating the total number of
+memristors switched in a single branching process, or the avalanche size distribution.  The
+generating function $\rho(s)$ of the total number of offspring of a branching process satisfies
+\[\rho(s) = sP(\rho(s))\]
+where $P(s)$ is the generating function of the offspring distribution CITE FELLER, which in this case is $P(s) = e^{\mu(s-1)}$. We may obtain the series expansion of $\rho(s)$ by a Lagrange expansion,
+yielding the avalanche size distribution,
+\[p_S = \frac{(\mu S)^{S-1}}{S!} e^{-\mu S}, \quad S=1, 2, ...\]
+with $\mu= p(h(f)v) h'(f)v$. This is a Borel distribution with mean and variance,
+\[\langle S \rangle = \frac{1}{1-\mu}\quad \sigma_S^2 = \frac{\mu}{(1-\mu)^3}.\]
+
 
 % If in two-column mode, this environment will change to single-column
 % format so that long equations can be displayed. Use
