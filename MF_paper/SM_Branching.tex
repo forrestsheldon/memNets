@@ -82,28 +82,34 @@ La Jolla, California 92093, USA}
 %\maketitle must follow title, authors, abstract, \pacs, and \keywords
 \maketitle
 
+The dynamics of mean-field models akin to the random-field Ising model are well published \cite{Sethna1993}, but as we were unable to find a systematic development, we have included our own derivation of the
+results for the benefit of the reader.
+
 To understand the dynamics implied by the mean-field theory, we consider a single instantiation of
 a network, consisting of a sample of $N$ thresholds drawn from the distribution $p(t)$. Beginning
 with a fraction $f$ of these in the ON state and the self consistency equation satisfied,
 \[ f = \int_0^{h(f) v} p(t) dt,\quad h(f) = \sqrt{\frac{G(f)}{\phi(f)}}\]
 we raise the voltage until the next threshold is passed.  This takes $f\to f+\frac{1}{N}$, increasing 
-the mean-field voltage by $\frac{h'(f)v}{N}$. The probability that $n$ memristors are switched ON
+the mean-field voltage by $\frac{h'(f)v}{N}$.  When $h'(f) < 0$, the mean field voltage decreases upon
+ switching a memristor and thus no others will switch. When $h'(f) > 0$ the probability that $n$ memristors are switched ON
  by this increase is given by a poisson distribution
 \[p_n = \frac{\mu^n}{n!} e^{-\mu}, \quad \mu = p(h(f)v) h'(f)v.\]
-Each of the $n$ memristors will cause a similar increase in the mean-field voltage, and thus will give rise to the same distribution.  Thus, switching a single memristor gives rise to a Poissonian
+Each of the $n$ memristors will cause a similar increase in the mean-field voltage, and thus will give rise to the same distribution.  Thus, switching a single memristor gives rise to a poissonian
 branching process.  This may be brought into a more useful form by calculating the total number of
 memristors switched in a single branching process, or the avalanche size distribution.  The
 generating function $\rho(s)$ of the total number of offspring of a branching process satisfies
 \[\rho(s) = sP(\rho(s))\]
-where $P(s)$ is the generating function of the offspring distribution CITE FELLER, which in this case is $P(s) = e^{\mu(s-1)}$. We may obtain the series expansion of $\rho(s)$ by a Lagrange expansion,
+where $P(s)$ is the generating function of the offspring distribution \cite{Feller1968}, which in this case is $P(s) = e^{\mu(s-1)}$. We may obtain the series expansion of $\rho(s)$ by a Lagrange expansion,
 yielding the avalanche size distribution,
 \[p_S = \frac{(\mu S)^{S-1}}{S!} e^{-\mu S}, \quad S=1, 2, ...\]
 with $\mu= p(h(f)v) h'(f)v$. This is a Borel distribution with mean and
 variance,
 \[\langle S \rangle = \frac{1}{1-\mu}\quad \sigma_S^2 = \frac{\mu}{(1-\mu)^3}.\]
 Thus, mean-field dynamics give avalanches whose size is determined by the
-parameter $\mu$.  From the theory of branching processes, we borrow the 
+parameter $\mu$.  For $\mu < 1$ raising the voltage will cause individual memristors to switch and no avalanches, corresponding to a 'diffusive' regime. For $0<\mu < 1$ the system will display avalanches of finite size according to the Borel distribution.  At $\mu=1$
+the system reaches a critical branching process, at which point the probability of an infinite avalanche begins to grow.  This point corresponds to the transition point of the mean-field theory we have described in the main body of this work. For a finite sized system, once the avalanche size approaches the size of the system a dominant conducting pathway is formed, invalidating the assumptions of the mean-field theory.  Descriptions of the dynamics beyond this must take into account the presence of a conducting backbone.
 
+As we note in the paper, the conductance jumps the system experiences for avalanches in the regime $0<\mu < 1$ should be approximately $G'(f)S/N$ and thus, for a particular value of the conductance, avalanches in that viscinity should follow a Borel distribution.
 % If in two-column mode, this environment will change to single-column
 % format so that long equations can be displayed. Use
 % sparingly.
@@ -183,7 +189,7 @@ parameter $\mu$.  From the theory of branching processes, we borrow the
 %\end{acknowledgments}
 
 % Create the reference section using BibTeX:
-\bibliography{basename of .bib file}
+\bibliography{/Users/forrestsheldon/Documents/BibTeX/Advancement_PT_Memnets}
 
 \end{document}
 %
